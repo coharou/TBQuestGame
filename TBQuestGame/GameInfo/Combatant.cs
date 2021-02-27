@@ -9,7 +9,7 @@ namespace TBQuestGame.GameInfo
     public class Combatant : Character
     {
         #region HEALTH
-        public int HealthCurrent { get; set; }
+        public int HealthCurrent { get; set; } 
 
         public int HealthMax { get; set; }
 
