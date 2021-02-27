@@ -8,7 +8,7 @@ namespace TBQuestGame.GameInfo
 {
     public class Character
     {
-        protected int ID { get; set; }
+        protected int ID { get; set; } 
 
         protected string Name { get; set; }
 
