@@ -8,25 +8,48 @@ namespace TBQuestGame.GameInfo
 {
     public class Character
     {
-        protected int ID { get; set; } 
+        #region TEXT DETAILS
+        public string Name { get; set; }
 
-        protected string Name { get; set; }
+        public string Descriptor { get; set; }
+        #endregion
 
-        protected string Descriptor { get; set; }
+        #region IDs
+        public int ID { get; set; }
 
-        protected int LocationID { get; set; }
+        public int LocationID { get; set; }
+        #endregion
 
-        // Requires an enumerated prop
+        #region ROLE
+        public Role RoleDescriptor { get; set; }
+
+        public enum Role
+        {
+            Merchant,
+            Admiral,
+            Peasant,
+            Soldier,
+            General
+        }
 
         // A virtual method
 
-        // An abstract method
+        public virtual string FullTitle()
+        {
+            string title = $"{Name} the {Descriptor}";
+            return title;
+        }
+        #endregion
 
-        public Character(int id, string name, int locationId)
+        #region CONSTRUCTOR
+        public Character(int id, string name, int locationId, Role role)
         {
             ID = id;
             Name = name;
+            Descriptor = nameof(RoleDescriptor);
+            RoleDescriptor = role;
             LocationID = locationId;
         }
+        #endregion
     }
 }

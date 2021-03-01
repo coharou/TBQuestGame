@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GameInfo\Gamestate.cs" />
+    <Compile Include="GameInfo\ObservableObject.cs" />
     <Compile Include="View\GameSession.xaml.cs">
       <DependentUpon>GameSession.xaml</DependentUpon>
     </Compile>
@@ -110,6 +112,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\top_banner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\bottom_banner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\map_grid.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

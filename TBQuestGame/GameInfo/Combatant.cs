@@ -23,7 +23,7 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region ARMOR
-        // Armor class required for the armor prop
+        public Armor ArmorType { get; set; }
 
         public int DefenseModRanged { get; set; }
 
@@ -76,27 +76,83 @@ namespace TBQuestGame.GameInfo
 
         #region MOVES (attacks)
 
-        // MoveOne prop
+        public Moves MoveOne { get; set; }
 
-        // MoveTwo prop
+        public Moves MoveTwo { get; set; }
 
-        // MoveThree prop
+        public Moves MoveThree { get; set; }
 
-        // MoveFour prop
+        public Moves MoveFour { get; set; }
 
-        // MoveFive prop
+        public Moves MoveFive { get; set; }
 
-        // MoveSix prop
+        public Moves MoveSix { get; set; }
 
         public int ResourcefulnessMod { get; set; }
         #endregion
 
-        public Combatant(int id, string name, int locationId):
-            base (id, name, locationId)
+        #region NEW ROLE
+        public SoldierRole ExtendedRole { get; set; }
+
+        public enum SoldierRole
+        {
+            Pikeman,
+            Crossbowman,
+            Archer,
+            Knight,
+            Lancer,
+            Musketeer
+        }
+
+        public override string FullTitle()
+        {
+            string title = $"{Name} the {ExtendedRole} {Descriptor}";
+            return title;
+        }
+        #endregion
+
+        #region CONSTRUCTOR
+        public Combatant(int id, string name, int locationId, Role role, SoldierRole extendedRole) :
+            base(id, name, locationId, role)
         {
             ID = id;
             Name = name;
+            RoleDescriptor = role;
+            ExtendedRole = extendedRole;
             LocationID = locationId;
+            HealthBase = 100;
+            HealthCurrent = HealthBase;
+            HealthMax = HealthBase;
+            HealthRegenerationBase = 1;
+            HealthRegenerationRate = HealthRegenerationBase;
+            IsHealthRegenerating = true;
+
+            // Ignore armor - assigned in the GameData class
+
+            DefenseModRanged = 0;
+            DefenseModMelee = 0;
+            DefenseModGunpowder = 0;
+            MovementBase = 1;
+            MovementCurrent = MovementBase;
+            MovementMax = MovementBase;
+
+            // Ignore power and valor - assigned during combat
+
+            StatusInflictMod = 0;
+            IsBleeding = false;
+            IsBurning = false;
+            IsPoisoned = false;
+            StrengthModGunpowder = 0;
+            StrengthModMelee = 0;
+            StrengthModRanged = 0;
+            AccuracyModGunpowder = 0;
+            AccuracyModMelee = 0;
+            AccuracyModRanged = 0;
+
+            // Ignore combatant moves - assigned in the GameData class
+
+            ResourcefulnessMod = 0;
         }
+        #endregion
     }
 }

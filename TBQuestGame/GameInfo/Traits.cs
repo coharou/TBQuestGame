@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    class Traits
+    public class Traits
     {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public Traits(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
     }
 }

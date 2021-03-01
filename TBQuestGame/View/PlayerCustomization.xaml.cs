@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TBQuestGame.GameInfo;
 
 namespace TBQuestGame.View
 {
@@ -19,9 +20,15 @@ namespace TBQuestGame.View
     /// </summary>
     public partial class PlayerCustomization : Window
     {
-        public PlayerCustomization()
+        private Player _player;
+
+        public PlayerCustomization(Player player)
         {
+            _player = player;
+
             InitializeComponent();
+            
+            // Steps 8 through 10 for providing info to the custom screen
         }
     }
 }

@@ -5,8 +5,190 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBQuestGame.View"
         mc:Ignorable="d"
-        Title="GameSession" Height="450" Width="800">
-    <Grid>
+        WindowState="Maximized"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Width="1024"
+        Height="768"
+        Background="Black"
+        Title="GameSession">
+    
+    <!--#region STYLES -->
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="bool_Visibility"></BooleanToVisibilityConverter>
+        <Style x:Key="btn_large" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Ellipse Stroke="Transparent">
+                            <Ellipse.Fill>
+                                <SolidColorBrush Color="Transparent">
+                                </SolidColorBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="Height" Value="130"></Setter>
+            <Setter Property="Width" Value="130"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        </Style>
+        <Style x:Key="btn_Small" TargetType="Button" BasedOn="{StaticResource btn_large}">
+            <Setter Property="Height" Value="70"></Setter>
+            <Setter Property="Width" Value="70"></Setter>
+        </Style>
+        <Style x:Key="btn_Any_Menu" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+        </Style>
+        <Style x:Key="lbl_Basic" TargetType="Label">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+        </Style>
+        <Style x:Key="lbl_Options_Menu" TargetType="Label" BasedOn="{StaticResource lbl_Basic}">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+        </Style>
+        <Style x:Key="lbl_temp" TargetType="Label" BasedOn="{StaticResource lbl_Basic}">
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        </Style>
+        <Style x:Key="txt_desc" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Padding" Value="10"></Setter>
+        </Style>
+        <Style x:Key="rect_overlay" TargetType="Rectangle">
+            <Setter Property="Fill" Value="Black"></Setter>
+            <Setter Property="Opacity" Value="0.7"></Setter>
+        </Style>
+        <Style x:Key="lbl_temp_moves" TargetType="Label" BasedOn="{StaticResource lbl_Basic}">
+            <Setter Property="FontSize" Value="10"></Setter>
+        </Style>
+        <Style x:Key="lbl_player_info" TargetType="Label" BasedOn="{StaticResource lbl_Basic}">
+            <Setter Property="FontSize" Value="14"></Setter>
+        </Style>
+        <Style x:Key="txt_player_val" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+        </Style>
+    </Window.Resources>
+    <!--#endregion-->
+    
+    <Grid Width="1024" Height="768">
+        <Image Source="/TBQuestGame;component/Assets/background.png"/>
+        <Image Source="/TBQuestGame;component/Assets/top_banner.png"/>
+        <Image Source="/TBQuestGame;component/Assets/bottom_banner.png"/>
+        <Image Source="/TBQuestGame;component/Assets/map_grid.png"/>
+        
+        <Button Style="{StaticResource btn_large}" Margin="10,10,0,0" Click="btn_Inventory_Clicked"></Button>
+        <Label Style="{StaticResource lbl_temp}" Margin="18,59,0,0">INVENTORY</Label>
+        
+        <Button Style="{StaticResource btn_Small}" Margin="152,10,0,0" Click="btn_Traits_Clicked"></Button>
+        <Label Style="{StaticResource lbl_temp}" Margin="149,30,0,0">TRAITS</Label>
+        
+        <Button Style="{StaticResource btn_Small}" Margin="803,10,0,0" Click="btn_Help_Clicked"></Button>
+        <Label Style="{StaticResource lbl_temp}" Margin="810,30,0,0">HELP</Label>
+        
+        <Button Style="{StaticResource btn_large}" Margin="884,10,0,0" Click="btn_Options_Clicked"></Button>
+        <Label Style="{StaticResource lbl_temp}" Margin="904,59,0,0" Content="OPTIONS"/>
+        
+        <!--#region PLAYER INFO -->
+        <StackPanel Orientation="Vertical" Margin="0,640,892,21">
+            <Label Style="{StaticResource lbl_Basic}" Content="{Binding Player.Name}"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Style="{StaticResource lbl_player_info}">Health: </Label>
+                <TextBlock Style="{StaticResource txt_player_val}" Text="{Binding Player.HealthCurrent}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Style="{StaticResource lbl_player_info}">Experience:</Label>
+                <TextBlock Style="{StaticResource txt_player_val}" Text="{Binding Player.Experience}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Style="{StaticResource lbl_player_info}">Coins:</Label>
+                <TextBlock Style="{StaticResource txt_player_val}" Text="{Binding Player.Coins}"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <!--#endregion-->
+        
+        <!--#region MOVE POOL-->
+        <Grid Margin="381,668,365,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveOne.Name}"></Label>
+            <Label Grid.Row="0" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveTwo.Name}"></Label>
+            <Label Grid.Row="0" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveThree.Name}"></Label>
+            <Label Grid.Row="1" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveFour.Name}"></Label>
+            <Label Grid.Row="1" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveFive.Name}"></Label>
+            <Label Grid.Row="1" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveSix.Name}"></Label>
+        </Grid>
+        <!--#endregion-->
+        
+        <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
+        
+        <!--#region MENU OPTIONS -->
+        <Grid Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Width="250" Height="220">
+                <Label Style="{StaticResource lbl_Options_Menu}">MENU OPTIONS</Label>
+                <Button Style="{StaticResource btn_Any_Menu}" Click="btn_ReturnGame_Clicked">Return to Game</Button>
+                <Button Style="{StaticResource btn_Any_Menu}">Settings</Button>
+                <Button Style="{StaticResource btn_Any_Menu}" Click="btn_Exit_Clicked">Save and Exit</Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region TRAITS MENU-->
+        <Grid Visibility="{Binding Gamestate.PausedByTraits, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                MaxWidth="600"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Orientation="Vertical"
+                Margin="10">
+                <Label Style="{StaticResource lbl_Basic}" HorizontalAlignment="Center" Padding="10">PLAYER TRAITS</Label>
+                <StackPanel Margin="10">
+                    <Label Content="{Binding Player.TraitChosenFirst.Name}" Style="{StaticResource lbl_Basic}"></Label>
+                    <TextBlock Text="{Binding Player.TraitChosenFirst.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10">
+                    <Label Content="{Binding Player.TraitChosenSecond.Name}" Style="{StaticResource lbl_Basic}"></Label>
+                    <TextBlock Text="{Binding Player.TraitChosenSecond.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10">
+                    <Label Content="{Binding Player.TraitRandomPos.Name}" Style="{StaticResource lbl_Basic}"></Label>
+                    <TextBlock Text="{Binding Player.TraitRandomPos.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10">
+                    <Label Content="{Binding Player.TraitRandomNeg.Name}" Style="{StaticResource lbl_Basic}"></Label>
+                    <TextBlock Text="{Binding Player.TraitRandomNeg.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                </StackPanel>
+                <Button Style="{StaticResource btn_Any_Menu}" Click="btn_ReturnGame_Clicked">Return to Game</Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
         
     </Grid>
 </Window>

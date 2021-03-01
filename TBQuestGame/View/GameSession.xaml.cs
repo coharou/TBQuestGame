@@ -19,9 +19,41 @@ namespace TBQuestGame.View
     /// </summary>
     public partial class GameSession : Window
     {
-        public GameSession()
+        GameViewModel _gameViewModel;
+        public GameSession(GameViewModel gameViewModel)
         {
+            _gameViewModel = gameViewModel;
             InitializeComponent();
+        }
+
+        private void btn_Inventory_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Update when the inventory is added
+        }
+
+        private void btn_Traits_Clicked(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("Traits");
+        }
+
+        private void btn_ReturnGame_Clicked(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("ReturnGame");
+        }
+
+        private void btn_Help_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Update when a manual window is required
+        }
+
+        private void btn_Options_Clicked(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("Options");
+        }
+
+        private void btn_Exit_Clicked(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
