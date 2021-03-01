@@ -37,6 +37,15 @@ namespace TBQuestGame.Data
             return player;
         }
 
+        public static List<Art> InitArt()
+        {
+            List<Art> arts = new List<Art>()
+            {
+                //
+            };
+            return arts;
+        }
+
         /*
         public static List<Moves> InitMoves()
         {
