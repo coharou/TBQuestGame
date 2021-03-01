@@ -9,7 +9,7 @@ namespace TBQuestGame.Data
 {
     public class GameData
     {
-        public static Player InitPlayer()
+        public static Player InitPlayer() 
         {
             int id = 1;
             string name = "player_default";
