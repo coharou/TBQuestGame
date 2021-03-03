@@ -31,12 +31,27 @@ namespace TBQuestGame.GameInfo
                 OnPropertyChanged(nameof(PausedByTraits));
             }
         }
+        #region Random Object
+        // Taken from the Simple PvE game
+        // Updated to fit the inclusion of constructors
+        public Random RandObj;
+
+        private static Random ObtainRandObj()
+        {
+            long tick = DateTime.Now.Ticks;
+            int iTick = (int)tick;
+            iTick = Math.Abs(iTick);
+            Random _random = new Random(iTick);
+            return _random;
+        }
+        #endregion
 
 
         public Gamestate()
         {
             PausedByOptions = false;
             PausedByTraits = false;
+            RandObj = ObtainRandObj();
         }
     }
 }

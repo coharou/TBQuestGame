@@ -55,10 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GameInfo\Dungeon.cs" />
     <Compile Include="GameInfo\Gamestate.cs" />
     <Compile Include="GameInfo\Location.cs" />
     <Compile Include="GameInfo\ObservableObject.cs" />
     <Compile Include="GameInfo\Art.cs" />
+    <Compile Include="GameInfo\TileConstants.cs" />
     <Compile Include="GameInfo\Tiles.cs" />
     <Compile Include="View\GameSession.xaml.cs">
       <DependentUpon>GameSession.xaml</DependentUpon>
@@ -127,6 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\map_grid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tile_standard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tile_door.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,5 +13,12 @@ namespace TBQuestGame.GameInfo
         public string Name { get; set; }
 
         public Art Texture { get; set; }
+
+        public Tiles(int id, string name, Art texture)
+        {
+            ID = id;
+            Name = name;
+            Texture = texture;
+        }
     }
 }
