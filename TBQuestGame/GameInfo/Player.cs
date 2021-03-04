@@ -39,12 +39,6 @@ namespace TBQuestGame.GameInfo
         public Player(int id, string name, int locationId, Role role, SoldierRole extendedRole) :
             base(id, name, locationId, role, extendedRole)
         {
-            ID = id;
-            Name = name;
-            RoleDescriptor = role;
-            ExtendedRole = extendedRole;
-            LocationID = locationId;
-
             HealthBase = 100;
             HealthCurrent = HealthBase;
             HealthMax = HealthBase;

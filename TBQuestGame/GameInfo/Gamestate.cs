@@ -32,6 +32,7 @@ namespace TBQuestGame.GameInfo
             }
         }
         #region Random Object
+
         // Taken from the Simple PvE game
         // Updated to fit the inclusion of constructors
         public Random RandObj;

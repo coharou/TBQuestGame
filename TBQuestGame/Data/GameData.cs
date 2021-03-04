@@ -55,15 +55,5 @@ namespace TBQuestGame.Data
             };
             return assets;
         }
-
-        /*
-        public static List<Moves> InitMoves()
-        {
-            List<Moves> moves = new List<Moves>();
-            Moves standard = new Moves("move_default", "default", Moves.DamageType.Melee, 1, 100, Moves.StatusType.None, 0, false, Moves.Ammunition.None);
-            moves.Add(standard);
-            return moves;
-        }
-        */
     }
 }

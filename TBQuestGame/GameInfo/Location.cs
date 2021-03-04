@@ -27,14 +27,12 @@ namespace TBQuestGame.GameInfo
         protected virtual Tiles[,] GeneratePlots(Random randObj)
         {
             Tiles[,] tiles = new Tiles[C.TilesPerRow, C.TilesPerRow];
-            Art a = new Art(0, "tile_standard", "/TBQuestGame;component/Assets/tile_standard.png");
-            Tiles t = new Tiles(0, "default", a);
 
             for (int x = 0; x < C.TilesPerRow; x++)
             {
                 for (int y = 0; y < C.TilesPerRow; y++)
                 {
-                    tiles[x, y] = t;
+                    tiles[x, y] = MatchTileID(0);
                 }
             }
 
@@ -43,17 +41,20 @@ namespace TBQuestGame.GameInfo
 
         protected virtual Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles)
         {
-            List<Tiles> t = Data.GameData.GetTilesResources();
-            Tiles tEntry = t.Find(x => x.ID == 3);
-            Tiles tExit = t.Find(x => x.ID == 4);
-
             (int, int) entry = CalculateDoorPositions(randObj);
-            tiles[entry.Item1, entry.Item2] = tEntry;
+            tiles[entry.Item1, entry.Item2] = MatchTileID(3);
 
             (int, int) exit = CalculateDoorPositions(randObj);
-            tiles[exit.Item1, exit.Item2] = tExit;
+            tiles[exit.Item1, exit.Item2] = MatchTileID(4);
 
             return tiles;
+        }
+
+        private Tiles MatchTileID(int id)
+        {
+            List<Tiles> t = Data.GameData.GetTilesResources();
+            Tiles tile = t.Find(x => x.ID == id);
+            return tile;
         }
 
         private (int, int) CalculateDoorPositions(Random randObj)
