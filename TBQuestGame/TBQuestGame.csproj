@@ -136,5 +136,18 @@
   <ItemGroup>
     <Resource Include="Assets\tile_door.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tile_samples\deep_water.png" />
+    <Resource Include="Assets\tile_samples\default.png" />
+    <Resource Include="Assets\tile_samples\dense_forest.png" />
+    <Resource Include="Assets\tile_samples\entrance.png" />
+    <Resource Include="Assets\tile_samples\exit.png" />
+    <Resource Include="Assets\tile_samples\fields.png" />
+    <Resource Include="Assets\tile_samples\fringe_forest.png" />
+    <Resource Include="Assets\tile_samples\rocks.png" />
+    <Resource Include="Assets\tile_samples\sand.png" />
+    <Resource Include="Assets\tile_samples\shallow_water.png" />
+    <Resource Include="Assets\tile_samples\thorns.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

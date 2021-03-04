@@ -43,7 +43,10 @@ namespace TBQuestGame.GameInfo
 
         protected virtual Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles)
         {
-            Art a = new Art(1, "tile_door", "/TBQuestGame;component/Assets/tile_door.png");
+            List<Art> a = Data.GameData.GetArtResources();
+            Art aSample = new Art(0);
+            a.IndexOf(aSample);
+
             Tiles t = new Tiles(1, "default_door", a);
 
             (int, int) entry = CalculateDoorPositions(randObj);

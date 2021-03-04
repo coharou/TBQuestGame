@@ -20,5 +20,10 @@ namespace TBQuestGame.GameInfo
             Name = name;
             Path = path;
         }
+
+        public Art(int id)
+        {
+            ID = id;
+        }
     }
 }

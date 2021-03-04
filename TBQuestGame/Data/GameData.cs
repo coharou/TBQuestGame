@@ -37,6 +37,25 @@ namespace TBQuestGame.Data
             return player;
         }
 
+        public static List<Art> GetArtResources()
+        {
+            List<Art> assets = new List<Art>()
+            {
+                new Art(0, "Default", "/TBQuestGame;component/Assets/tile_samples/default.png"),
+                new Art(1, "Deep Water", "/TBQuestGame;component/Assets/tile_samples/deep_water.png"),
+                new Art(2, "Dense Forest", "/TBQuestGame;component/Assets/tile_samples/dense_forest.png"),
+                new Art(3, "Entrance", "/TBQuestGame;component/Assets/tile_samples/entrance.png"),
+                new Art(4, "Exit", "/TBQuestGame;component/Assets/tile_samples/exit.png"),
+                new Art(5, "Fields", "/TBQuestGame;component/Assets/tile_samples/fields.png"),
+                new Art(6, "Forest Fringe", "/TBQuestGame;component/Assets/tile_samples/fringe_forest.png"),
+                new Art(7, "Rocks", "/TBQuestGame;component/Assets/tile_samples/rocks.png"),
+                new Art(8, "Sand", "/TBQuestGame;component/Assets/tile_samples/sand.png"),
+                new Art(9, "Shallow Water", "/TBQuestGame;component/Assets/tile_samples/shallow_water.png"),
+                new Art(10, "Thorns", "/TBQuestGame;component/Assets/tile_samples/thorns.png")
+            };
+            return assets;
+        }
+
         /*
         public static List<Moves> InitMoves()
         {
