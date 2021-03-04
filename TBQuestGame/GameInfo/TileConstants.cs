@@ -10,10 +10,12 @@ namespace TBQuestGame.GameInfo
     {
         public int TilesPerRow = 8;
         public int TotalTileCount;
+        public int TotalTileRandAdj;
 
         public TileConstants()
         {
             TotalTileCount = TilesPerRow * TilesPerRow;
+            TotalTileRandAdj = TotalTileCount + 1;
         }
     }
 }

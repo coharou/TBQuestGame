@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    public class Tiles
+    public class Tiles : Art
     {
-        public int ID { get; set; }
+        public string Region { get; set; }
 
-        public string Name { get; set; }
+        public Tiles(int id, string name, string path, string region):
+            base(id, name, path)
+        {
+            Region = region;
+        }
 
-        public Art Texture { get; set; }
-
-        public Tiles(int id, string name, Art texture)
+        public Tiles(int id):
+            base (id)
         {
             ID = id;
-            Name = name;
-            Texture = texture;
         }
     }
 }
