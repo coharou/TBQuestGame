@@ -35,10 +35,53 @@ namespace TBQuestGame.GameInfo
         public int Coins { get; set; }
         #endregion
 
+        public int TilePositionRow { get; set; }
+
+        public int TilePositionColumn { get; set; }
+
+        private int DetermineRowPosition(int tilePosition)
+        {
+            int pos = tilePosition;
+            int row;
+
+            if (pos == 0)
+            {
+                row = 0;
+            }
+            else
+            {
+                TileConstants C = new TileConstants();
+                row = pos % C.TilesPerRow;
+            }
+
+            return row;
+        }
+
+        private int DetermineColumnPosition(int tilePosition)
+        {
+            int pos = tilePosition;
+            int column;
+
+            if (pos == 0)
+            {
+                column = 0;
+            }
+            else
+            {
+                TileConstants C = new TileConstants();
+                double col = pos / C.TilesPerRow;
+                column = (int)Math.Floor(col);
+            }
+            return column;
+        }
+
         #region CONSTRUCTOR
         public Player(int id, string name, int locationId, int tilePosition, Art icon, Role role, SoldierRole extendedRole) :
             base(id, name, locationId, tilePosition, icon, role, extendedRole)
         {
+            TilePositionRow = DetermineRowPosition(tilePosition);
+            TilePositionColumn = DetermineColumnPosition(tilePosition);
+
             HealthBase = 100;
             HealthCurrent = HealthBase;
             HealthMax = HealthBase;

@@ -73,9 +73,11 @@ namespace TBQuestGame.View
             Image character = new Image();
             grid_Action.Children.Add(character);
             character.Name = "Character";
-            (int, int) pos = _gameViewModel.GetCharacterIconPosition();
+
             string path = _gameViewModel.GetCharacterIconPath();
             character.Source = ReturnImageSource(path);
+
+            (int, int) pos = _gameViewModel.GetCharacterIconPosition();
             Grid.SetColumn(character, pos.Item1);
             Grid.SetRow(character, pos.Item2);
         }

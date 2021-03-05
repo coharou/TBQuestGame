@@ -18,14 +18,15 @@ namespace TBQuestGame.GameInfo
         public int ID { get; set; }
 
         public int LocationID { get; set; }
+        #endregion
 
         private int _tilePosition;
 
         public int TilePosition
         {
             get { return _tilePosition; }
-            set 
-            { 
+            set
+            {
                 _tilePosition = value;
                 OnPropertyChanged(nameof(TilePosition));
             }
@@ -38,9 +39,6 @@ namespace TBQuestGame.GameInfo
             get { return _icon; }
             set { _icon = value; }
         }
-
-
-        #endregion
 
         #region ROLE
         public Role RoleDescriptor { get; set; }
