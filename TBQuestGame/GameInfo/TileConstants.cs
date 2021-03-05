@@ -8,12 +8,15 @@ namespace TBQuestGame.GameInfo
 {
     public class TileConstants
     {
+        #region PROPERTIES
         public int TilesPerRow;
         public int TotalTileCount;
         public int TotalTileRandAdj;
         public int GridDimensions;
         public int TileDimensions;
+        #endregion
 
+        #region CONSTRUCTOR
         public TileConstants()
         {
             TilesPerRow = 8;
@@ -22,5 +25,6 @@ namespace TBQuestGame.GameInfo
             GridDimensions = 480;
             TileDimensions = (int)Math.Floor((decimal)GridDimensions / TilesPerRow);
         }
+        #endregion
     }
 }

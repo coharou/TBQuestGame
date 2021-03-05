@@ -35,6 +35,11 @@ namespace TBQuestGame.GameInfo
         public int Coins { get; set; }
         #endregion
 
+        #region TILE POSITION
+        // Provided that these values can be used for binding,
+        // the properties should likely be moved to the Character constructor
+        // instead of the Player constructor alone.
+
         public int TilePositionRow { get; set; }
 
         public int TilePositionColumn { get; set; }
@@ -74,6 +79,7 @@ namespace TBQuestGame.GameInfo
             }
             return column;
         }
+        #endregion
 
         #region CONSTRUCTOR
         public Player(int id, string name, int locationId, int tilePosition, Art icon, Role role, SoldierRole extendedRole) :

@@ -8,12 +8,17 @@ namespace TBQuestGame.GameInfo
 {
     public class Art
     {
+        #region ID
         public int ID { get; set; }
+        #endregion
 
+        #region TEXT DETAILS
         public string Name { get; set; }
 
         public string Path { get; set; }
+        #endregion
 
+        #region CONSTRUCTORS
         public Art(int id, string name, string path)
         {
             ID = id;
@@ -25,5 +30,6 @@ namespace TBQuestGame.GameInfo
         {
             ID = id;
         }
+        #endregion
     }
 }

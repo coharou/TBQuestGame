@@ -34,6 +34,7 @@ namespace TBQuestGame.GameInfo
         }
         #endregion
 
+        #region ACTION STATUS
         private bool _canPlayerAct;
 
         public bool CanPlayerAct
@@ -41,8 +42,9 @@ namespace TBQuestGame.GameInfo
             get { return _canPlayerAct; }
             set { _canPlayerAct = value; }
         }
+        #endregion
 
-        #region RANDOM OBJECT
+        #region OBJECT FOR Random CLASS
 
         // Taken from the Simple PvE game
         // Updated to fit the inclusion of constructors
@@ -58,6 +60,7 @@ namespace TBQuestGame.GameInfo
         }
         #endregion
 
+        #region CONSTRUCTOR
         public Gamestate(bool canPlayerAct)
         {
             PausedByOptions = false;
@@ -65,5 +68,6 @@ namespace TBQuestGame.GameInfo
             RandObj = ObtainRandObj();
             CanPlayerAct = canPlayerAct;
         }
+        #endregion
     }
 }

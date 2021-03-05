@@ -8,6 +8,7 @@ namespace TBQuestGame.GameInfo
 {
     public class Location
     {
+        #region PROPERTIES
         public int ID { get; set; }
 
         public string Name { get; set; }
@@ -15,8 +16,10 @@ namespace TBQuestGame.GameInfo
         public string Description { get; set; }
 
         public Tiles[,] TileGrid { get; set; }
+        #endregion
 
-        protected virtual Tiles[,] GeneratePlots(Random randObj, TileConstants C)
+        #region TILE GENERATION
+        protected virtual Tiles[,] GenerateTiles(Random randObj, TileConstants C)
         {
             Tiles[,] tiles = new Tiles[C.TilesPerRow, C.TilesPerRow];
 
@@ -31,6 +34,15 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
+        private Tiles MatchTileID(int id)
+        {
+            List<Tiles> t = Data.GameData.GetTilesResources();
+            Tiles tile = t.Find(x => x.ID == id);
+            return tile;
+        }
+        #endregion
+
+        #region DOOR GENERATION
         protected virtual Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles, TileConstants C)
         {
             (int, int) entry = CalculateDoorPositions(randObj, C);
@@ -40,13 +52,6 @@ namespace TBQuestGame.GameInfo
             tiles[exit.Item1, exit.Item2] = MatchTileID(4);
 
             return tiles;
-        }
-
-        private Tiles MatchTileID(int id)
-        {
-            List<Tiles> t = Data.GameData.GetTilesResources();
-            Tiles tile = t.Find(x => x.ID == id);
-            return tile;
         }
 
         private (int, int) CalculateDoorPositions(Random randObj, TileConstants C)
@@ -60,7 +65,9 @@ namespace TBQuestGame.GameInfo
 
             return (column, row);
         }
+        #endregion
 
+        #region CONSTRUCTOR
         public Location(int id, string name, string description, Random randObj)
         {
             ID = id;
@@ -69,9 +76,9 @@ namespace TBQuestGame.GameInfo
 
             TileConstants C = new TileConstants();
 
-            Tiles[,] tiles = GeneratePlots(randObj, C);
-            tiles = SetDoorPositions(randObj, tiles, C);
-            TileGrid = tiles;
+            Tiles[,] tiles = GenerateTiles(randObj, C);
+            TileGrid = SetDoorPositions(randObj, tiles, C);
         }
+        #endregion
     }
 }

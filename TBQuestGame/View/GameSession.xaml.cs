@@ -19,13 +19,28 @@ namespace TBQuestGame.View
     /// </summary>
     public partial class GameSession : Window
     {
+        #region PROPS
         GameViewModel _gameViewModel;
+        #endregion
 
+        #region CONSTRUCTORS
         public GameSession(GameViewModel gameViewModel)
         {
             _gameViewModel = gameViewModel;
             InitializeComponent();
         }
+        #endregion
+
+        #region GameSession LOAD METHOD
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetGridDefinitions(grid_Map);
+            CreateMapGrid();
+            SetGridDefinitions(grid_Action);
+
+            CreateCharacterIcon();
+        }
+        #endregion
 
         #region INTERFACE BUTTONS
         private void btn_Inventory_Clicked(object sender, RoutedEventArgs e)
@@ -59,15 +74,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            SetGridDefinitions(grid_Map);
-            CreateMapGrid();
-            SetGridDefinitions(grid_Action);
-
-            CreateCharacterIcon();
-        }
-
+        #region Character RESPONSE METHODS
         private void CreateCharacterIcon()
         {
             Image character = new Image();
@@ -81,14 +88,9 @@ namespace TBQuestGame.View
             Grid.SetColumn(character, pos.Item1);
             Grid.SetRow(character, pos.Item2);
         }
+        #endregion
 
-        private ImageSource ReturnImageSource(string path)
-        {
-            ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
-            ImageSource source = (ImageSource)imageSourceConverter.ConvertFromString(path);
-            return source;
-        }
-
+        #region MAP Grid GENERATOR
         private void SetGridDefinitions(Grid grid)
         {
             for (int x = 0; x < _gameViewModel.GetTotalTilesPerRow(); x++)
@@ -144,7 +146,9 @@ namespace TBQuestGame.View
                 }
             }
         }
+        #endregion
 
+        #region Tile CLICK METHODS
         private void Tile_Click(object sender, RoutedEventArgs e)
         {
             Button tile = (Button)e.Source;
@@ -158,5 +162,15 @@ namespace TBQuestGame.View
                     break;
             }
         }
+        #endregion
+
+        #region Image RELATED METHODS
+        private ImageSource ReturnImageSource(string path)
+        {
+            ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
+            ImageSource source = (ImageSource)imageSourceConverter.ConvertFromString(path);
+            return source;
+        }
+        #endregion
     }
 }

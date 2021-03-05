@@ -60,11 +60,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        public GameViewModel()
-        {
-
-        }
-
+        #region CONSTRUCTORS
         public GameViewModel(Player player, Location location, Gamestate gamestate)
         {
             _player = player;
@@ -77,7 +73,9 @@ namespace TBQuestGame.View
 
             _gameState = gamestate;
         }
+        #endregion
 
+        #region Gamestate CHANGING METHODS
         public void ChangeGamestates(string type)
         {
             switch (type)
@@ -85,37 +83,31 @@ namespace TBQuestGame.View
                 case "Options":
                     Gamestate.PausedByOptions = true;
                     break;
+
                 case "Traits":
                     Gamestate.PausedByTraits = true;
                     break;
+
                 case "ReturnGame":
                     Gamestate.PausedByOptions = false;
                     Gamestate.PausedByTraits = false;
                     break;
+
                 default:
                     break;
             }
         }
+        #endregion
 
-        #region GRID METHODS
+        #region Grid METHODS
         // Applies adequate View -> Viewmodel -> Model translations for building the grid.
         // This ensures that the view does not have to directly reference the model.
         //  ex. Creating a TileConstants object in the view is not necessary.
         //      If it were included, it would distort the separation between the three elements.
 
-        public int GetTotalTilesForGrid()
-        {
-            return C.TotalTileCount;
-        }
-
         public int GetTotalTilesPerRow()
         {
             return C.TilesPerRow;
-        }
-
-        public int GetGridDimensions()
-        {
-            return C.GridDimensions;
         }
 
         public int GetTileDimensions()

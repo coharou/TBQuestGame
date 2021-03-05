@@ -74,6 +74,7 @@ namespace TBQuestGame.GameInfo
             StatusChances = statusChance;
 
             AreResourcesRequired = isItemUsed;
+
             if (isItemUsed == false)
             {
                 ammunition = Ammunition.None;

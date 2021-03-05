@@ -20,6 +20,7 @@ namespace TBQuestGame.GameInfo
         public int LocationID { get; set; }
         #endregion
 
+        #region CHARACTER POSITION
         private int _tilePosition;
 
         public int TilePosition
@@ -31,7 +32,9 @@ namespace TBQuestGame.GameInfo
                 OnPropertyChanged(nameof(TilePosition));
             }
         }
+        #endregion
 
+        #region CHARACTER ART ASSETS
         private Art _icon;
 
         public Art Icon
@@ -39,6 +42,7 @@ namespace TBQuestGame.GameInfo
             get { return _icon; }
             set { _icon = value; }
         }
+        #endregion
 
         #region ROLE
         public Role RoleDescriptor { get; set; }
@@ -51,8 +55,6 @@ namespace TBQuestGame.GameInfo
             Soldier,
             General
         }
-
-        // A virtual method
 
         public virtual string FullTitle()
         {

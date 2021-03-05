@@ -109,42 +109,107 @@
         <Image Source="/TBQuestGame;component/Assets/bottom_banner.png"/>
         <Image Source="/TBQuestGame;component/Assets/map_grid.png"/>
 
-        <Grid x:Name="grid_Map" Width="480" Height="480" Margin="272,126,272,162" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid x:Name="grid_Map" 
+            Width="480" 
+            Height="480" 
+            Margin="272,126,272,162" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center">
             <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
             <Grid.RowDefinitions></Grid.RowDefinitions>
         </Grid>
 
-        <Grid x:Name="grid_Action" Width="480" Height="480" Margin="272,126,272,162" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid x:Name="grid_Action" 
+              Width="480" 
+              Height="480" 
+              Margin="272,126,272,162" 
+              VerticalAlignment="Center" 
+              HorizontalAlignment="Center">
             <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
             <Grid.RowDefinitions></Grid.RowDefinitions>
         </Grid>
+        
+        <!--#region INTERFACE BUTTONS -->
+        <Button 
+            Style="{StaticResource btn_large}" 
+            Margin="10,10,0,0" 
+            Click="btn_Inventory_Clicked">
+        </Button>
+        <Label 
+            Style="{StaticResource lbl_temp}" 
+            Margin="18,59,0,0">
+            INVENTORY
+        </Label>
 
-        <Button Style="{StaticResource btn_large}" Margin="10,10,0,0" Click="btn_Inventory_Clicked"></Button>
-        <Label Style="{StaticResource lbl_temp}" Margin="18,59,0,0">INVENTORY</Label>
-        
-        <Button Style="{StaticResource btn_Small}" Margin="152,10,0,0" Click="btn_Traits_Clicked"></Button>
-        <Label Style="{StaticResource lbl_temp}" Margin="149,30,0,0">TRAITS</Label>
-        
-        <Button Style="{StaticResource btn_Small}" Margin="803,10,0,0" Click="btn_Help_Clicked"></Button>
-        <Label Style="{StaticResource lbl_temp}" Margin="810,30,0,0">HELP</Label>
-        
-        <Button Style="{StaticResource btn_large}" Margin="884,10,0,0" Click="btn_Options_Clicked"></Button>
-        <Label Style="{StaticResource lbl_temp}" Margin="904,59,0,0" Content="OPTIONS"/>
-        
+        <Button 
+            Style="{StaticResource btn_Small}" 
+            Margin="152,10,0,0" 
+            Click="btn_Traits_Clicked">
+        </Button>
+        <Label 
+            Style="{StaticResource lbl_temp}" 
+            Margin="149,30,0,0">
+            TRAITS
+        </Label>
+
+        <Button 
+            Style="{StaticResource btn_Small}" 
+            Margin="803,10,0,0" 
+            Click="btn_Help_Clicked">
+        </Button>
+        <Label 
+            Style="{StaticResource lbl_temp}"
+            Margin="810,30,0,0">
+            HELP
+        </Label>
+
+        <Button 
+            Style="{StaticResource btn_large}" 
+            Margin="884,10,0,0" 
+            Click="btn_Options_Clicked">
+        </Button>
+        <Label 
+            Style="{StaticResource lbl_temp}" 
+            Margin="904,59,0,0">
+            OPTIONS
+        </Label>
+        <!--#endregion-->
+
         <!--#region PLAYER INFO -->
         <StackPanel Orientation="Vertical" Margin="0,640,892,21">
-            <Label Style="{StaticResource lbl_Basic}" Content="{Binding Player.Name}"></Label>
+            <Label 
+                Style="{StaticResource lbl_Basic}" 
+                Content="{Binding Player.Name}">
+            </Label>
             <StackPanel Orientation="Horizontal">
-                <Label Style="{StaticResource lbl_player_info}">Health: </Label>
-                <TextBlock Style="{StaticResource txt_player_val}" Text="{Binding Player.HealthCurrent}"></TextBlock>
+                <Label 
+                    Style="{StaticResource lbl_player_info}">
+                    Health: 
+                </Label>
+                <TextBlock 
+                    Style="{StaticResource txt_player_val}" 
+                    Text="{Binding Player.HealthCurrent}">
+                </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Style="{StaticResource lbl_player_info}">Experience:</Label>
-                <TextBlock Style="{StaticResource txt_player_val}" Text="{Binding Player.Experience}"></TextBlock>
+                <Label 
+                    Style="{StaticResource lbl_player_info}">
+                    Experience:
+                </Label>
+                <TextBlock 
+                    Style="{StaticResource txt_player_val}" 
+                    Text="{Binding Player.Experience}">
+                </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Style="{StaticResource lbl_player_info}">Coins:</Label>
-                <TextBlock Style="{StaticResource txt_player_val}" Text="{Binding Player.Coins}"></TextBlock>
+                <Label 
+                    Style="{StaticResource lbl_player_info}">
+                    Coins:
+                </Label>
+                <TextBlock 
+                    Style="{StaticResource txt_player_val}" 
+                    Text="{Binding Player.Coins}">
+                </TextBlock>
             </StackPanel>
         </StackPanel>
         <!--#endregion-->
@@ -179,10 +244,24 @@
                 VerticalAlignment="Center" 
                 Background="White" 
                 Width="250" Height="220">
-                <Label Style="{StaticResource lbl_Options_Menu}">MENU OPTIONS</Label>
-                <Button Style="{StaticResource btn_Any_Menu}" Click="btn_ReturnGame_Clicked">Return to Game</Button>
-                <Button Style="{StaticResource btn_Any_Menu}">Settings</Button>
-                <Button Style="{StaticResource btn_Any_Menu}" Click="btn_Exit_Clicked">Save and Exit</Button>
+                <Label 
+                    Style="{StaticResource lbl_Options_Menu}">
+                    MENU OPTIONS
+                </Label>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="btn_ReturnGame_Clicked">
+                    Return to Game
+                </Button>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}">
+                    Settings
+                </Button>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="btn_Exit_Clicked">
+                    Save and Exit
+                </Button>
             </StackPanel>
         </Grid>
         <!--#endregion-->
@@ -197,24 +276,57 @@
                 Background="White" 
                 Orientation="Vertical"
                 Margin="10">
-                <Label Style="{StaticResource lbl_Basic}" HorizontalAlignment="Center" Padding="10">PLAYER TRAITS</Label>
+                <Label 
+                    Style="{StaticResource lbl_Basic}" 
+                    HorizontalAlignment="Center" 
+                    Padding="10">
+                    PLAYER TRAITS
+                </Label>
                 <StackPanel Margin="10">
-                    <Label Content="{Binding Player.TraitChosenFirst.Name}" Style="{StaticResource lbl_Basic}"></Label>
-                    <TextBlock Text="{Binding Player.TraitChosenFirst.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                    <Label 
+                        Content="{Binding Player.TraitChosenFirst.Name}" 
+                        Style="{StaticResource lbl_Basic}">
+                    </Label>
+                    <TextBlock 
+                        Text="{Binding Player.TraitChosenFirst.Description}" 
+                        Style="{StaticResource txt_desc}">
+                    </TextBlock>
                 </StackPanel>
                 <StackPanel Margin="10">
-                    <Label Content="{Binding Player.TraitChosenSecond.Name}" Style="{StaticResource lbl_Basic}"></Label>
-                    <TextBlock Text="{Binding Player.TraitChosenSecond.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                    <Label 
+                        Content="{Binding Player.TraitChosenSecond.Name}" 
+                        Style="{StaticResource lbl_Basic}">
+                    </Label>
+                    <TextBlock 
+                        Text="{Binding Player.TraitChosenSecond.Description}" 
+                        Style="{StaticResource txt_desc}">
+                    </TextBlock>
                 </StackPanel>
                 <StackPanel Margin="10">
-                    <Label Content="{Binding Player.TraitRandomPos.Name}" Style="{StaticResource lbl_Basic}"></Label>
-                    <TextBlock Text="{Binding Player.TraitRandomPos.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                    <Label 
+                        Content="{Binding Player.TraitRandomPos.Name}" 
+                        Style="{StaticResource lbl_Basic}">
+                    </Label>
+                    <TextBlock 
+                        Text="{Binding Player.TraitRandomPos.Description}" 
+                        Style="{StaticResource txt_desc}">
+                    </TextBlock>
                 </StackPanel>
                 <StackPanel Margin="10">
-                    <Label Content="{Binding Player.TraitRandomNeg.Name}" Style="{StaticResource lbl_Basic}"></Label>
-                    <TextBlock Text="{Binding Player.TraitRandomNeg.Description}" Style="{StaticResource txt_desc}"></TextBlock>
+                    <Label 
+                        Content="{Binding Player.TraitRandomNeg.Name}" 
+                        Style="{StaticResource lbl_Basic}">
+                    </Label>
+                    <TextBlock 
+                        Text="{Binding Player.TraitRandomNeg.Description}" 
+                        Style="{StaticResource txt_desc}">
+                    </TextBlock>
                 </StackPanel>
-                <Button Style="{StaticResource btn_Any_Menu}" Click="btn_ReturnGame_Clicked">Return to Game</Button>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="btn_ReturnGame_Clicked">
+                    Return to Game
+                </Button>
             </StackPanel>
         </Grid>
         <!--#endregion-->
