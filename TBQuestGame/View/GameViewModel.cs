@@ -127,6 +127,12 @@ namespace TBQuestGame.View
             string path = MapGrid[x, y].Path;
             return path;
         }
+
+        public string GetTileName(int x, int y)
+        {
+            string name = MapGrid[x, y].Name;
+            return name;
+        }
         #endregion
     }
 }

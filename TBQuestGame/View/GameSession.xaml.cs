@@ -78,20 +78,16 @@ namespace TBQuestGame.View
                 grid_Map.ColumnDefinitions.Add(columnDefinition);
                 grid_Map.RowDefinitions.Add(rowDefinition);
             }
-
-            Console.WriteLine("Grid columns and rows added to the tile grid.");
         }
 
         private ImageBrush PrepareTileBackground(int x, int y)
         {
             ImageBrush brush = new ImageBrush();
-
             ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
 
             string path = _gameViewModel.GetTileImagePath(x, y);
 
             ImageSource imageSource = (ImageSource)imageSourceConverter.ConvertFromString(path);
-
             brush.ImageSource = imageSource;
 
             return brush;
@@ -111,20 +107,9 @@ namespace TBQuestGame.View
                     grid_Map.Children.Add(tile);
 
                     tile.Tag = $"c{x}_r{y}";
+                    tile.Name = _gameViewModel.GetTileName(x, y);
 
-                    // Requires a tile name
-
-                    // Requires a click function
-                    //
-                    //      The function will return the name to the viewmodel
-                    //      where it will move through a switch-case method.
-                    //
-                    //      It will be tested up against the player's location
-                    //      where it will check to see if the player can move
-                    //      into the tile they desire.
-                    //      
-                    //      It will also need to check if the player's location
-                    //      is on a tile with a name of "exit".
+                    tile.Click += Tile_Click;
 
                     tile.Width = dim;
                     tile.Height = dim;
@@ -135,8 +120,20 @@ namespace TBQuestGame.View
                     Grid.SetRow(tile, y);
                 }
             }
+        }
 
-            Console.WriteLine("All grid tiles created.");
+        private void Tile_Click(object sender, RoutedEventArgs e)
+        {
+            Button tile = (Button)e.Source;
+            string name = tile.Name;
+
+            switch (name)
+            {
+                case "Exit":
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
