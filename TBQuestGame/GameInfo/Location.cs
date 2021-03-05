@@ -16,15 +16,7 @@ namespace TBQuestGame.GameInfo
 
         public Tiles[,] TileGrid { get; set; }
 
-        private TileConstants _c;
-
-        public TileConstants C
-        {
-            get { return _c; }
-            set { _c = value; }
-        }
-
-        protected virtual Tiles[,] GeneratePlots(Random randObj)
+        protected virtual Tiles[,] GeneratePlots(Random randObj, TileConstants C)
         {
             Tiles[,] tiles = new Tiles[C.TilesPerRow, C.TilesPerRow];
 
@@ -39,12 +31,12 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
-        protected virtual Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles)
+        protected virtual Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles, TileConstants C)
         {
-            (int, int) entry = CalculateDoorPositions(randObj);
+            (int, int) entry = CalculateDoorPositions(randObj, C);
             tiles[entry.Item1, entry.Item2] = MatchTileID(3);
 
-            (int, int) exit = CalculateDoorPositions(randObj);
+            (int, int) exit = CalculateDoorPositions(randObj, C);
             tiles[exit.Item1, exit.Item2] = MatchTileID(4);
 
             return tiles;
@@ -57,7 +49,7 @@ namespace TBQuestGame.GameInfo
             return tile;
         }
 
-        private (int, int) CalculateDoorPositions(Random randObj)
+        private (int, int) CalculateDoorPositions(Random randObj, TileConstants C)
         {
             int pos = randObj.Next(0, C.TotalTileRandAdj);
 
@@ -75,8 +67,10 @@ namespace TBQuestGame.GameInfo
             Name = name;
             Description = description;
 
-            Tiles[,] tiles = GeneratePlots(randObj);
-            tiles = SetDoorPositions(randObj, tiles);
+            TileConstants C = new TileConstants();
+
+            Tiles[,] tiles = GeneratePlots(randObj, C);
+            tiles = SetDoorPositions(randObj, tiles, C);
             TileGrid = tiles;
         }
     }

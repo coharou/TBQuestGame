@@ -67,13 +67,13 @@ namespace TBQuestGame.View
 
         private void SetGridDefinitions()
         {
-            ColumnDefinition columnDefinition = new ColumnDefinition();
-            RowDefinition rowDefinition = new RowDefinition();
-
             for (int x = 0; x < _gameViewModel.GetTotalTilesPerRow(); x++)
             {
-                columnDefinition.Name = $"cd-{x}";
-                rowDefinition.Name = $"rd-{x}";
+                ColumnDefinition columnDefinition = new ColumnDefinition();
+                RowDefinition rowDefinition = new RowDefinition();
+
+                columnDefinition.Name = $"cd_{x}";
+                rowDefinition.Name = $"rd_{x}";
 
                 grid_Map.ColumnDefinitions.Add(columnDefinition);
                 grid_Map.RowDefinitions.Add(rowDefinition);
@@ -82,26 +82,17 @@ namespace TBQuestGame.View
             Console.WriteLine("Grid columns and rows added to the tile grid.");
         }
 
-        private string ImageSourcePath(int x, int y)
-        {
-            string beforeIndex = "{Binding MapGrid";
-            string onIndex = $"[{x}, {y}].Path";
-
-            string fullBind = beforeIndex + onIndex;
-
-            return fullBind;
-        }
-
         private ImageBrush PrepareTileBackground(int x, int y)
         {
             ImageBrush brush = new ImageBrush();
-            ImageSourceConverter converter = new ImageSourceConverter();
 
-            string path = ImageSourcePath(x, y);
+            ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
 
-            ImageSource source = (ImageSource)converter.ConvertFromString(path);
+            string path = _gameViewModel.GetTileImagePath(x, y);
 
-            brush.ImageSource = source;
+            ImageSource imageSource = (ImageSource)imageSourceConverter.ConvertFromString(path);
+
+            brush.ImageSource = imageSource;
 
             return brush;
         }
@@ -119,18 +110,33 @@ namespace TBQuestGame.View
 
                     grid_Map.Children.Add(tile);
 
+                    tile.Tag = $"c{x}_r{y}";
+
+                    // Requires a tile name
+
+                    // Requires a click function
+                    //
+                    //      The function will return the name to the viewmodel
+                    //      where it will move through a switch-case method.
+                    //
+                    //      It will be tested up against the player's location
+                    //      where it will check to see if the player can move
+                    //      into the tile they desire.
+                    //      
+                    //      It will also need to check if the player's location
+                    //      is on a tile with a name of "exit".
+
+                    tile.Width = dim;
+                    tile.Height = dim;
                     tile.Background = PrepareTileBackground(x, y);
-                    tile.Tag = $"c{x}-r{y}";
-                    tile.BorderBrush = Brushes.Transparent;
+                    tile.Style = (Style)Resources["sty_btn_tile"];
 
                     Grid.SetColumn(tile, x);
                     Grid.SetRow(tile, y);
-
-                    // Update how the button works on mouseover
-                    // Update how the button works on focus
-                    // Update on if the button can be tabbed into
                 }
             }
+
+            Console.WriteLine("All grid tiles created.");
         }
     }
 }

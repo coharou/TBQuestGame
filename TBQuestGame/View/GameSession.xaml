@@ -82,6 +82,24 @@
             <Setter Property="FontSize" Value="14"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
         </Style>
+        <Style x:Key="sty_btn_tile" TargetType="{x:Type Button}">
+            <Setter Property="Focusable" Value="False"></Setter>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="true">
+                        </Border>
+                        <ControlTemplate.Triggers>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <!--#endregion-->
     
@@ -145,7 +163,7 @@
             <Label Grid.Row="1" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveSix.Name}"></Label>
         </Grid>
         <!--#endregion-->
-        
+
         <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
         
         <!--#region MENU OPTIONS -->

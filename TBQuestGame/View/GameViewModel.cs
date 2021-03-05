@@ -68,6 +68,7 @@ namespace TBQuestGame.View
         public GameViewModel(Player player, Location location)
         {
             _player = player;
+            C = new TileConstants();
             _location = location;
 
             MapGrid = _location.TileGrid;
@@ -119,6 +120,12 @@ namespace TBQuestGame.View
         public int GetTileDimensions()
         {
             return C.TileDimensions;
+        }
+
+        public string GetTileImagePath(int x, int y)
+        {
+            string path = MapGrid[x, y].Path;
+            return path;
         }
         #endregion
     }

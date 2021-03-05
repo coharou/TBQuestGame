@@ -39,20 +39,28 @@ namespace TBQuestGame.Data
 
         public static List<Tiles> GetTilesResources()
         {
+            string basePath = @"Assets/tile_samples/";
+
+            // The path will need to be updated to the actual assets folder in the solution.
+
+            // Currently, it is going to the Debug folder. This is okay for now, but should be changed later
+            // before the game is released.
+
             List<Tiles> assets = new List<Tiles>()
             {
-                new Tiles(0, "Default", "/TBQuestGame;component/Assets/tile_samples/default.png", "Generic"),
-                new Tiles(1, "Deep Water", "/TBQuestGame;component/Assets/tile_samples/deep_water.png", "River"),
-                new Tiles(2, "Dense Forest", "/TBQuestGame;component/Assets/tile_samples/dense_forest.png", "General"),
-                new Tiles(3, "Entrance", "/TBQuestGame;component/Assets/tile_samples/entrance.png", "Generic"),
-                new Tiles(4, "Exit", "/TBQuestGame;component/Assets/tile_samples/exit.png", "Generic"),
-                new Tiles(5, "Fields", "/TBQuestGame;component/Assets/tile_samples/fields.png", "General"),
-                new Tiles(6, "Forest Fringe", "/TBQuestGame;component/Assets/tile_samples/fringe_forest.png", "General"),
-                new Tiles(7, "Rocks", "/TBQuestGame;component/Assets/tile_samples/rocks.png", "General"),
-                new Tiles(8, "Sand", "/TBQuestGame;component/Assets/tile_samples/sand.png", "River"),
-                new Tiles(9, "Shallow Water", "/TBQuestGame;component/Assets/tile_samples/shallow_water.png", "General"),
-                new Tiles(10, "Thorns", "/TBQuestGame;component/Assets/tile_samples/thorns.png", "Forest")
+                new Tiles(0, "Default", $"{basePath}default.png", "Generic"),
+                new Tiles(1, "Deep Water", $"{basePath}deep_water.png", "River"),
+                new Tiles(2, "Dense Forest", $"{basePath}dense_forest.png", "General"),
+                new Tiles(3, "Entrance", $"{basePath}entrance.png", "Generic"),
+                new Tiles(4, "Exit", $"{basePath}exit.png", "Generic"),
+                new Tiles(5, "Fields", $"{basePath}fields.png", "General"),
+                new Tiles(6, "Forest Fringe", $"{basePath}fringe_forest.png", "General"),
+                new Tiles(7, "Rocks", $"{basePath}rocks.png", "General"),
+                new Tiles(8, "Sand", $"{basePath}sand.png", "River"),
+                new Tiles(9, "Shallow Water", $"{basePath}shallow_water.png", "General"),
+                new Tiles(10, "Thorns", $"{basePath}thorns.png", "Forest")
             };
+
             return assets;
         }
 
