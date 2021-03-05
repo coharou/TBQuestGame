@@ -15,9 +15,10 @@ namespace TBQuestGame.Data
             string name = "player_default";
             int locationId = 0;
             int tilePosition = 0;
+            Art icon = new Art(0, "Player", @"Assets/character_icons/default_icon.png");
             Character.Role role = Character.Role.Soldier;
             Player.SoldierRole soldierRole = Player.SoldierRole.Knight;
-            Player player = new Player(id, name, locationId, tilePosition, role, soldierRole);
+            Player player = new Player(id, name, locationId, tilePosition, icon, role, soldierRole);
 
             // Remove when player customization is added
             Moves standard = new Moves("move_default", "default", Moves.DamageType.Melee, 1, 100, Moves.StatusType.None, 0, false, Moves.Ammunition.None);

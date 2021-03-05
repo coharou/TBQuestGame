@@ -31,6 +31,15 @@ namespace TBQuestGame.GameInfo
             }
         }
 
+        private Art _icon;
+
+        public Art Icon
+        {
+            get { return _icon; }
+            set { _icon = value; }
+        }
+
+
         #endregion
 
         #region ROLE
@@ -55,7 +64,7 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region CONSTRUCTOR
-        public Character(int id, string name, int locationId, int tilePosition, Role role)
+        public Character(int id, string name, int locationId, int tilePosition, Art icon, Role role)
         {
             ID = id;
             Name = name;
@@ -63,6 +72,7 @@ namespace TBQuestGame.GameInfo
             RoleDescriptor = role;
             LocationID = locationId;
             TilePosition = tilePosition;
+            Icon = icon;
         }
         #endregion
     }

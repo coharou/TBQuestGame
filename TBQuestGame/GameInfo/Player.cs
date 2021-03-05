@@ -36,8 +36,8 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region CONSTRUCTOR
-        public Player(int id, string name, int locationId, int tilePosition, Role role, SoldierRole extendedRole) :
-            base(id, name, locationId, tilePosition, role, extendedRole)
+        public Player(int id, string name, int locationId, int tilePosition, Art icon, Role role, SoldierRole extendedRole) :
+            base(id, name, locationId, tilePosition, icon, role, extendedRole)
         {
             HealthBase = 100;
             HealthCurrent = HealthBase;

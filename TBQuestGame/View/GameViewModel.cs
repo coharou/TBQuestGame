@@ -134,6 +134,33 @@ namespace TBQuestGame.View
             string name = MapGrid[x, y].Name;
             return name;
         }
+
+        public string GetCharacterIconPath()
+        {
+            string path = Player.Icon.Path;
+            return path;    
+        }
+
+        public (int, int) GetCharacterIconPosition()
+        {
+            int pos = Player.TilePosition;
+            int column, row;
+
+            if (pos == 0)
+            {
+                column = 0;
+                row = 0;
+            }
+            else
+            {
+                double col = pos / C.TilesPerRow;
+                column = (int)Math.Floor(col);
+
+                row = pos % C.TilesPerRow;
+            }
+
+            return (column, row);
+        }
         #endregion
     }
 }

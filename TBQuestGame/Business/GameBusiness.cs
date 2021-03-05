@@ -24,7 +24,7 @@ namespace TBQuestGame.Business
             _location = GameData.InitDefaultLocation(_gamestate);
 
             // Insert the customization methods here to get player data
-            // Replace InitPlayer() with the stuff for the customization window
+            // Replace InitPlayer() with the information for the customization window
 
             _gameViewModel = new GameViewModel(_player, _location, _gamestate);
             GameSession gameSession = new GameSession(_gameViewModel);

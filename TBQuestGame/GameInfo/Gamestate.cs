@@ -42,8 +42,7 @@ namespace TBQuestGame.GameInfo
             set { _canPlayerAct = value; }
         }
 
-
-        #region Random Object
+        #region RANDOM OBJECT
 
         // Taken from the Simple PvE game
         // Updated to fit the inclusion of constructors
@@ -58,7 +57,6 @@ namespace TBQuestGame.GameInfo
             return _random;
         }
         #endregion
-
 
         public Gamestate(bool canPlayerAct)
         {

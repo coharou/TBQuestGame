@@ -114,6 +114,11 @@
             <Grid.RowDefinitions></Grid.RowDefinitions>
         </Grid>
 
+        <Grid x:Name="grid_Action" Width="480" Height="480" Margin="272,126,272,162" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions></Grid.RowDefinitions>
+        </Grid>
+
         <Button Style="{StaticResource btn_large}" Margin="10,10,0,0" Click="btn_Inventory_Clicked"></Button>
         <Label Style="{StaticResource lbl_temp}" Margin="18,59,0,0">INVENTORY</Label>
         

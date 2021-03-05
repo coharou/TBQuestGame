@@ -61,11 +61,33 @@ namespace TBQuestGame.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SetGridDefinitions();
+            SetGridDefinitions(grid_Map);
             CreateMapGrid();
+            SetGridDefinitions(grid_Action);
+
+            CreateCharacterIcon();
         }
 
-        private void SetGridDefinitions()
+        private void CreateCharacterIcon()
+        {
+            Image character = new Image();
+            grid_Action.Children.Add(character);
+            character.Name = "Character";
+            (int, int) pos = _gameViewModel.GetCharacterIconPosition();
+            string path = _gameViewModel.GetCharacterIconPath();
+            character.Source = ReturnImageSource(path);
+            Grid.SetColumn(character, pos.Item1);
+            Grid.SetRow(character, pos.Item2);
+        }
+
+        private ImageSource ReturnImageSource(string path)
+        {
+            ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
+            ImageSource source = (ImageSource)imageSourceConverter.ConvertFromString(path);
+            return source;
+        }
+
+        private void SetGridDefinitions(Grid grid)
         {
             for (int x = 0; x < _gameViewModel.GetTotalTilesPerRow(); x++)
             {
@@ -75,19 +97,18 @@ namespace TBQuestGame.View
                 columnDefinition.Name = $"cd_{x}";
                 rowDefinition.Name = $"rd_{x}";
 
-                grid_Map.ColumnDefinitions.Add(columnDefinition);
-                grid_Map.RowDefinitions.Add(rowDefinition);
+                grid.ColumnDefinitions.Add(columnDefinition);
+                grid.RowDefinitions.Add(rowDefinition);
             }
         }
 
         private ImageBrush PrepareTileBackground(int x, int y)
         {
             ImageBrush brush = new ImageBrush();
-            ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
 
             string path = _gameViewModel.GetTileImagePath(x, y);
 
-            ImageSource imageSource = (ImageSource)imageSourceConverter.ConvertFromString(path);
+            ImageSource imageSource = ReturnImageSource(path);
             brush.ImageSource = imageSource;
 
             return brush;
