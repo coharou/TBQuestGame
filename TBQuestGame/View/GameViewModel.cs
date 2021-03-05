@@ -29,14 +29,49 @@ namespace TBQuestGame.View
             }
         }
 
+        private Tiles[,] _mapGrid;
+
+        public Tiles[,] MapGrid
+        {
+            get { return _mapGrid; }
+            set { _mapGrid = value; }
+        }
+
+
+        private TileConstants _c;
+
+        public TileConstants C
+        {
+            get { return _c; }
+            set { _c = value; }
+        }
+
+
         public GameViewModel()
         {
 
         }
 
-        public GameViewModel(Player player)
+        private Location _location;
+
+        public Location Location
+        {
+            get { return _location; }
+            set 
+            { 
+                _location = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
+
+
+        public GameViewModel(Player player, Location location)
         {
             _player = player;
+            _location = location;
+
+            MapGrid = _location.TileGrid;
+
             Gamestate gamestate = new Gamestate();
             _gameState = gamestate;
         }
@@ -60,5 +95,31 @@ namespace TBQuestGame.View
             }
         }
 
+        #region GRID METHODS
+        // Applies adequate View -> Viewmodel -> Model translations for building the grid.
+        // This ensures that the view does not have to directly reference the model.
+        //  ex. Creating a TileConstants object in the view is not necessary.
+        //      If it were included, it would distort the separation between the three elements.
+
+        public int GetTotalTilesForGrid()
+        {
+            return C.TotalTileCount;
+        }
+
+        public int GetTotalTilesPerRow()
+        {
+            return C.TilesPerRow;
+        }
+
+        public int GetGridDimensions()
+        {
+            return C.GridDimensions;
+        }
+
+        public int GetTileDimensions()
+        {
+            return C.TileDimensions;
+        }
+        #endregion
     }
 }

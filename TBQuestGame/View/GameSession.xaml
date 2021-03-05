@@ -11,7 +11,8 @@
         Width="1024"
         Height="768"
         Background="Black"
-        Title="GameSession">
+        Title="GameSession"
+        Loaded="Window_Loaded">
     
     <!--#region STYLES -->
     <Window.Resources>
@@ -89,7 +90,12 @@
         <Image Source="/TBQuestGame;component/Assets/top_banner.png"/>
         <Image Source="/TBQuestGame;component/Assets/bottom_banner.png"/>
         <Image Source="/TBQuestGame;component/Assets/map_grid.png"/>
-        
+
+        <Grid x:Name="grid_Map" Width="480" Height="480" Margin="272,126,272,162" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions></Grid.RowDefinitions>
+        </Grid>
+
         <Button Style="{StaticResource btn_large}" Margin="10,10,0,0" Click="btn_Inventory_Clicked"></Button>
         <Label Style="{StaticResource lbl_temp}" Margin="18,59,0,0">INVENTORY</Label>
         

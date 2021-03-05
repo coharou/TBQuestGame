@@ -31,6 +31,7 @@ namespace TBQuestGame.GameInfo
                 OnPropertyChanged(nameof(PausedByTraits));
             }
         }
+
         #region Random Object
 
         // Taken from the Simple PvE game
