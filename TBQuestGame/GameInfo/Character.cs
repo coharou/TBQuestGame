@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    public class Character
+    public class Character : ObservableObject
     {
         #region TEXT DETAILS
         public string Name { get; set; }
@@ -18,6 +18,19 @@ namespace TBQuestGame.GameInfo
         public int ID { get; set; }
 
         public int LocationID { get; set; }
+
+        private int _tilePosition;
+
+        public int TilePosition
+        {
+            get { return _tilePosition; }
+            set 
+            { 
+                _tilePosition = value;
+                OnPropertyChanged(nameof(TilePosition));
+            }
+        }
+
         #endregion
 
         #region ROLE
@@ -42,13 +55,14 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region CONSTRUCTOR
-        public Character(int id, string name, int locationId, Role role)
+        public Character(int id, string name, int locationId, int tilePosition, Role role)
         {
             ID = id;
             Name = name;
             Descriptor = nameof(RoleDescriptor);
             RoleDescriptor = role;
             LocationID = locationId;
+            TilePosition = tilePosition;
         }
         #endregion
     }

@@ -15,16 +15,18 @@ namespace TBQuestGame.Business
         GameViewModel _gameViewModel;
         Player _player;
         Location _location;
+        Gamestate _gamestate;
 
         public GameBusiness()
         {
+            _gamestate = new Gamestate(false);
             _player = GameData.InitPlayer();
-            _location = GameData.InitDefaultLocation();
+            _location = GameData.InitDefaultLocation(_gamestate);
 
             // Insert the customization methods here to get player data
             // Replace InitPlayer() with the stuff for the customization window
 
-            _gameViewModel = new GameViewModel(_player, _location);
+            _gameViewModel = new GameViewModel(_player, _location, _gamestate);
             GameSession gameSession = new GameSession(_gameViewModel);
             gameSession.DataContext = _gameViewModel;
             gameSession.Show();

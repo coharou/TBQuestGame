@@ -112,14 +112,15 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region CONSTRUCTOR
-        public Combatant(int id, string name, int locationId, Role role, SoldierRole extendedRole) :
-            base(id, name, locationId, role)
+        public Combatant(int id, string name, int locationId, int tilePosition, Role role, SoldierRole extendedRole) :
+            base(id, name, locationId, tilePosition, role)
         {
             ID = id;
             Name = name;
             RoleDescriptor = role;
             ExtendedRole = extendedRole;
             LocationID = locationId;
+            TilePosition = tilePosition;
             HealthBase = 100;
             HealthCurrent = HealthBase;
             HealthMax = HealthBase;

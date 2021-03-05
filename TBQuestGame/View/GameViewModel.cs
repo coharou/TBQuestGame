@@ -9,6 +9,7 @@ namespace TBQuestGame.View
 {
     public class GameViewModel : ObservableObject
     {
+        #region PROPERTIES
         private Player _player;
 
         public Player Player
@@ -22,8 +23,8 @@ namespace TBQuestGame.View
         public Gamestate Gamestate
         {
             get { return _gameState; }
-            set 
-            { 
+            set
+            {
                 _gameState = value;
                 OnPropertyChanged(nameof(Gamestate));
             }
@@ -46,34 +47,34 @@ namespace TBQuestGame.View
             set { _c = value; }
         }
 
+        private Location _location;
+
+        public Location Location
+        {
+            get { return _location; }
+            set
+            {
+                _location = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
+        #endregion
 
         public GameViewModel()
         {
 
         }
 
-        private Location _location;
-
-        public Location Location
-        {
-            get { return _location; }
-            set 
-            { 
-                _location = value;
-                OnPropertyChanged(nameof(Location));
-            }
-        }
-
-
-        public GameViewModel(Player player, Location location)
+        public GameViewModel(Player player, Location location, Gamestate gamestate)
         {
             _player = player;
+
             C = new TileConstants();
+
             _location = location;
 
             MapGrid = _location.TileGrid;
 
-            Gamestate gamestate = new Gamestate();
             _gameState = gamestate;
         }
 

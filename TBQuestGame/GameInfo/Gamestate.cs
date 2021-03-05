@@ -8,13 +8,14 @@ namespace TBQuestGame.GameInfo
 {
     public class Gamestate : ObservableObject
     {
+        #region SESSION PAUSE / PLAY
         private bool _pausedByOptions;
 
         public bool PausedByOptions
         {
             get { return _pausedByOptions; }
-            set 
-            { 
+            set
+            {
                 _pausedByOptions = value;
                 OnPropertyChanged(nameof(PausedByOptions));
             }
@@ -31,6 +32,16 @@ namespace TBQuestGame.GameInfo
                 OnPropertyChanged(nameof(PausedByTraits));
             }
         }
+        #endregion
+
+        private bool _canPlayerAct;
+
+        public bool CanPlayerAct
+        {
+            get { return _canPlayerAct; }
+            set { _canPlayerAct = value; }
+        }
+
 
         #region Random Object
 
@@ -49,11 +60,12 @@ namespace TBQuestGame.GameInfo
         #endregion
 
 
-        public Gamestate()
+        public Gamestate(bool canPlayerAct)
         {
             PausedByOptions = false;
             PausedByTraits = false;
             RandObj = ObtainRandObj();
+            CanPlayerAct = canPlayerAct;
         }
     }
 }

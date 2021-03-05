@@ -14,9 +14,10 @@ namespace TBQuestGame.Data
             int id = 1;
             string name = "player_default";
             int locationId = 0;
+            int tilePosition = 0;
             Character.Role role = Character.Role.Soldier;
             Player.SoldierRole soldierRole = Player.SoldierRole.Knight;
-            Player player = new Player(id, name, locationId, role, soldierRole);
+            Player player = new Player(id, name, locationId, tilePosition, role, soldierRole);
 
             // Remove when player customization is added
             Moves standard = new Moves("move_default", "default", Moves.DamageType.Melee, 1, 100, Moves.StatusType.None, 0, false, Moves.Ammunition.None);
@@ -64,9 +65,8 @@ namespace TBQuestGame.Data
             return assets;
         }
 
-        public static Location InitDefaultLocation()
+        public static Location InitDefaultLocation(Gamestate gamestate)
         {
-            Gamestate gamestate = new Gamestate();
             Location standard = new Location(0, "Default", "Initialized when the game loads", gamestate.RandObj);
             return standard;
         }
