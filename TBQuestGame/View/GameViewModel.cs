@@ -123,7 +123,9 @@ namespace TBQuestGame.View
                     {
                         canMove = true;
 
-                        // Update the player's TilePosition property.
+                        Player.TilePositionColumn = column;
+                        Player.TilePositionRow = row;
+                        Player.TilePosition = CalculateTilePosition(column, row);
                         
                         // Check if this is an exit.
 
@@ -269,6 +271,14 @@ namespace TBQuestGame.View
             part = part.Remove(0, 1);
             int coord = int.Parse(part);
             return coord;
+        }
+
+        public int CalculateTilePosition(int column, int row)
+        {
+            int estimatedTotal = C.TilesPerRow * row;
+            int tilesToSubtract = C.TilesPerRow - column;
+            int position = estimatedTotal - tilesToSubtract;
+            return position;
         }
         #endregion
 

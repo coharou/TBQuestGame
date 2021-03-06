@@ -161,12 +161,14 @@ namespace TBQuestGame.View
                 int x = coords.Item1;
                 int y = coords.Item2;
 
-                // This needs to update the image object, somehow
-                // Everything else works fine, and made it through the debug
-                // Find the character image object as a child of grid_Action
-                
-                Grid.SetColumn(tile, x);
-                Grid.SetRow(tile, y);
+                UIElementCollection collection = grid_Action.Children;
+
+                // At the moment, this is only prepared for the character object.
+                // Grid updates for other objects, like enemies or items, will not be added until necessary.
+
+                Image character = (Image)collection[0];
+                Grid.SetColumn(character, x);
+                Grid.SetRow(character, y);
             }
         }
         #endregion
