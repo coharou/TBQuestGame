@@ -153,7 +153,21 @@ namespace TBQuestGame.View
         {
             Button tile = (Button)e.Source;
             string tag = (string)tile.Tag;
-            _gameViewModel.DoPlayerMovement(tag);
+            bool canMove = _gameViewModel.DoPlayerMovement(tag);
+
+            if (canMove == true)
+            {
+                (int, int) coords = _gameViewModel.CharacterCoordinates(tag);
+                int x = coords.Item1;
+                int y = coords.Item2;
+
+                // This needs to update the image object, somehow
+                // Everything else works fine, and made it through the debug
+                // Find the character image object as a child of grid_Action
+                
+                Grid.SetColumn(tile, x);
+                Grid.SetRow(tile, y);
+            }
         }
         #endregion
 

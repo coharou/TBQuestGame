@@ -100,15 +100,16 @@ namespace TBQuestGame.View
         #endregion
 
         #region Tile AND Movement METHODS
-        public void DoPlayerMovement(string tag)
+        public bool DoPlayerMovement(string tag)
         {
+            bool canMove = false;
+
             // If the player has movement points at their disposal ...
             if (Player.MovementCurrent > 0)
             {
-                string[] parts = tag.Split('_');
-
-                int column = UpdateToCoordinates(parts[0]);
-                int row = UpdateToCoordinates(parts[1]);
+                (int, int) coord = CharacterCoordinates(tag);
+                int column = coord.Item1;
+                int row = coord.Item2;
 
                 bool tileInRange = IsTileInPlayerMoveRange(column, row);
 
@@ -117,21 +118,35 @@ namespace TBQuestGame.View
                 {
                     bool passable = AreTilesPassable(column, row);
 
-                    // If the tile is passable into, checking if the tiles there are passable as well ...
+                    // If the tile can be passed into, and the tiles on the way there are passable ...
                     if (passable == true)
                     {
+                        canMove = true;
 
+                        // Update the player's TilePosition property.
+                        
+                        // Check if this is an exit.
+
+                        // If it is an exit, alter values in the Gamestate,
+                        //  create a new location, and update the map grid.
+
+                        // If it isn't, add a turn to the game counter,
+                        //  let the enemies move, then continue forward.
                     }
-                    else
-                    {
-
-                    }
-                }
-                else
-                {
-
                 }
             }
+
+            return canMove;
+        }
+
+        public (int, int) CharacterCoordinates(string tag)
+        {
+            string[] parts = tag.Split('_');
+
+            int column = UpdateToCoordinates(parts[0]);
+            int row = UpdateToCoordinates(parts[1]);
+
+            return (column, row);
         }
 
         private bool AreTilesPassable(int tileCol, int tileRow)
