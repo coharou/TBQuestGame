@@ -136,11 +136,78 @@ namespace TBQuestGame.View
 
         private bool AreTilesPassable(int tileCol, int tileRow)
         {
-            bool passable = false;
-            // Check via a for loop
-            // Distance from player row to tile row
-            // Distance from player column to tile column
-            // For each distance point, check if that tile position is passable
+            bool passable = true;
+
+            int pCol = Player.TilePositionColumn;
+            int pRow = Player.TilePositionRow;
+
+            int colDist = tileCol - pCol;
+            int colDistAbs = Math.Abs(colDist);
+
+            int rowDist = tileRow - pRow;
+            int rowDistAbs = Math.Abs(rowDist);
+
+            // If the player is moving vertically or horizontally ...
+            // This code should be revised in the future.
+            if (colDistAbs == 0 && rowDistAbs != 0)
+            {
+                if (rowDist < 0)
+                {
+                    for (int i = -1; i >= rowDist; i--)
+                    {
+                        int pos = pRow + i;
+                        passable = MapGrid[pCol, pos].Passable;
+                        if (passable == false)
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i <= rowDist; i++)
+                    {
+                        int pos = pRow + i;
+                        passable = MapGrid[pCol, pos].Passable;
+                        if (passable == false)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (colDistAbs != 0 && rowDistAbs == 0)
+            {
+                if (colDist < 0)
+                {
+                    for (int i = -1; i >= colDist; i--)
+                    {
+                        int pos = pCol + i;
+                        passable = MapGrid[pos, pRow].Passable;
+                        if (passable == false)
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i <= colDist; i++)
+                    {
+                        int pos = pCol + i;
+                        passable = MapGrid[pos, pRow].Passable;
+                        if (passable == false)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Diagonal distance check
+            }
+
             return passable;
         }
 
