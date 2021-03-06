@@ -152,15 +152,8 @@ namespace TBQuestGame.View
         private void Tile_Click(object sender, RoutedEventArgs e)
         {
             Button tile = (Button)e.Source;
-            string name = tile.Name;
-
-            switch (name)
-            {
-                case "Exit":
-                    break;
-                default:
-                    break;
-            }
+            string tag = (string)tile.Tag;
+            _gameViewModel.DoPlayerMovement(tag);
         }
         #endregion
 

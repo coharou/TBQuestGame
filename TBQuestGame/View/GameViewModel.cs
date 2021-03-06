@@ -99,6 +99,87 @@ namespace TBQuestGame.View
         }
         #endregion
 
+        #region Tile AND Movement METHODS
+        public void DoPlayerMovement(string tag)
+        {
+            // If the player has movement points at their disposal ...
+            if (Player.MovementCurrent > 0)
+            {
+                string[] parts = tag.Split('_');
+
+                int column = UpdateToCoordinates(parts[0]);
+                int row = UpdateToCoordinates(parts[1]);
+
+                bool tileInRange = IsTileInPlayerMoveRange(column, row);
+
+                // If the player has sufficient movement points to move to the clicked tile ...
+                if (tileInRange == true)
+                {
+                    bool passable = AreTilesPassable(column, row);
+
+                    // If the tile is passable into, checking if the tiles there are passable as well ...
+                    if (passable == true)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private bool AreTilesPassable(int tileCol, int tileRow)
+        {
+            bool passable = false;
+            // Check via a for loop
+            // Distance from player row to tile row
+            // Distance from player column to tile column
+            // For each distance point, check if that tile position is passable
+            return passable;
+        }
+
+        private bool IsTileInPlayerMoveRange(int tileCol, int tileRow)
+        {
+            bool enoughMoves = false;
+
+            int pCol = Player.TilePositionColumn;
+            int pRow = Player.TilePositionRow;
+            int pMoves = Player.MovementCurrent;
+
+            if ((pCol < tileCol) && (pCol + pMoves >= tileCol))
+            {
+                enoughMoves = true;
+            }
+            if ((pCol > tileCol) && (pCol - pMoves <= tileCol))
+            {
+                enoughMoves = true;
+            }
+            if ((pRow < tileRow) && (pRow + pMoves >= tileRow))
+            {
+                enoughMoves = true;
+            }
+            if ((pRow > tileRow) && (pRow - pMoves <= tileRow))
+            {
+                enoughMoves = true;
+            }
+
+            return enoughMoves;
+        }
+
+        private static int UpdateToCoordinates(string part)
+        {
+            part = part.Remove(0, 1);
+            int coord = int.Parse(part);
+            return coord;
+        }
+        #endregion
+
         #region Grid METHODS
         // Applies adequate View -> Viewmodel -> Model translations for building the grid.
         // This ensures that the view does not have to directly reference the model.

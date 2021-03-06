@@ -10,13 +10,16 @@ namespace TBQuestGame.GameInfo
     {
         #region PROPERTIES
         public string Region { get; set; }
+
+        public bool Passable { get; set; }
         #endregion
 
         #region CONSTRUCTORS
-        public Tiles(int id, string name, string path, string region) :
+        public Tiles(int id, string name, string path, string region, bool passable) :
             base(id, name, path)
         {
             Region = region;
+            Passable = passable;
         }
 
         public Tiles(int id) :

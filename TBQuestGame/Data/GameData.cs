@@ -50,17 +50,17 @@ namespace TBQuestGame.Data
 
             List<Tiles> assets = new List<Tiles>()
             {
-                new Tiles(0, "Default", $"{basePath}default.png", "Generic"),
-                new Tiles(1, "Deep Water", $"{basePath}deep_water.png", "River"),
-                new Tiles(2, "Dense Forest", $"{basePath}dense_forest.png", "General"),
-                new Tiles(3, "Entrance", $"{basePath}entrance.png", "Generic"),
-                new Tiles(4, "Exit", $"{basePath}exit.png", "Generic"),
-                new Tiles(5, "Fields", $"{basePath}fields.png", "General"),
-                new Tiles(6, "Forest Fringe", $"{basePath}fringe_forest.png", "General"),
-                new Tiles(7, "Rocks", $"{basePath}rocks.png", "General"),
-                new Tiles(8, "Sand", $"{basePath}sand.png", "River"),
-                new Tiles(9, "Shallow Water", $"{basePath}shallow_water.png", "General"),
-                new Tiles(10, "Thorns", $"{basePath}thorns.png", "Forest")
+                new Tiles(0, "Default", $"{basePath}default.png", "Generic", true),
+                new Tiles(1, "Deep Water", $"{basePath}deep_water.png", "River", false),
+                new Tiles(2, "Dense Forest", $"{basePath}dense_forest.png", "General", false),
+                new Tiles(3, "Entrance", $"{basePath}entrance.png", "Generic", true),
+                new Tiles(4, "Exit", $"{basePath}exit.png", "Generic", true),
+                new Tiles(5, "Fields", $"{basePath}fields.png", "General", true),
+                new Tiles(6, "Forest Fringe", $"{basePath}fringe_forest.png", "General", true),
+                new Tiles(7, "Rocks", $"{basePath}rocks.png", "General", false),
+                new Tiles(8, "Sand", $"{basePath}sand.png", "River", true),
+                new Tiles(9, "Shallow Water", $"{basePath}shallow_water.png", "General", true),
+                new Tiles(10, "Thorns", $"{basePath}thorns.png", "Forest", false)
             };
 
             return assets;
