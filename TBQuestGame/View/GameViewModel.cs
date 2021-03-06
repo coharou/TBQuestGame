@@ -205,7 +205,17 @@ namespace TBQuestGame.View
             }
             else
             {
-                // Diagonal distance check
+                // Diagonal distance check for movement.
+                // Temporarily, this will be set to false.
+
+                // I am afraid that diagonal movement may hasten the pace of the game too much.
+                // Players would be able to dodge enemies more easily than they should,
+                // and also arrive to the exit very quickly.
+
+                // If the map grid were larger, this wouldn't be as much of an issue.
+                // But with it only being 8 by 8 tiles, movement needs to be heavily restricted.
+
+                passable = false;
             }
 
             return passable;
