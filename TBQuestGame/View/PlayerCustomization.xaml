@@ -5,8 +5,106 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBQuestGame.View"
         mc:Ignorable="d"
-        Title="PlayerCustomization" Height="450" Width="800">
-    <Grid>
+        Title="PlayerCustomization" 
+        Height="768" 
+        Width="1024"
+        ResizeMode="NoResize"
+        WindowStyle="None">
+    
+    <Window.Resources>
+        <Style x:Key="btn_Basic" TargetType="Button">
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+        </Style>
+        <Style x:Key="btn_Any_Menu" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+        </Style>
+        <Style x:Key="lbl_Header" TargetType="Label">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="24"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+        </Style>
+        <Style x:Key="txt_desc" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Padding" Value="10"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="lbl_player_info" TargetType="Label" BasedOn="{StaticResource lbl_Header}">
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+        <Style x:Key="txt_player_val" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Width="1024" Height="768">
         
+        <Image Source="/TBQuestGame;component/Assets/background.png"/>
+
+        <Grid 
+            Margin="64"
+            Background="White">
+            <StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <Label 
+                        Style="{StaticResource lbl_Header}">
+                        Player Customization
+                    </Label>
+                    <TextBlock
+                        Style="{StaticResource txt_desc}" TextAlignment="Center">
+                        For the TB Quest Game, you, the player, will be able to customize your character as you see fit.
+                        You may choose your character's moves, and determine their traits and their armor.
+                        You should choose wisely, as although these can be changed later, they will impact the 
+                        early portion of the game.
+                    </TextBlock>
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.1*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Orientation="Vertical" Grid.Column="0">
+                        <Label 
+                            Style="{StaticResource lbl_Header}">
+                            MOVES
+                        </Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <Label 
+                            Style="{StaticResource lbl_Header}">
+                            TRAITS
+                        </Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="2">
+                        <Label 
+                            Style="{StaticResource lbl_Header}">
+                            ARMOR
+                        </Label>
+                    </StackPanel>
+
+                </Grid>
+                
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

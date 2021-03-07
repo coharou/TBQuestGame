@@ -83,6 +83,24 @@ namespace TBQuestGame.Data
             return moves;
         }
 
+        public static Traits[] InitTraits()
+        {
+            Traits[] traits = new Traits[]
+            {
+                new Traits("CHARISMATIC", "Merchants offer items at a lower price than usual. At the start of the game, receive a one-time boost to Coins."),
+                new Traits("RESOURCEFUL", "75% chance to not consume ammunition on using a move. 10% more damage from Ranged and Gunpowder moves."),
+                new Traits("HARDY", "Regenerate Health 100% faster."),
+                new Traits("FORAGER", "50% chance to receive more items when killing enemies or picking up items off of the ground."),
+                new Traits("ECCENTRIC", "Status effects are 40% more likely to land on an enemy. Status effects deal more damage to enemies."),
+                new Traits("EXPERIENCED", "All moves are 15% more accurate. At the start of the game, receive a one-time boost to Experience."),
+                new Traits("WEAKLING", "-10% damage when using Melee moves. +5% damage taken from enemy moves."),
+                new Traits("RECKLESS", "50% chance to consume additional ammunition on using a move."),
+                new Traits("ASOCIAL", "Merchants offer items at a higher price than usual.")
+            };
+
+            return traits;
+        }
+
         public static List<Tiles> GetTilesResources()
         {
             #region A note on the path ...

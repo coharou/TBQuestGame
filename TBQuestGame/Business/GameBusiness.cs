@@ -13,11 +13,13 @@ namespace TBQuestGame.Business
     {
         #region PROPS
         GameViewModel _gameViewModel;
+        PlayerCustomizationViewModel _playerCustoms;
         Player _player;
         Location _location;
         Gamestate _gamestate;
         Armor[] _armor;
         Moves[] _moves;
+        Traits[] _traits;
         #endregion
 
         #region CONSTRUCTOR
@@ -26,22 +28,24 @@ namespace TBQuestGame.Business
             _gamestate = new Gamestate(false);
 
             _armor = GameData.InitArmor();
-
             _moves = GameData.InitMoves();
-
-            // Insert the customization methods here to get player data
-            // Replace InitPlayer() with the information for the customization window
+            _traits = GameData.InitTraits();
             _player = GameData.InitPlayer();
 
+            _playerCustoms = new PlayerCustomizationViewModel(_armor, _traits, _moves, _player);
+            PlayerCustomization customsSession = new PlayerCustomization(_playerCustoms);
+            customsSession.DataContext = _playerCustoms;
+            customsSession.ShowDialog();
+
+            _player = _playerCustoms.Player;
             _location = GameData.InitDefaultLocation(_gamestate);
-
             _gamestate.Location = _location.Name;
-
             _gameViewModel = new GameViewModel(_player, _location, _gamestate);
 
             GameSession gameSession = new GameSession(_gameViewModel);
             gameSession.DataContext = _gameViewModel;
             gameSession.Show();
+            customsSession.Close();
         }
         #endregion
     }

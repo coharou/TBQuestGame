@@ -20,15 +20,22 @@ namespace TBQuestGame.View
     /// </summary>
     public partial class PlayerCustomization : Window
     {
-        private Player _player;
+        private PlayerCustomizationViewModel _viewModel;
 
-        public PlayerCustomization(Player player)
+        public PlayerCustomization(PlayerCustomizationViewModel viewModel)
         {
-            _player = player;
+            _viewModel = viewModel;
 
             InitializeComponent();
             
-            // Steps 8 through 10 for providing info to the custom screen
+            // May want a method that adds info to the screen / lists (like a for loop of armor and add it to the items source)
+
+            // Make sure to set up the window like it is set up in the main game session (full screen, etc.)
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Visibility = Visibility.Hidden;
         }
     }
 }
