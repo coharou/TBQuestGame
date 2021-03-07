@@ -27,12 +27,34 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region TANGIBLES
-        public int Experience { get; set; }
+        private int _experience;
+
+        public int Experience
+        {
+            get { return _experience; }
+            set 
+            { 
+                _experience = value;
+                OnPropertyChanged(nameof(Experience));
+            }
+        }
+
         public int ExperienceMax { get; set; }
 
         // Inventory prop - to be added later
 
-        public int Coins { get; set; }
+        private int _coins;
+
+        public int Coins
+        {
+            get { return _coins; }
+            set 
+            { 
+                _coins = value;
+                OnPropertyChanged(nameof(Coins));
+            }
+        }
+
         #endregion
 
         #region TILE POSITION

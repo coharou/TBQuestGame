@@ -9,7 +9,19 @@ namespace TBQuestGame.GameInfo
     public class Combatant : Character
     {
         #region HEALTH
-        public int HealthCurrent { get; set; } 
+
+        private int _healthCurrent;
+
+        public int HealthCurrent
+        {
+            get { return _healthCurrent; }
+            set 
+            { 
+                _healthCurrent = value;
+                OnPropertyChanged(nameof(HealthCurrent));
+            }
+        }
+
 
         public int HealthMax { get; set; }
 
@@ -41,6 +53,14 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region POWER / VALOR
+
+        // These properties will be configured at a later date.
+
+        // They will only be used and calculated during combat.
+
+        // They also only apply to combat, not movement or
+        // general interactions with NPC.
+
         public int Power { get; set; }
 
         public int PowerModifier { get; set; }
