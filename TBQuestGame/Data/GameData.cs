@@ -15,9 +15,13 @@ namespace TBQuestGame.Data
             string name = "player_default";
             int locationId = 0;
             int tilePosition = 0;
-            Art icon = new Art(0, "Player", @"Assets/character_icons/default_icon.png");
+
+            string path = "pack://application:,,,/Assets/character_icons/";
+            Art icon = new Art(0, "Player", path + "default_icon.png");
+
             Character.Role role = Character.Role.Soldier;
             Player.SoldierRole soldierRole = Player.SoldierRole.Knight;
+
             Player player = new Player(id, name, locationId, tilePosition, icon, role, soldierRole);
 
             // Remove when player customization is added
@@ -41,26 +45,37 @@ namespace TBQuestGame.Data
 
         public static List<Tiles> GetTilesResources()
         {
-            string basePath = @"Assets/tile_samples/";
+            #region A note on the path ...
 
-            // The path will need to be updated to the actual assets folder in the solution.
+            //  https://stackoverflow.com/a/5556068
 
-            // Currently, it is going to the Debug folder. This is okay for now, but should be changed later
-            // before the game is released.
+            //  This seems to be the simplest solution to the issue I was 
+            //  having, which was how to reference images in xaml.
+
+            //  Before using this user's solution for image resource paths,
+            //  I had tried using relative image paths as the sources,
+            //  but these cannot work outside of the Visual Studio environment.
+
+            //  I then tried converting from System.Drawing.Image to 
+            //  the Image source control in WPF - that did not work either.
+
+            #endregion
+
+            string path = "pack://application:,,,/Assets/tile_samples/";
 
             List<Tiles> assets = new List<Tiles>()
             {
-                new Tiles(0, "Default", $"{basePath}default.png", "Generic", true),
-                new Tiles(1, "Deep Water", $"{basePath}deep_water.png", "River", false),
-                new Tiles(2, "Dense Forest", $"{basePath}dense_forest.png", "General", false),
-                new Tiles(3, "Entrance", $"{basePath}entrance.png", "Generic", true),
-                new Tiles(4, "Exit", $"{basePath}exit.png", "Generic", true),
-                new Tiles(5, "Fields", $"{basePath}fields.png", "General", true),
-                new Tiles(6, "Forest Fringe", $"{basePath}fringe_forest.png", "General", true),
-                new Tiles(7, "Rocks", $"{basePath}rocks.png", "General", false),
-                new Tiles(8, "Sand", $"{basePath}sand.png", "River", true),
-                new Tiles(9, "Shallow Water", $"{basePath}shallow_water.png", "General", true),
-                new Tiles(10, "Thorns", $"{basePath}thorns.png", "Forest", false)
+                new Tiles(0, "Default", path + "default.png", "Generic", true),
+                new Tiles(1, "Deep Water", path + "deep_water.png", "River", false),
+                new Tiles(2, "Dense Forest", path + "dense_forest.png", "General", false),
+                new Tiles(3, "Entrance", path + "entrance.png", "Generic", true),
+                new Tiles(4, "Exit", path + "exit.png", "Generic", true),
+                new Tiles(5, "Fields", path + "fields.png", "General", true),
+                new Tiles(6, "Forest Fringe", path + "fringe_forest.png", "General", true),
+                new Tiles(7, "Rocks", path + "rocks.png", "General", false),
+                new Tiles(8, "Sand", path + "sand.png", "River", true),
+                new Tiles(9, "Shallow Water", path + "shallow_water.png", "General", true),
+                new Tiles(10, "Thorns", path + "thorns.png", "Forest", false)
             };
 
             return assets;
