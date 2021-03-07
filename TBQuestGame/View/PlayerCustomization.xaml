@@ -10,19 +10,17 @@
         Width="1024"
         ResizeMode="NoResize"
         WindowStyle="None">
-    
+
     <Window.Resources>
-        <Style x:Key="btn_Basic" TargetType="Button">
-            <Setter Property="Background" Value="White"></Setter>
-            <Setter Property="BorderBrush" Value="Black"></Setter>
-        </Style>
         <Style x:Key="btn_Any_Menu" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="Margin" Value="10"></Setter>
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>
             <Setter Property="FontSize" Value="18"></Setter>
-            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="Padding" Value="10"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
         </Style>
         <Style x:Key="lbl_Header" TargetType="Label">
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>
@@ -49,6 +47,13 @@
             <Setter Property="FontSize" Value="14"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
         </Style>
+        <Style x:Key="scr_vw" TargetType="ScrollViewer">
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="Background" Value="LightGray"></Setter>
+            <Setter Property="Margin" Value="16"></Setter>
+        </Style>
     </Window.Resources>
     
     <Grid Width="1024" Height="768">
@@ -60,7 +65,7 @@
             Background="White">
             <StackPanel>
                 
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Margin="0, 0, 0, 24">
                     <Label 
                         Style="{StaticResource lbl_Header}">
                         Player Customization
@@ -74,18 +79,34 @@
                     </TextBlock>
                 </StackPanel>
 
-                <Grid>
+                <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.1*"></ColumnDefinition>
                         <ColumnDefinition Width="1.1*"></ColumnDefinition>
                         <ColumnDefinition Width="0.8*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
+
                     <StackPanel Orientation="Vertical" Grid.Column="0">
                         <Label 
                             Style="{StaticResource lbl_Header}">
                             MOVES
                         </Label>
+                        <TextBlock
+                            Style="{StaticResource txt_desc}" 
+                            TextAlignment="Center">
+                            Moves are the attacks you will use against enemies. 
+                            There are three different move classes: Melee, Ranged, and Gunpowder.
+                            You must choose six moves before proceeding to the game.
+                        </TextBlock>
+                        <ScrollViewer 
+                            Style = "{StaticResource scr_vw}" 
+                            Height="160"
+                            x:Name="scr_Moves">
+                            <StackPanel
+                                x:Name="panel_Moves">
+
+                            </StackPanel>
+                        </ScrollViewer>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1">
@@ -93,6 +114,22 @@
                             Style="{StaticResource lbl_Header}">
                             TRAITS
                         </Label>
+                        <TextBlock
+                            Style="{StaticResource txt_desc}" 
+                            TextAlignment="Center">
+                            Traits are what define your character's personality.
+                            Your character will receive two traits at random: one positive, one negative.
+                            You must choose two traits before proceding to the game.
+                        </TextBlock>
+                        <ScrollViewer 
+                            Style = "{StaticResource scr_vw}" 
+                            Height="160"
+                            x:Name="scr_Traits">
+                            <StackPanel
+                                x:Name="panel_Traits">
+                                
+                            </StackPanel>
+                        </ScrollViewer>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="2">
@@ -100,9 +137,38 @@
                             Style="{StaticResource lbl_Header}">
                             ARMOR
                         </Label>
-                    </StackPanel>
+                        <TextBlock
+                            Style="{StaticResource txt_desc}" 
+                            TextAlignment="Center">
+                            Armor keeps your character safe.
+                            It may have a combination of resistances to Melee, Ranged, or Gunpowder moves.
+                        </TextBlock>
+                        <ScrollViewer 
+                            Style = "{StaticResource scr_vw}" 
+                            Height="160"
+                            x:Name="scr_Armor">
+                            <StackPanel
+                                x:Name="panel_Armor">
 
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
                 </Grid>
+
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+                    <Button 
+                        Style="{StaticResource btn_Any_Menu}" 
+                        Content="CONFIRM"
+                        Click="Btn_Click_Confirm">
+                    </Button>
+                    <Button 
+                        Style="{StaticResource btn_Any_Menu}" 
+                        Content="EXIT"
+                        Click="Btn_Click_Exit">
+                    </Button>
+                </StackPanel>
                 
             </StackPanel>
         </Grid>

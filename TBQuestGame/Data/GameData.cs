@@ -47,7 +47,6 @@ namespace TBQuestGame.Data
         {
             Armor[] armors = new Armor[]
             {
-                new Armor("Armorless", "A risky choice - only for the most experienced of players.", 0, 0, 0),
                 new Armor("Leather", "The lightest pair of armor. Offers little protection overall.", 10, 20, 0),
                 new Armor("Chainmail", "Protective against arrows and other ranged moves.", 20, 40, 0),
                 new Armor("Plated", "The best suit of armor. Slightly resistant to gunpowder moves.", 30, 50, 20)
