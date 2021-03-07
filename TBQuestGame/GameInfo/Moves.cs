@@ -11,7 +11,7 @@ namespace TBQuestGame.GameInfo
         #region TEXT DETAILS
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        // public string Description { get; set; }
         #endregion
 
         #region DAMAGE
@@ -59,10 +59,10 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region CONSTRUCTOR
-        public Moves(string name, string description, DamageType damageClass, int damage, int accuracy, StatusType status, int statusChance, bool isItemUsed, Ammunition ammunition)
+        public Moves(string name, DamageType damageClass, int damage, int accuracy, StatusType status, int statusChance, bool isItemUsed, Ammunition ammunition)
         {
             Name = name;
-            Description = description;
+            // Description = description;
             DamageClass = damageClass;
             Damage = damage;
             Accuracy = accuracy;

@@ -25,7 +25,7 @@ namespace TBQuestGame.Data
             Player player = new Player(id, name, locationId, tilePosition, icon, role, soldierRole);
 
             // Remove when player customization is added
-            Moves standard = new Moves("move_default", "default", Moves.DamageType.Melee, 1, 100, Moves.StatusType.None, 0, false, Moves.Ammunition.None);
+            Moves standard = new Moves("move_default", Moves.DamageType.Melee, 1, 100, Moves.StatusType.None, 0, false, Moves.Ammunition.None);
             player.MoveOne = standard;
             player.MoveTwo = standard;
             player.MoveThree = standard;
@@ -41,6 +41,46 @@ namespace TBQuestGame.Data
             player.TraitRandomPos = trait_standard;
 
             return player;
+        }
+
+        public static Armor[] InitArmor()
+        {
+            Armor[] armors = new Armor[]
+            {
+                new Armor("Armorless", "A risky choice - only for the most experienced of players.", 0, 0, 0),
+                new Armor("Leather", "The lightest pair of armor. Offers little protection overall.", 10, 20, 0),
+                new Armor("Chainmail", "Protective against arrows and other ranged moves.", 20, 40, 0),
+                new Armor("Plated", "The best suit of armor. Slightly resistant to gunpowder moves.", 30, 50, 20)
+            };
+
+            return armors;
+        }
+
+        public static Moves[] InitMoves()
+        {
+            #region A note on moves ...
+
+            // The moves listed here are temporary, and will not represent the end result.
+            // Ideally, these moves would have custom names, unrelated to any weapons.
+            // Instead, they could only be used if the player had the correct equipment to use it.
+            //      i.e A player with a ranged weapon could only use ranged moves.
+            // They will also need to be updated for better historical accuracy and terminology.
+
+            #endregion
+
+            Moves[] moves = new Moves[]
+            {
+                new Moves("Javelin", Moves.DamageType.Ranged, 120, 90, Moves.StatusType.Bleeding, 20, false, Moves.Ammunition.None),
+                new Moves("Crossbow", Moves.DamageType.Ranged, 105, 95, Moves.StatusType.None, 0, true, Moves.Ammunition.Arrow),
+                new Moves("Longbow", Moves.DamageType.Ranged, 80, 100, Moves.StatusType.Burning, 80, true, Moves.Ammunition.Arrow),
+                new Moves("Lance", Moves.DamageType.Melee, 105, 95, Moves.StatusType.Bleeding, 30, false, Moves.Ammunition.None),
+                new Moves("Pike", Moves.DamageType.Melee, 90, 100, Moves.StatusType.Bleeding, 10, false, Moves.Ammunition.None),
+                new Moves("Halberd", Moves.DamageType.Melee, 100, 80, Moves.StatusType.Bleeding, 45, false, Moves.Ammunition.None),
+                new Moves("Hand Cannon", Moves.DamageType.Gunpowder, 145, 75, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder),
+                new Moves("Musket", Moves.DamageType.Gunpowder, 120, 85, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder)
+            };
+
+            return moves;
         }
 
         public static List<Tiles> GetTilesResources()

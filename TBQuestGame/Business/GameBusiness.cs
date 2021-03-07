@@ -16,12 +16,18 @@ namespace TBQuestGame.Business
         Player _player;
         Location _location;
         Gamestate _gamestate;
+        Armor[] _armor;
+        Moves[] _moves;
         #endregion
 
         #region CONSTRUCTOR
         public GameBusiness()
         {
             _gamestate = new Gamestate(false);
+
+            _armor = GameData.InitArmor();
+
+            _moves = GameData.InitMoves();
 
             // Insert the customization methods here to get player data
             // Replace InitPlayer() with the information for the customization window
