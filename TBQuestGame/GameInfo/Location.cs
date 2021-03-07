@@ -56,7 +56,7 @@ namespace TBQuestGame.GameInfo
 
         private (int, int) CalculateDoorPositions(Random randObj, TileConstants C)
         {
-            int pos = randObj.Next(0, C.TotalTileRandAdj);
+            int pos = randObj.Next(0, C.TotalTileCount);
 
             double col = pos / C.TilesPerRow;
             int column = (int)Math.Floor(col);

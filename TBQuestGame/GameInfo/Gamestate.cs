@@ -51,6 +51,15 @@ namespace TBQuestGame.GameInfo
             set { _turnCount = value; }
         }
 
+        private int _locationCount;
+
+        public int LocationCount
+        {
+            get { return _locationCount; }
+            set { _locationCount = value; }
+        }
+
+
         #endregion
 
         #region OBJECT FOR Random CLASS
@@ -76,7 +85,8 @@ namespace TBQuestGame.GameInfo
             PausedByTraits = false;
             RandObj = ObtainRandObj();
             CanPlayerAct = canPlayerAct;
-            TurnCount = 0;
+            TurnCount = 1;
+            LocationCount = 1;
         }
         #endregion
     }

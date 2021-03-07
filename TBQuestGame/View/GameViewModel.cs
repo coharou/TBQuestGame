@@ -71,6 +71,10 @@ namespace TBQuestGame.View
 
             MapGrid = _location.TileGrid;
 
+            MatchPlayerPositionToEntrance();
+
+            _player = Player;
+
             _gameState = gamestate;
         }
         #endregion
@@ -97,6 +101,14 @@ namespace TBQuestGame.View
                     break;
             }
         }
+
+        public void TurnTransition()
+        {
+            Gamestate.CanPlayerAct = false;
+            Gamestate.TurnCount += 1;
+            Player.MovementCurrent = Player.MovementMax;
+            Gamestate.CanPlayerAct = true;
+        }
         #endregion
 
         #region Enemy TURN PROCESS
@@ -111,11 +123,6 @@ namespace TBQuestGame.View
             // buttons does not work, it will be used in an if statement
             // for the DoPlayerMovement method. In that case, the button
             // presses will not be processed if the property is false.
-
-            Gamestate.CanPlayerAct = false;
-            Gamestate.TurnCount += 1;
-            Player.MovementCurrent = Player.MovementMax;
-            Gamestate.CanPlayerAct = true;
         }
         #endregion
 
@@ -151,19 +158,63 @@ namespace TBQuestGame.View
             return canMove;
         }
 
-        public void IsTileExit(int column, int row)
+        public void MatchPlayerPositionToEntrance()
         {
+            for (int x = 0; x < C.TilesPerRow; x++)
+            {
+                for (int y = 0; y < C.TilesPerRow; y++)
+                {
+                    string name = MapGrid[x, y].Name;
+                    if (name == "Entrance")
+                    {
+                        UpdatePlayerPositions(x, y);
+                        break;
+                    }
+                }
+            }
+        }
+
+        public int RetrievePositionOfEntrance()
+        {
+            int position = 0;
+            for (int x = 0; x < C.TilesPerRow; x++)
+            {
+                for (int y = 0; y < C.TilesPerRow; y++)
+                {
+                    string name = MapGrid[x, y].Name;
+                    if (name == "Entrance")
+                    {
+                        position = CalculateTilePosition(x, y);
+                        break;
+                    }
+                }
+            }
+
+            return position;
+        }
+
+        public bool IsTileExit(int column, int row)
+        {
+            bool isTileExit = false;
             string tileName = MapGrid[column, row].Name;
             if (tileName == "Exit")
             {
-                Console.WriteLine("Hi!");
-                // If it is an exit, alter values in the Gamestate,
-                //  create a new location, and update the map grid.
+                isTileExit = true;
             }
             else
             {
                 DoEnemyTurn();
             }
+
+            TurnTransition();
+
+            return isTileExit;
+        }
+
+        public void InitiateNewLocation()
+        {
+            Location standard = new Location(1, "Default", "Initialized when the game loads", Gamestate.RandObj);
+            MapGrid = standard.TileGrid;
         }
 
         public void UpdatePlayerMovement(int tCol, int tRow)
@@ -328,7 +379,13 @@ namespace TBQuestGame.View
         {
             int estimatedTotal = C.TilesPerRow * row;
             int tilesToSubtract = C.TilesPerRow - column;
-            int position = estimatedTotal - tilesToSubtract;
+
+            int position = 0;
+            if (estimatedTotal != 0)
+            {
+                position = estimatedTotal - tilesToSubtract;
+            }
+
             return position;
         }
         #endregion
@@ -374,21 +431,8 @@ namespace TBQuestGame.View
 
         public (int, int) GetCharacterIconPosition()
         {
-            int pos = Player.TilePosition;
-            int column, row;
-
-            if (pos == 0)
-            {
-                column = 0;
-                row = 0;
-            }
-            else
-            {
-                double col = pos / C.TilesPerRow;
-                column = (int)Math.Floor(col);
-
-                row = pos % C.TilesPerRow;
-            }
+            int column = Player.TilePositionColumn;
+            int row = Player.TilePositionRow;
 
             return (column, row);
         }

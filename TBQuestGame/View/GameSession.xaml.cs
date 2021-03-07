@@ -88,6 +88,40 @@ namespace TBQuestGame.View
             Grid.SetColumn(character, pos.Item1);
             Grid.SetRow(character, pos.Item2);
         }
+
+        private void ChangeCharacterIconPositionAlternate()
+        {
+            (int, int) coords = _gameViewModel.GetCharacterIconPosition();
+            int x = coords.Item1;
+            int y = coords.Item2;
+
+            UIElementCollection collection = grid_Action.Children;
+
+            // At the moment, this is only prepared for the character object.
+            // Grid updates for other objects, like enemies or items, will not be added until necessary.
+
+            Image character = (Image)collection[0];
+            Grid.SetColumn(character, x);
+            Grid.SetRow(character, y);
+        }
+
+        private (int, int) ChangeCharacterIconPosition(string tag)
+        {
+            (int, int) coords = _gameViewModel.CharacterCoordinates(tag);
+            int x = coords.Item1;
+            int y = coords.Item2;
+
+            UIElementCollection collection = grid_Action.Children;
+
+            // At the moment, this is only prepared for the character object.
+            // Grid updates for other objects, like enemies or items, will not be added until necessary.
+
+            Image character = (Image)collection[0];
+            Grid.SetColumn(character, x);
+            Grid.SetRow(character, y);
+
+            return (x, y);
+        }
         #endregion
 
         #region MAP Grid GENERATOR
@@ -161,11 +195,22 @@ namespace TBQuestGame.View
                 {
                     Button tile = (Button)collection[item];
                     tile.Name = _gameViewModel.GetTileName(x, y);
+                    tile.Tag = $"c{x}_r{y}";
                     tile.Background = PrepareTileBackground(x, y);
                     collection[item] = tile;
                     item++;
                 }
             }
+        }
+
+        private string GetEntranceDoorTag()
+        {
+            string tag = "";
+            int position = _gameViewModel.RetrievePositionOfEntrance();
+            UIElementCollection collection = grid_Map.Children;
+            Button tile = (Button)collection[position];
+            tag = (string)tile.Tag;
+            return tag;
         }
         #endregion
 
@@ -178,20 +223,20 @@ namespace TBQuestGame.View
 
             if (canMove == true)
             {
-                (int, int) coords = _gameViewModel.CharacterCoordinates(tag);
+                (int, int) coords = ChangeCharacterIconPosition(tag);
+
                 int x = coords.Item1;
                 int y = coords.Item2;
 
-                UIElementCollection collection = grid_Action.Children;
+                bool isExit = _gameViewModel.IsTileExit(x, y);
 
-                // At the moment, this is only prepared for the character object.
-                // Grid updates for other objects, like enemies or items, will not be added until necessary.
-
-                Image character = (Image)collection[0];
-                Grid.SetColumn(character, x);
-                Grid.SetRow(character, y);
-
-                _gameViewModel.IsTileExit(x, y);
+                if (isExit == true)
+                {
+                    _gameViewModel.InitiateNewLocation();
+                    UpdateMapGridTiles();
+                    _gameViewModel.MatchPlayerPositionToEntrance();
+                    ChangeCharacterIconPositionAlternate();
+                }
             }
         }
         #endregion
