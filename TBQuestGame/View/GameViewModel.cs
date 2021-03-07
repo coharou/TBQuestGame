@@ -99,6 +99,26 @@ namespace TBQuestGame.View
         }
         #endregion
 
+        #region Enemy TURN PROCESS
+        public void DoEnemyTurn()
+        {
+            // When enemies are implemented, CanPlayerAct will likely be
+            // used to stop players from pressing buttons while the enemy
+            // makes their moves. The Gamestate property will be bound to
+            // property IsEnabled on the tile buttons of the grid_Map. If false,
+            // the buttons will not work. If true, they will, and the player
+            // can make their moves. If binding CanPlayerAct to the tile
+            // buttons does not work, it will be used in an if statement
+            // for the DoPlayerMovement method. In that case, the button
+            // presses will not be processed if the property is false.
+
+            Gamestate.CanPlayerAct = false;
+            Gamestate.TurnCount += 1;
+            Player.MovementCurrent = Player.MovementMax;
+            Gamestate.CanPlayerAct = true;
+        }
+        #endregion
+
         #region Tile AND Movement METHODS
         public bool DoPlayerMovement(string tag)
         {
@@ -121,24 +141,55 @@ namespace TBQuestGame.View
                     // If the tile can be passed into, and the tiles on the way there are passable ...
                     if (passable == true)
                     {
+                        UpdatePlayerMovement(column, row);
+                        UpdatePlayerPositions(column, row);
                         canMove = true;
-
-                        Player.TilePositionColumn = column;
-                        Player.TilePositionRow = row;
-                        Player.TilePosition = CalculateTilePosition(column, row);
-                        
-                        // Check if this is an exit.
-
-                        // If it is an exit, alter values in the Gamestate,
-                        //  create a new location, and update the map grid.
-
-                        // If it isn't, add a turn to the game counter,
-                        //  let the enemies move, then continue forward.
                     }
                 }
             }
 
             return canMove;
+        }
+
+        public void IsTileExit(int column, int row)
+        {
+            string tileName = MapGrid[column, row].Name;
+            if (tileName == "Exit")
+            {
+                Console.WriteLine("Hi!");
+                // If it is an exit, alter values in the Gamestate,
+                //  create a new location, and update the map grid.
+            }
+            else
+            {
+                DoEnemyTurn();
+            }
+        }
+
+        public void UpdatePlayerMovement(int tCol, int tRow)
+        {
+            int pRow = Player.TilePositionRow;
+            int pCol = Player.TilePositionColumn;
+            int distance = 0;
+
+            if (pRow == tRow)
+            {
+                distance = Math.Abs(tCol - pCol);
+            }
+
+            if(pCol == tCol)
+            {
+                distance = Math.Abs(tRow - pRow);
+            }
+
+            Player.MovementCurrent -= distance;
+        }
+
+        public void UpdatePlayerPositions(int column, int row)
+        {
+            Player.TilePositionColumn = column;
+            Player.TilePositionRow = row;
+            Player.TilePosition = CalculateTilePosition(column, row);
         }
 
         public (int, int) CharacterCoordinates(string tag)
@@ -287,6 +338,11 @@ namespace TBQuestGame.View
         // This ensures that the view does not have to directly reference the model.
         //  ex. Creating a TileConstants object in the view is not necessary.
         //      If it were included, it would distort the separation between the three elements.
+
+        public int GetTotalGridTiles()
+        {
+            return C.TotalTileCount;
+        }
 
         public int GetTotalTilesPerRow()
         {

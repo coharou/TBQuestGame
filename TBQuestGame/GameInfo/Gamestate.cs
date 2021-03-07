@@ -42,6 +42,15 @@ namespace TBQuestGame.GameInfo
             get { return _canPlayerAct; }
             set { _canPlayerAct = value; }
         }
+
+        private int _turnCount;
+
+        public int TurnCount
+        {
+            get { return _turnCount; }
+            set { _turnCount = value; }
+        }
+
         #endregion
 
         #region OBJECT FOR Random CLASS
@@ -67,6 +76,7 @@ namespace TBQuestGame.GameInfo
             PausedByTraits = false;
             RandObj = ObtainRandObj();
             CanPlayerAct = canPlayerAct;
+            TurnCount = 0;
         }
         #endregion
     }

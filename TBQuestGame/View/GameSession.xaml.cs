@@ -146,6 +146,27 @@ namespace TBQuestGame.View
                 }
             }
         }
+
+        private void UpdateMapGridTiles()
+        {
+            UIElementCollection collection = grid_Map.Children;
+            int TotalTiles = _gameViewModel.GetTotalGridTiles();
+
+            int tpr = _gameViewModel.GetTotalTilesPerRow();
+            int item = 0;
+
+            for (int x = 0; x < tpr; x++)
+            {
+                for (int y = 0; y < tpr; y++)
+                {
+                    Button tile = (Button)collection[item];
+                    tile.Name = _gameViewModel.GetTileName(x, y);
+                    tile.Background = PrepareTileBackground(x, y);
+                    collection[item] = tile;
+                    item++;
+                }
+            }
+        }
         #endregion
 
         #region Tile CLICK METHODS
@@ -169,6 +190,8 @@ namespace TBQuestGame.View
                 Image character = (Image)collection[0];
                 Grid.SetColumn(character, x);
                 Grid.SetRow(character, y);
+
+                _gameViewModel.IsTileExit(x, y);
             }
         }
         #endregion
