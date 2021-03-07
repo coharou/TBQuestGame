@@ -29,6 +29,8 @@ namespace TBQuestGame.Business
 
             _location = GameData.InitDefaultLocation(_gamestate);
 
+            _gamestate.Location = _location.Name;
+
             _gameViewModel = new GameViewModel(_player, _location, _gamestate);
 
             GameSession gameSession = new GameSession(_gameViewModel);

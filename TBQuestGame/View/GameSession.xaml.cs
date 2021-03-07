@@ -232,7 +232,7 @@ namespace TBQuestGame.View
 
                 if (isExit == true)
                 {
-                    _gameViewModel.InitiateNewLocation();
+                    _gameViewModel.DungeonTransition();
                     UpdateMapGridTiles();
                     _gameViewModel.MatchPlayerPositionToEntrance();
                     ChangeCharacterIconPositionAlternate();

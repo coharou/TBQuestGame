@@ -15,7 +15,11 @@ namespace TBQuestGame.View
         public Player Player
         {
             get { return _player; }
-            set { _player = value; }
+            set 
+            { 
+                _player = value;
+                OnPropertyChanged(nameof(Player));
+            }
         }
 
         private Gamestate _gameState;
@@ -108,6 +112,14 @@ namespace TBQuestGame.View
             Gamestate.TurnCount += 1;
             Player.MovementCurrent = Player.MovementMax;
             Gamestate.CanPlayerAct = true;
+        }
+
+        public void DungeonTransition()
+        {
+            InitiateNewLocation();
+            PrizesForCompletingDungeonLayer();
+            Gamestate.LocationCount += 1;
+            Gamestate.Location = Location.Name;
         }
         #endregion
 
@@ -387,6 +399,13 @@ namespace TBQuestGame.View
             }
 
             return position;
+        }
+        #endregion
+
+        #region TURN TRANSITION METHODS
+        public void PrizesForCompletingDungeonLayer()
+        {
+            Player.Coins += 100;
         }
         #endregion
 

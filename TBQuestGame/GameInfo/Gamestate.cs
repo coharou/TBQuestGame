@@ -48,7 +48,11 @@ namespace TBQuestGame.GameInfo
         public int TurnCount
         {
             get { return _turnCount; }
-            set { _turnCount = value; }
+            set 
+            { 
+                _turnCount = value;
+                OnPropertyChanged(nameof(TurnCount));
+            }
         }
 
         private int _locationCount;
@@ -56,7 +60,23 @@ namespace TBQuestGame.GameInfo
         public int LocationCount
         {
             get { return _locationCount; }
-            set { _locationCount = value; }
+            set 
+            { 
+                _locationCount = value;
+                OnPropertyChanged(nameof(LocationCount));
+            }
+        }
+
+        private string _location;
+
+        public string Location
+        {
+            get { return _location; }
+            set 
+            { 
+                _location = value;
+                OnPropertyChanged(nameof(Location));
+            }
         }
 
 
@@ -87,6 +107,7 @@ namespace TBQuestGame.GameInfo
             CanPlayerAct = canPlayerAct;
             TurnCount = 1;
             LocationCount = 1;
+            Location = "";
         }
         #endregion
     }
