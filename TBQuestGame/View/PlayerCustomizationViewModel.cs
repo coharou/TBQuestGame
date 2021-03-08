@@ -54,6 +54,17 @@ namespace TBQuestGame.View
             set { _player = value; }
         }
 
+        private string _playerMessage;
+
+        public string PlayerMessage
+        {
+            get { return _playerMessage; }
+            set 
+            { 
+                _playerMessage = value;
+                OnPropertyChanged(nameof(PlayerMessage));
+            }
+        }
         #endregion
 
         public PlayerCustomizationViewModel(Armor[] armor, Traits[] traits, Moves[] moves, Player player)

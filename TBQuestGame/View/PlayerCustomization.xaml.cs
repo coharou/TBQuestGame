@@ -20,7 +20,8 @@ namespace TBQuestGame.View
     /// </summary>
     public partial class PlayerCustomization : Window
     {
-        private PlayerCustomizationViewModel _viewModel;
+        public PlayerCustomizationViewModel _viewModel;
+
 
         public PlayerCustomization(PlayerCustomizationViewModel viewModel)
         {
@@ -33,10 +34,6 @@ namespace TBQuestGame.View
             AddMovesToScrollViewer(_viewModel.Moves);
 
             AddArmorToScrollViewer(_viewModel.Armors);
-            
-            // May want a method that adds info to the screen / lists (like a for loop of armor and add it to the items source)
-
-            // Make sure to set up the window like it is set up in the main game session (full screen, etc.)
         }
 
         private void AddMovesToScrollViewer(Moves[] moves)
@@ -57,7 +54,9 @@ namespace TBQuestGame.View
 
         private void AddTraitsToScrollViewer(Traits[] traits)
         {
-            for (int i = 0; i < traits.Length; i++)
+            int length = traits.Length - 3;
+
+            for (int i = 0; i < length; i++)
             {
                 CheckBox box = new CheckBox();
                 box.Tag = "traits";
@@ -93,14 +92,202 @@ namespace TBQuestGame.View
 
             if (isPlayerReady == true)
             {
+                _viewModel.Player.ArmorType = GetArmorInUse();
+
+                List<Traits> traits = GetTraitsInUse();
+                _viewModel.Player.TraitChosenFirst = traits[0];
+                _viewModel.Player.TraitChosenSecond = traits[1];
+
+                List<Moves> moves = GetMovesInUse();
+                _viewModel.Player.MoveOne = moves[0];
+                _viewModel.Player.MoveTwo = moves[1];
+                _viewModel.Player.MoveThree = moves[2];
+                _viewModel.Player.MoveFour = moves[3];
+                _viewModel.Player.MoveFive = moves[4];
+                _viewModel.Player.MoveSix = moves[5];
+
                 Visibility = Visibility.Hidden;
             }
+        }
+
+        private List<Moves> GetMovesInUse()
+        {
+            List<Moves> moves = new List<Moves>(); ;
+
+            UIElementCollection collection = panel_Moves.Children;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is CheckBox)
+                {
+                    CheckBox box = (CheckBox)collection[i];
+
+                    if (box.IsChecked == true)
+                    {
+                        string name = (string)box.Content;
+
+                        for (int y = 0; y < _viewModel.Moves.Length; y++)
+                        {
+                            if (_viewModel.Moves[y].Name == name)
+                            {
+                                moves.Add(_viewModel.Moves[y]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return moves;
+        }
+
+        private List<Traits> GetTraitsInUse()
+        {
+            List<Traits> traits = new List<Traits>();
+
+            UIElementCollection collection = panel_Traits.Children;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if(collection[i] is CheckBox)
+                {
+                    CheckBox box = (CheckBox)collection[i];
+
+                    if (box.IsChecked == true)
+                    {
+                        string name = (string)box.Content;
+
+                        for (int y = 0; y < _viewModel.Traits.Length; y++)
+                        {
+                            if (_viewModel.Traits[y].Name == name)
+                            {
+                                traits.Add(_viewModel.Traits[y]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return traits;
+        }
+
+        private Armor GetArmorInUse()
+        {
+            Armor armor = _viewModel.Armors[0];
+
+            UIElementCollection collection = panel_Armor.Children;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is RadioButton)
+                {
+                    RadioButton btn = (RadioButton)collection[i];
+
+                    if (btn.IsChecked == true)
+                    {
+                        string name = btn.Name;
+
+                        foreach (var item in _viewModel.Armors)
+                        {
+                            if (item.Name == name)
+                            {
+                                armor = item;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return armor;
         }
 
         private bool CheckIfPlayerReady()
         {
             bool isPlayerReady = false;
+
+            bool areMovesReady = CheckMovesBoxes();
+            bool areTraitsReady = CheckTraitsBoxes();
+            bool isArmorReady = CheckArmorButton();
+
+            if ((areMovesReady == true) && (areTraitsReady == true) && (isArmorReady == true))
+            {
+                isPlayerReady = true;
+            }
+
             return isPlayerReady;
+        }
+
+        private bool CheckArmorButton()
+        {
+            bool isArmorReady = false;
+            UIElementCollection collection = panel_Armor.Children;
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is RadioButton)
+                {
+                    RadioButton btn = (RadioButton)collection[i];
+                    if (btn.IsChecked == true)
+                    {
+                        isArmorReady = true;
+                    }
+                }
+            }
+            return isArmorReady;
+        }
+
+        private bool CheckTraitsBoxes()
+        {
+            bool areTraitsReady = false;
+
+            int traits_desired = 2;
+            int traits_used = 0;
+
+            UIElementCollection collection = panel_Traits.Children;
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if(collection[i] is CheckBox)
+                {
+                    CheckBox box = (CheckBox)collection[i];
+                    if (box.IsChecked == true)
+                    {
+                        traits_used++;
+                    }
+                }
+            }
+
+            if (traits_used == traits_desired)
+            {
+                areTraitsReady = true;
+            }
+
+            return areTraitsReady;
+        }
+
+        private bool CheckMovesBoxes()
+        {
+            bool areMovesReady = false;
+
+            int moves_desired = 6;
+            int moves_used = 0;
+
+            UIElementCollection collection = panel_Moves.Children;
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is CheckBox)
+                {
+                    CheckBox box = (CheckBox)collection[i];
+                    if (box.IsChecked == true)
+                    {
+                        moves_used++;
+                    }
+                }
+            }
+
+            if (moves_used == moves_desired)
+            {
+                areMovesReady = true;
+            }
+
+            return areMovesReady;
         }
 
         private void Btn_Click_Exit(object sender, RoutedEventArgs e)

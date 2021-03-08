@@ -9,13 +9,54 @@ namespace TBQuestGame.GameInfo
     public class Player : Combatant
     {
         #region TRAITS
-        public Traits TraitChosenFirst { get; set; }
 
-        public Traits TraitChosenSecond { get; set; }
+        private Traits _traitChosenFirst;
 
-        public Traits TraitRandomPos { get; set; }
+        public Traits TraitChosenFirst
+        {
+            get { return _traitChosenFirst; }
+            set 
+            { 
+                _traitChosenFirst = value;
+                OnPropertyChanged(nameof(TraitChosenFirst));
+            }
+        }
 
-        public Traits TraitRandomNeg { get; set; }
+        private Traits _traitChosenSecond;
+
+        public Traits TraitChosenSecond
+        {
+            get { return _traitChosenSecond; }
+            set 
+            { 
+                _traitChosenSecond = value;
+                OnPropertyChanged(nameof(TraitChosenSecond));
+            }
+        }
+
+        private Traits _traitRandomPos;
+
+        public Traits TraitRandomPos
+        {
+            get { return _traitRandomPos; }
+            set 
+            {
+                _traitRandomPos = value;
+                OnPropertyChanged(nameof(TraitRandomPos));
+            }
+        }
+
+        private Traits _traitRandomNeg;
+
+        public Traits TraitRandomNeg
+        {
+            get { return _traitRandomNeg; }
+            set 
+            { 
+                _traitRandomNeg = value;
+                OnPropertyChanged(nameof(TraitRandomNeg));
+            }
+        }
         #endregion
 
         #region SKILLS (traits derived)

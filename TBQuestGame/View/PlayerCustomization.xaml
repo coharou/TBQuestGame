@@ -98,7 +98,7 @@
                             There are three different move classes: Melee, Ranged, and Gunpowder.
                             You must choose six moves before proceeding to the game.
                         </TextBlock>
-                        <ScrollViewer 
+                        <ScrollViewer
                             Style = "{StaticResource scr_vw}" 
                             Height="160"
                             x:Name="scr_Moves">

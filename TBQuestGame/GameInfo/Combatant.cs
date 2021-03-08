@@ -96,17 +96,77 @@ namespace TBQuestGame.GameInfo
 
         #region MOVES (attacks)
 
-        public Moves MoveOne { get; set; }
+        private Moves _moveOne;
 
-        public Moves MoveTwo { get; set; }
+        public Moves MoveOne
+        {
+            get { return _moveOne; }
+            set 
+            { 
+                _moveOne = value;
+                OnPropertyChanged(nameof(MoveOne));
+            }
+        }
 
-        public Moves MoveThree { get; set; }
+        private Moves _moveTwo;
 
-        public Moves MoveFour { get; set; }
+        public Moves MoveTwo
+        {
+            get { return _moveTwo; }
+            set 
+            { 
+                _moveTwo = value;
+                OnPropertyChanged(nameof(MoveTwo));
+            }
+        }
 
-        public Moves MoveFive { get; set; }
+        private Moves _moveThree;
 
-        public Moves MoveSix { get; set; }
+        public Moves MoveThree
+        {
+            get { return _moveThree; }
+            set 
+            { 
+                _moveThree = value;
+                OnPropertyChanged(nameof(MoveThree));
+            }
+        }
+
+        private Moves _moveFour;
+
+        public Moves MoveFour
+        {
+            get { return _moveFour; }
+            set 
+            { 
+                _moveFour = value;
+                OnPropertyChanged(nameof(MoveFour));
+            }
+        }
+
+        private Moves _moveFive;
+
+        public Moves MoveFive
+        {
+            get { return _moveFive; }
+            set 
+            { 
+                _moveFive = value;
+                OnPropertyChanged(nameof(MoveFive));
+            }
+        }
+
+        private Moves _moveSix;
+
+        public Moves MoveSix
+        {
+            get { return _moveSix; }
+            set 
+            { 
+                _moveSix = value;
+                OnPropertyChanged(nameof(MoveSix));
+            }
+        }
 
         public int ResourcefulnessMod { get; set; }
         #endregion

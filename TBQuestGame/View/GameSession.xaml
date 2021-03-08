@@ -66,6 +66,7 @@
             <Setter Property="FontSize" Value="18"></Setter>
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="Padding" Value="10"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
         </Style>
         <Style x:Key="rect_overlay" TargetType="Rectangle">
             <Setter Property="Fill" Value="Black"></Setter>
@@ -280,7 +281,7 @@
         <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
         
         <!--#region MENU OPTIONS -->
-        <Grid Visibility="Hidden">
+        <Grid Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 HorizontalAlignment="Center" 
@@ -310,7 +311,7 @@
         <!--#endregion-->
         
         <!--#region TRAITS MENU-->
-        <Grid Visibility="Hidden">
+        <Grid Visibility="{Binding Gamestate.PausedByTraits, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 MaxWidth="600"
