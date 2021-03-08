@@ -10,7 +10,7 @@
         WindowStyle="None"
         Width="1024"
         Height="768"
-        Background="DarkRed"
+        Background="Black"
         Title="GameSession"
         Loaded="Window_Loaded">
     
@@ -105,7 +105,7 @@
     <!--#endregion-->
     
     <Grid Width="1024" Height="768">
-        
+        <Rectangle Fill="LightGray"></Rectangle>
         <Image Source="/TBQuestGame;component/Assets/top_banner.png"/>
         <Image Source="/TBQuestGame;component/Assets/bottom_banner.png"/>
         <Image Source="/TBQuestGame;component/Assets/map_grid.png"/>

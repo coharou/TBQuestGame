@@ -123,15 +123,15 @@ namespace TBQuestGame.Data
             List<Tiles> assets = new List<Tiles>()
             {
                 new Tiles(0, "Default", path + "default.png", "Generic", true),
-                new Tiles(1, "Deep Water", path + "deep_water.png", "River", false),
-                new Tiles(2, "Dense Forest", path + "dense_forest.png", "General", false),
+                new Tiles(1, "Deep_Water", path + "deep_water.png", "River", false),
+                new Tiles(2, "Dense_Forest", path + "dense_forest.png", "General", false),
                 new Tiles(3, "Entrance", path + "entrance.png", "Generic", true),
                 new Tiles(4, "Exit", path + "exit.png", "Generic", true),
                 new Tiles(5, "Fields", path + "fields.png", "General", true),
-                new Tiles(6, "Forest Fringe", path + "fringe_forest.png", "General", true),
+                new Tiles(6, "Forest_Fringe", path + "fringe_forest.png", "General", true),
                 new Tiles(7, "Rocks", path + "rocks.png", "General", false),
                 new Tiles(8, "Sand", path + "sand.png", "River", true),
-                new Tiles(9, "Shallow Water", path + "shallow_water.png", "General", true),
+                new Tiles(9, "Shallow_Water", path + "shallow_water.png", "General", true),
                 new Tiles(10, "Thorns", path + "thorns.png", "Forest", false)
             };
 
@@ -140,7 +140,7 @@ namespace TBQuestGame.Data
 
         public static Location InitDefaultLocation(Gamestate gamestate)
         {
-            Location standard = new Location(0, "Default", "Initialized when the game loads", gamestate.RandObj);
+            Location standard = new Dungeon(0, "Default", "Initialized when the game loads", gamestate.RandObj);
             return standard;
         }
     }

@@ -10,7 +10,7 @@
         Width="1024"
         ResizeMode="NoResize"
         WindowStyle="None"
-        Background="DarkRed">
+        Background="LightGray">
 
     <Window.Resources>
         <Style x:Key="btn_Any_Menu" TargetType="Button">

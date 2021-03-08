@@ -8,6 +8,8 @@ namespace TBQuestGame.GameInfo
 {
     public class Dungeon : Location
     {
+        public Location Location { get; set; }
+
         #region CONSTRUCTORS
         public Dungeon(int id, string name, string description, Random randObj) :
             base(id, name, description, randObj)
@@ -15,7 +17,270 @@ namespace TBQuestGame.GameInfo
             ID = id;
             Name = name;
             Description = description;
+
+            TileConstants C = new TileConstants();
+
+            TileGrid = GenerateTiles(randObj, C);
         }
         #endregion
+
+        protected override Tiles[,] GenerateTiles(Random randObj, TileConstants C)
+        {
+            Tiles[,] tiles = new Tiles[C.TilesPerRow, C.TilesPerRow];
+            tiles = FillAllTilesWithField(tiles, C);
+            tiles = AddAllTerrainTypes(tiles, C, randObj);
+            tiles = SpreadFringeForest(tiles, C, randObj);
+            tiles = SetDoorPositions(randObj, tiles, C);
+            tiles = ClearAreaAroundDoors(randObj, tiles, C);
+            return tiles;
+        }
+
+        private Tiles[,] ClearAreaAroundDoors(Random randObj, Tiles[,] tiles, TileConstants c)
+        {
+            Tiles entry = MatchTile(3);
+            Tiles exit = MatchTile(4);
+            Tiles fringe = MatchTile(6);
+
+            for (int x = 0; x < c.TilesPerRow; x++)
+            {
+                for (int y = 0; y < c.TilesPerRow; y++)
+                {
+                    Tiles tile = tiles[x, y];
+
+                    if (tile == entry || tile == exit)
+                    {
+                        ClearSurroundingImpassableTiles(x, y, tiles, c, fringe);
+                    }
+                }
+            }
+
+            return tiles;
+        }
+
+        private Tiles[,] ClearSurroundingImpassableTiles(int x, int y, Tiles[,] tiles, TileConstants C, Tiles desired)
+        {
+            int right = x + 1;
+
+            if (x == (C.TilesPerRow - 1))
+            {
+                right = C.TilesPerRow - 1;
+            }
+
+            int left = x - 1;
+
+            if (x == 0)
+            {
+                left = 0;
+            }
+
+            int above = y - 1;
+
+            if (y == 0)
+            {
+                above = 0;
+            }
+
+            int below = y + 1;
+
+            if (y == (C.TilesPerRow - 1))
+            {
+                below = C.TilesPerRow - 1;
+            }
+
+            if (tiles[right, y].Passable == false)
+            {
+                tiles[right, y] = desired;
+            }
+            else if (tiles[left, y].Passable == false)
+            {
+                tiles[left, y] = desired;
+            }
+            else if (tiles[x, below].Passable == false)
+            {
+                tiles[x, below] = desired;
+            }
+            else if (tiles[x, above].Passable == false)
+            {
+                tiles[x, above] = desired;
+            }
+
+            return tiles;
+        }
+
+        protected override Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles, TileConstants C)
+        {
+            int start = 16;
+            int last = C.TotalTileCount - 16;
+
+            int exit = randObj.Next(0, start);
+            int entry = randObj.Next(last, C.TotalTileCount);
+
+            int exitX, exitY, entryX, entryY;
+            (exitX, exitY) = GetColumnAndRow(exit, C);
+            (entryX, entryY) = GetColumnAndRow(entry, C);
+
+            tiles[entryX, entryY] = MatchTileID(3);
+            tiles[exitX, exitY] = MatchTileID(4);
+
+            return tiles;
+        }
+
+        private (int, int) GetColumnAndRow(int pos, TileConstants C)
+        {
+            double col = pos / C.TilesPerRow;
+            int column = (int)Math.Floor(col);
+
+            int row = pos % C.TilesPerRow;
+
+            return (column, row);
+        }
+
+        private Tiles[,] SpreadFringeForest(Tiles[,] tiles, TileConstants c, Random randObj)
+        {
+            for (int x = 0; x < c.TilesPerRow; x++)
+            {
+                for (int y = 0; y < c.TilesPerRow; y++)
+                {
+                    Tiles tile = tiles[x, y];
+                    Tiles fringe = MatchTile(6);
+                    // Tiles dense = MatchTile(2);
+
+                    if (tile.Name == fringe.Name)
+                    {
+                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, fringe, c, randObj, 20);
+                    }
+                    /*
+                    if (tile == dense)
+                    {
+                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, dense, c, randObj, 15);
+                    }
+                    */
+                }
+            }
+            return tiles;
+        }
+
+        private Tiles[,] ReplaceSurroundingTiles(int x, int y, Tiles[,] tiles, Tiles tile, Tiles sampler, TileConstants c, Random randObj, int chance)
+        {
+            Tiles plains = MatchTile(5);
+
+            int right = x + 1;
+
+            if (x == (c.TilesPerRow - 1))
+            {
+                right = c.TilesPerRow - 1;
+            }
+
+            int left = x - 1;
+
+            if (x == 0)
+            {
+                left = 0;
+            }
+
+            int above = y - 1;
+
+            if (y == 0)
+            {
+                above = 0;
+            }
+
+            int below = y + 1;
+
+            if (y == (c.TilesPerRow - 1))
+            {
+                below = c.TilesPerRow - 1;
+            }
+
+            int value = randObj.Next(0, 100);
+
+            if (tiles[right, y].Name == plains.Name)
+            {
+                if (value < chance)
+                {
+                    tiles[right, y] = sampler;
+                }
+            }
+            else if (tiles[left, y].Name == plains.Name)
+            {
+                if (value < chance)
+                {
+                    tiles[left, y] = sampler;
+                }
+            }
+            else if (tiles[x, below].Name == plains.Name)
+            {
+                if (value < chance)
+                {
+                    tiles[x, below] = sampler;
+                }
+            }
+            else if (tiles[x, above].Name == plains.Name)
+            {
+                if (value < chance)
+                {
+                    tiles[x, above] = sampler;
+                }
+            }
+
+            return tiles;
+        }
+
+        private Tiles[,] AddAllTerrainTypes(Tiles[,] tiles, TileConstants c, Random randObj)
+        {
+            for (int x = 0; x < c.TilesPerRow; x++)
+            {
+                for (int y = 0; y < c.TilesPerRow; y++)
+                {
+                    int val = randObj.Next(0, 100);
+                    if (val <= 5)
+                    {
+                        tiles[x, y] = MatchTile(7);
+                    }
+                    else if (val > 5 && val <= 15)
+                    {
+                        tiles[x, y] = MatchTile(10);
+                    }
+                    else if (val > 15 && val <= 35)
+                    {
+                        tiles[x, y] = MatchTile(2);
+                    }
+                    else if (val > 35 && val <= 55)
+                    {
+                        tiles[x, y] = MatchTile(5);
+                    }
+                    else if (val > 55 && val <= 100)
+                    {
+                        tiles[x, y] = MatchTile(6);
+                    }
+                    else
+                    {
+                        tiles[x, y] = MatchTile(5);
+                    }
+                }
+            }
+
+            return tiles;
+        }
+
+        private Tiles[,] FillAllTilesWithField(Tiles[,] tiles, TileConstants c)
+        {
+            for (int x = 0; x < c.TilesPerRow; x++)
+            {
+                for (int y = 0; y < c.TilesPerRow; y++)
+                {
+                    tiles[x, y] = MatchTile(5);
+                }
+            }
+
+            return tiles;
+        }
+
+        private Tiles MatchTile(int id)
+        {
+            List<Tiles> t = Data.GameData.GetTilesResources();
+            Tiles tile = t.Find(x => x.ID == id);
+            return tile;
+        }
     }
 }

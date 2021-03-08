@@ -34,7 +34,7 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
-        private Tiles MatchTileID(int id)
+        public Tiles MatchTileID(int id)
         {
             List<Tiles> t = Data.GameData.GetTilesResources();
             Tiles tile = t.Find(x => x.ID == id);
@@ -54,7 +54,7 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
-        private (int, int) CalculateDoorPositions(Random randObj, TileConstants C)
+        protected virtual (int, int) CalculateDoorPositions(Random randObj, TileConstants C)
         {
             int pos = randObj.Next(0, C.TotalTileCount);
 

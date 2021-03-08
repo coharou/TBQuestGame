@@ -225,7 +225,7 @@ namespace TBQuestGame.View
 
         public void InitiateNewLocation()
         {
-            Location standard = new Location(1, "Default", "Initialized when the game loads", Gamestate.RandObj);
+            Location standard = new Dungeon(Gamestate.LocationCount, "Default", "Initialized when the game loads", Gamestate.RandObj);
             MapGrid = standard.TileGrid;
         }
 
