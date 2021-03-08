@@ -120,9 +120,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\background.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\top_banner.png" />
   </ItemGroup>
   <ItemGroup>

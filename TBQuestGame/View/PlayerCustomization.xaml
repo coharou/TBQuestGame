@@ -9,7 +9,8 @@
         Height="768" 
         Width="1024"
         ResizeMode="NoResize"
-        WindowStyle="None">
+        WindowStyle="None"
+        Background="DarkRed">
 
     <Window.Resources>
         <Style x:Key="btn_Any_Menu" TargetType="Button">
@@ -55,11 +56,8 @@
             <Setter Property="Margin" Value="16"></Setter>
         </Style>
     </Window.Resources>
-    
-    <Grid Width="1024" Height="768">
-        
-        <Image Source="/TBQuestGame;component/Assets/background.png"/>
 
+    <Grid Width="1024" Height="768">
         <Grid 
             Margin="64"
             Background="White">
