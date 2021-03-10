@@ -47,7 +47,7 @@ namespace TBQuestGame.GameInfo
                 {
                     Tiles tile = tiles[x, y];
 
-                    if (tile == entry || tile == exit)
+                    if (tile.Name == entry.Name || tile.Name == exit.Name)
                     {
                         ClearSurroundingImpassableTiles(x, y, tiles, c, fringe);
                     }

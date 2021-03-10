@@ -128,7 +128,7 @@ namespace TBQuestGame.Data
                 new Tiles(3, "Entrance", path + "entrance.png", "Generic", true),
                 new Tiles(4, "Exit", path + "exit.png", "Generic", true),
                 new Tiles(5, "Fields", path + "fields.png", "General", true),
-                new Tiles(6, "Forest_Fringe", path + "fringe_forest.png", "General", true),
+                new Tiles(6, "Forest_Fringe", path + "forest.png", "General", true),
                 new Tiles(7, "Rocks", path + "rocks.png", "General", false),
                 new Tiles(8, "Sand", path + "sand.png", "River", true),
                 new Tiles(9, "Shallow_Water", path + "shallow_water.png", "General", true),

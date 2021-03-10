@@ -143,6 +143,16 @@ namespace TBQuestGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap forest {
+            get {
+                object obj = ResourceManager.GetObject("forest", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fringe_forest {
             get {
                 object obj = ResourceManager.GetObject("fringe_forest", resourceCulture);
