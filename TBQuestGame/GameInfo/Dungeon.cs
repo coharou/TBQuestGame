@@ -35,6 +35,50 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
+        private Tiles[,] FillAllTilesWithField(Tiles[,] tiles, TileConstants c)
+        {
+            for (int x = 0; x < c.TilesPerRow; x++)
+            {
+                for (int y = 0; y < c.TilesPerRow; y++)
+                {
+                    tiles[x, y] = MatchTile(5);
+                }
+            }
+
+            return tiles;
+        }
+
+        private Tiles[,] AddAllTerrainTypes(Tiles[,] tiles, TileConstants c, Random randObj)
+        {
+            for (int x = 0; x < c.TilesPerRow; x++)
+            {
+                for (int y = 0; y < c.TilesPerRow; y++)
+                {
+                    // Thorns and rocks will be removed until their art is revised
+
+                    int val = randObj.Next(0, 100);
+                    if (val >= 0 && val <= 17)
+                    {
+                        tiles[x, y] = MatchTile(2);
+                    }
+                    else if (val > 17 && val <= 55)
+                    {
+                        tiles[x, y] = MatchTile(5);
+                    }
+                    else if (val > 55 && val <= 100)
+                    {
+                        tiles[x, y] = MatchTile(6);
+                    }
+                    else
+                    {
+                        tiles[x, y] = MatchTile(5);
+                    }
+                }
+            }
+
+            return tiles;
+        }
+
         private Tiles[,] ClearAreaAroundDoors(Random randObj, Tiles[,] tiles, TileConstants c)
         {
             Tiles entry = MatchTile(3);
@@ -143,18 +187,16 @@ namespace TBQuestGame.GameInfo
                 {
                     Tiles tile = tiles[x, y];
                     Tiles fringe = MatchTile(6);
-                    // Tiles dense = MatchTile(2);
+                    Tiles dense = MatchTile(2);
 
                     if (tile.Name == fringe.Name)
                     {
                         tiles = ReplaceSurroundingTiles(x, y, tiles, tile, fringe, c, randObj, 20);
                     }
-                    /*
-                    if (tile == dense)
+                    if (tile.Name == dense.Name)
                     {
-                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, dense, c, randObj, 15);
+                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, dense, c, randObj, 8);
                     }
-                    */
                 }
             }
             return tiles;
@@ -220,56 +262,6 @@ namespace TBQuestGame.GameInfo
                 if (value < chance)
                 {
                     tiles[x, above] = sampler;
-                }
-            }
-
-            return tiles;
-        }
-
-        private Tiles[,] AddAllTerrainTypes(Tiles[,] tiles, TileConstants c, Random randObj)
-        {
-            for (int x = 0; x < c.TilesPerRow; x++)
-            {
-                for (int y = 0; y < c.TilesPerRow; y++)
-                {
-                    int val = randObj.Next(0, 100);
-                    if (val <= 5)
-                    {
-                        tiles[x, y] = MatchTile(7);
-                    }
-                    else if (val > 5 && val <= 15)
-                    {
-                        tiles[x, y] = MatchTile(10);
-                    }
-                    else if (val > 15 && val <= 35)
-                    {
-                        tiles[x, y] = MatchTile(2);
-                    }
-                    else if (val > 35 && val <= 55)
-                    {
-                        tiles[x, y] = MatchTile(5);
-                    }
-                    else if (val > 55 && val <= 100)
-                    {
-                        tiles[x, y] = MatchTile(6);
-                    }
-                    else
-                    {
-                        tiles[x, y] = MatchTile(5);
-                    }
-                }
-            }
-
-            return tiles;
-        }
-
-        private Tiles[,] FillAllTilesWithField(Tiles[,] tiles, TileConstants c)
-        {
-            for (int x = 0; x < c.TilesPerRow; x++)
-            {
-                for (int y = 0; y < c.TilesPerRow; y++)
-                {
-                    tiles[x, y] = MatchTile(5);
                 }
             }
 
