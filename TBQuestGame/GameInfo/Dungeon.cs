@@ -27,10 +27,20 @@ namespace TBQuestGame.GameInfo
         protected override Tiles[,] GenerateTiles(Random randObj, TileConstants C)
         {
             Tiles[,] tiles = new Tiles[C.TilesPerRow, C.TilesPerRow];
+
+            // Applies Field to all tiles to ensure none are undefined
             tiles = FillAllTilesWithField(tiles, C);
+
+            // Adds the rest of the terrain types for the given dungeon
             tiles = AddAllTerrainTypes(tiles, C, randObj);
+
+            // Spreads the forest types throughout the map for dense clusters
             tiles = SpreadFringeForest(tiles, C, randObj);
+
+            // Sets the door positions on the grid
             tiles = SetDoorPositions(randObj, tiles, C);
+
+            // Clears most of the impassable terrain around the doors
             tiles = ClearAreaAroundDoors(randObj, tiles, C);
             return tiles;
         }
@@ -79,11 +89,53 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
+        private Tiles[,] SpreadFringeForest(Tiles[,] tiles, TileConstants c, Random randObj)
+        {
+            for (int x = 0; x < c.TilesPerRow; x++)
+            {
+                for (int y = 0; y < c.TilesPerRow; y++)
+                {
+                    Tiles tile = tiles[x, y];
+                    Tiles fringe = MatchTile(6);
+                    Tiles dense = MatchTile(2);
+
+                    if (tile.Name == fringe.Name)
+                    {
+                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, fringe, c, randObj, 20);
+                    }
+                    if (tile.Name == dense.Name)
+                    {
+                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, dense, c, randObj, 8);
+                    }
+                }
+            }
+
+            return tiles;
+        }
+
+        protected override Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles, TileConstants C)
+        {
+            int start = 16;
+            int last = C.TotalTileCount - 16;
+
+            int exit = randObj.Next(0, start);
+            int entry = randObj.Next(last, C.TotalTileCount);
+
+            int exitX, exitY, entryX, entryY;
+            (exitX, exitY) = GetColumnAndRow(exit, C);
+            (entryX, entryY) = GetColumnAndRow(entry, C);
+
+            tiles[entryY, entryX] = MatchTileID(3);
+            tiles[exitY, exitX] = MatchTileID(4);
+
+            return tiles;
+        }
+
         private Tiles[,] ClearAreaAroundDoors(Random randObj, Tiles[,] tiles, TileConstants c)
         {
             Tiles entry = MatchTile(3);
             Tiles exit = MatchTile(4);
-            Tiles fringe = MatchTile(6);
+            Tiles fields = MatchTile(5);
 
             for (int x = 0; x < c.TilesPerRow; x++)
             {
@@ -93,7 +145,7 @@ namespace TBQuestGame.GameInfo
 
                     if (tile.Name == entry.Name || tile.Name == exit.Name)
                     {
-                        ClearSurroundingImpassableTiles(x, y, tiles, c, fringe);
+                        ClearSurroundingImpassableTiles(x, y, tiles, c, fields);
                     }
                 }
             }
@@ -151,24 +203,6 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
-        protected override Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles, TileConstants C)
-        {
-            int start = 16;
-            int last = C.TotalTileCount - 16;
-
-            int exit = randObj.Next(0, start);
-            int entry = randObj.Next(last, C.TotalTileCount);
-
-            int exitX, exitY, entryX, entryY;
-            (exitX, exitY) = GetColumnAndRow(exit, C);
-            (entryX, entryY) = GetColumnAndRow(entry, C);
-
-            tiles[entryX, entryY] = MatchTileID(3);
-            tiles[exitX, exitY] = MatchTileID(4);
-
-            return tiles;
-        }
-
         private (int, int) GetColumnAndRow(int pos, TileConstants C)
         {
             double col = pos / C.TilesPerRow;
@@ -177,29 +211,6 @@ namespace TBQuestGame.GameInfo
             int row = pos % C.TilesPerRow;
 
             return (column, row);
-        }
-
-        private Tiles[,] SpreadFringeForest(Tiles[,] tiles, TileConstants c, Random randObj)
-        {
-            for (int x = 0; x < c.TilesPerRow; x++)
-            {
-                for (int y = 0; y < c.TilesPerRow; y++)
-                {
-                    Tiles tile = tiles[x, y];
-                    Tiles fringe = MatchTile(6);
-                    Tiles dense = MatchTile(2);
-
-                    if (tile.Name == fringe.Name)
-                    {
-                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, fringe, c, randObj, 20);
-                    }
-                    if (tile.Name == dense.Name)
-                    {
-                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, dense, c, randObj, 8);
-                    }
-                }
-            }
-            return tiles;
         }
 
         private Tiles[,] ReplaceSurroundingTiles(int x, int y, Tiles[,] tiles, Tiles tile, Tiles sampler, TileConstants c, Random randObj, int chance)
