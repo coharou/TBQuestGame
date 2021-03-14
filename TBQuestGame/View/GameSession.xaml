@@ -106,9 +106,7 @@
     
     <Grid Width="1024" Height="768">
         <Rectangle Fill="LightGray"></Rectangle>
-        <Image Source="/TBQuestGame;component/Assets/top_banner.png"/>
-        <Image Source="/TBQuestGame;component/Assets/bottom_banner.png"/>
-        <Image Source="/TBQuestGame;component/Assets/map_grid.png"/>
+        <Image Source="/TBQuestGame;component/Assets/wood_frame.png"/>
 
         <Grid x:Name="grid_Map" 
             Width="480" 
@@ -178,7 +176,7 @@
         
         <!--#region HUD INFO -->
         <StackPanel 
-            Margin="348,10,335,678">
+            Margin="350,30,334,678">
             <Label 
                 Content="TBQuestGame"
                 HorizontalAlignment="Center"
@@ -259,7 +257,7 @@
         <!--#endregion-->
         
         <!--#region MOVE POOL-->
-        <Grid Margin="381,668,365,10">
+        <Grid Margin="350,690,347,21">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -281,7 +279,7 @@
         <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
         
         <!--#region MENU OPTIONS -->
-        <Grid Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}">
+        <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 HorizontalAlignment="Center" 
@@ -311,7 +309,7 @@
         <!--#endregion-->
         
         <!--#region TRAITS MENU-->
-        <Grid Visibility="{Binding Gamestate.PausedByTraits, Converter={StaticResource bool_Visibility}}">
+        <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 MaxWidth="600"
