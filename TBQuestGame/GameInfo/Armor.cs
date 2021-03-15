@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    public class Armor
+    public class Armor : Item
     {
-        #region TEXT DETAILS
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-        #endregion
-
         #region RESISTANCES
         public int ResistRanged { get; set; }
 
@@ -23,10 +17,9 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region CONSTRUCTOR
-        public Armor(string name, string description, int resistRanged, int resistMelee, int resistGunpowder)
+        public Armor(int id, string name, string description, int resistRanged, int resistMelee, int resistGunpowder):
+            base (id, name, description)
         {
-            Name = name;
-            Description = description;
             ResistRanged = resistRanged;
             ResistMelee = resistMelee;
             ResistGunpowder = resistGunpowder;
