@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    public class Moves
+    public class Moves : GameObject
     {
-        #region TEXT DETAILS
-        public string Name { get; set; }
-
-        // public string Description { get; set; }
-        #endregion
-
         #region DAMAGE
         public DamageType DamageClass { get; set; }
 
@@ -59,10 +53,9 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region CONSTRUCTOR
-        public Moves(string name, DamageType damageClass, int damage, int accuracy, StatusType status, int statusChance, bool isItemUsed, Ammunition ammunition)
+        public Moves(int id, string name, string description, DamageType damageClass, int damage, int accuracy, StatusType status, int statusChance, bool isItemUsed, Ammunition ammunition):
+            base (id, name, description)
         {
-            Name = name;
-            // Description = description;
             DamageClass = damageClass;
             Damage = damage;
             Accuracy = accuracy;

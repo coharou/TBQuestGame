@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    public class Armor : Item
+    public class Armor : GameObject
     {
         #region RESISTANCES
         public int ResistRanged { get; set; }

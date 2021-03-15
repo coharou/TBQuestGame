@@ -53,14 +53,14 @@ namespace TBQuestGame.Data
 
             Moves[] moves = new Moves[]
             {
-                new Moves("Javelin", Moves.DamageType.Ranged, 120, 90, Moves.StatusType.Bleeding, 20, false, Moves.Ammunition.None),
-                new Moves("Crossbow", Moves.DamageType.Ranged, 105, 95, Moves.StatusType.None, 0, true, Moves.Ammunition.Arrow),
-                new Moves("Longbow", Moves.DamageType.Ranged, 80, 100, Moves.StatusType.Burning, 80, true, Moves.Ammunition.Arrow),
-                new Moves("Lance", Moves.DamageType.Melee, 105, 95, Moves.StatusType.Bleeding, 30, false, Moves.Ammunition.None),
-                new Moves("Pike", Moves.DamageType.Melee, 90, 100, Moves.StatusType.Bleeding, 10, false, Moves.Ammunition.None),
-                new Moves("Halberd", Moves.DamageType.Melee, 100, 80, Moves.StatusType.Bleeding, 45, false, Moves.Ammunition.None),
-                new Moves("Hand Cannon", Moves.DamageType.Gunpowder, 145, 75, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder),
-                new Moves("Musket", Moves.DamageType.Gunpowder, 120, 85, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder)
+                new Moves(0, "Javelin", "-", Moves.DamageType.Ranged, 120, 90, Moves.StatusType.Bleeding, 20, false, Moves.Ammunition.None),
+                new Moves(1, "Crossbow", "-", Moves.DamageType.Ranged, 105, 95, Moves.StatusType.None, 0, true, Moves.Ammunition.Arrow),
+                new Moves(2, "Longbow", "-", Moves.DamageType.Ranged, 80, 100, Moves.StatusType.Burning, 80, true, Moves.Ammunition.Arrow),
+                new Moves(3, "Lance", "-", Moves.DamageType.Melee, 105, 95, Moves.StatusType.Bleeding, 30, false, Moves.Ammunition.None),
+                new Moves(4, "Pike", "-", Moves.DamageType.Melee, 90, 100, Moves.StatusType.Bleeding, 10, false, Moves.Ammunition.None),
+                new Moves(5, "Halberd", "-", Moves.DamageType.Melee, 100, 80, Moves.StatusType.Bleeding, 45, false, Moves.Ammunition.None),
+                new Moves(6, "Hand Cannon", "-", Moves.DamageType.Gunpowder, 145, 75, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder),
+                new Moves(7, "Musket", "-", Moves.DamageType.Gunpowder, 120, 85, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder)
             };
 
             return moves;
@@ -70,15 +70,15 @@ namespace TBQuestGame.Data
         {
             Traits[] traits = new Traits[]
             {
-                new Traits("CHARISMATIC", "Merchants offer items at a lower price than usual. At the start of the game, receive a one-time boost to Coins."),
-                new Traits("RESOURCEFUL", "75% chance to not consume ammunition on using a move. 10% more damage from Ranged and Gunpowder moves."),
-                new Traits("HARDY", "Regenerate Health 100% faster."),
-                new Traits("FORAGER", "50% chance to receive more items when killing enemies or picking up items off of the ground."),
-                new Traits("ECCENTRIC", "Status effects are 40% more likely to land on an enemy. Status effects deal more damage to enemies."),
-                new Traits("EXPERIENCED", "All moves are 15% more accurate. At the start of the game, receive a one-time boost to Experience."),
-                new Traits("WEAKLING", "-10% damage when using Melee moves. +5% damage taken from enemy moves."),
-                new Traits("RECKLESS", "50% chance to consume additional ammunition on using a move."),
-                new Traits("ASOCIAL", "Merchants offer items at a higher price than usual.")
+                new Traits(0, "CHARISMATIC", "Merchants offer items at a lower price than usual. At the start of the game, receive a one-time boost to Coins."),
+                new Traits(1, "RESOURCEFUL", "75% chance to not consume ammunition on using a move. 10% more damage from Ranged and Gunpowder moves."),
+                new Traits(2, "HARDY", "Regenerate Health 100% faster."),
+                new Traits(3, "FORAGER", "50% chance to receive more items when killing enemies or picking up items off of the ground."),
+                new Traits(4, "ECCENTRIC", "Status effects are 40% more likely to land on an enemy. Status effects deal more damage to enemies."),
+                new Traits(5, "EXPERIENCED", "All moves are 15% more accurate. At the start of the game, receive a one-time boost to Experience."),
+                new Traits(6, "WEAKLING", "-10% damage when using Melee moves. +5% damage taken from enemy moves."),
+                new Traits(7, "RECKLESS", "50% chance to consume additional ammunition on using a move."),
+                new Traits(8, "ASOCIAL", "Merchants offer items at a higher price than usual.")
             };
 
             return traits;

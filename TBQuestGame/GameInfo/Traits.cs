@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    public class Traits
+    public class Traits : GameObject
     {
-        #region PROPERTIES
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-        #endregion
-
         #region CONSTRUCTOR
-        public Traits(string name, string description)
+        public Traits(int id, string name, string description):
+            base (id, name, description)
         {
-            Name = name;
-            Description = description;
+
         }
         #endregion
     }

@@ -35,6 +35,11 @@ namespace TBQuestGame.View
             AddArmorToScrollViewer(_viewModel.Armors);
         }
 
+        private void AddObjectsToScrollViewer()
+        {
+
+        }
+
         private void AddMovesToScrollViewer(Moves[] moves)
         {
             for (int i = 0; i < moves.Length; i++)
@@ -46,7 +51,7 @@ namespace TBQuestGame.View
 
                 TextBlock block = new TextBlock();
                 block.TextWrapping = TextWrapping.Wrap;
-                block.Text = $"{moves[i].DamageClass.ToString()} weapon.\n";
+                block.Text = $"{moves[i].Description}\n";
                 panel_Moves.Children.Add(block);
             }
         }
