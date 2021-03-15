@@ -22,7 +22,6 @@ namespace TBQuestGame.View
     {
         public PlayerCustomizationViewModel _viewModel;
 
-
         public PlayerCustomization(PlayerCustomizationViewModel viewModel)
         {
             _viewModel = viewModel;

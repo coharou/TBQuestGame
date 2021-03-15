@@ -170,39 +170,34 @@ namespace TBQuestGame.View
             return canMove;
         }
 
-        public void MatchPlayerPositionToEntrance()
+        public (int, int) FindTileByName(string sampler)
         {
             for (int x = 0; x < C.TilesPerRow; x++)
             {
                 for (int y = 0; y < C.TilesPerRow; y++)
                 {
                     string name = MapGrid[x, y].Name;
-                    if (name == "Entrance")
+                    if (name == sampler)
                     {
-                        UpdatePlayerPositions(x, y);
-                        break;
+                        return (x, y);
                     }
                 }
             }
+
+            return (0, 0);
+        }
+
+        public void MatchPlayerPositionToEntrance()
+        {
+            (int, int) position = FindTileByName("Entrance");
+            UpdatePlayerPositions(position.Item1, position.Item2);
         }
 
         public int RetrievePositionOfEntrance()
         {
-            int position = 0;
-            for (int x = 0; x < C.TilesPerRow; x++)
-            {
-                for (int y = 0; y < C.TilesPerRow; y++)
-                {
-                    string name = MapGrid[x, y].Name;
-                    if (name == "Entrance")
-                    {
-                        position = CalculateTilePosition(x, y);
-                        break;
-                    }
-                }
-            }
-
-            return position;
+            (int, int) position = FindTileByName("Entrance");
+            int entrance = CalculateTilePosition(position.Item1, position.Item2);
+            return entrance;
         }
 
         public bool IsTileExit(int column, int row)

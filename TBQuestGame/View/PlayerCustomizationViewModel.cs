@@ -7,7 +7,7 @@ using TBQuestGame.GameInfo;
 
 namespace TBQuestGame.View
 {
-    public class PlayerCustomizationViewModel : ObservableObject
+    public class PlayerCustomizationViewModel : ObservableObject 
     {
         #region PROPS
         private Armor[] _armors;
