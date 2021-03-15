@@ -28,49 +28,26 @@ namespace TBQuestGame.View
 
             InitializeComponent();
 
-            AddTraitsToScrollViewer(_viewModel.Traits);
+            AddObjectsToScrollViewer(_viewModel.Traits, "traits", panel_Traits);
+            AddObjectsToScrollViewer(_viewModel.Moves, "moves", panel_Moves);
 
-            AddMovesToScrollViewer(_viewModel.Moves);
-
+            // Requires a separate function due to buttons
             AddArmorToScrollViewer(_viewModel.Armors);
         }
 
-        private void AddObjectsToScrollViewer()
+        private void AddObjectsToScrollViewer(GameObject[] objs, string tag, StackPanel panel)
         {
-
-        }
-
-        private void AddMovesToScrollViewer(Moves[] moves)
-        {
-            for (int i = 0; i < moves.Length; i++)
+            for (int i = 0; i < objs.Length; i++)
             {
                 CheckBox box = new CheckBox();
-                box.Tag = "moves";
-                box.Content = $"{moves[i].Name}";
-                panel_Moves.Children.Add(box);
+                box.Tag = tag;
+                box.Content = $"{objs[i].Name}";
+                panel.Children.Add(box);
 
                 TextBlock block = new TextBlock();
                 block.TextWrapping = TextWrapping.Wrap;
-                block.Text = $"{moves[i].Description}\n";
-                panel_Moves.Children.Add(block);
-            }
-        }
-
-        private void AddTraitsToScrollViewer(Traits[] traits)
-        {
-            int length = traits.Length - 3;
-
-            for (int i = 0; i < length; i++)
-            {
-                CheckBox box = new CheckBox();
-                box.Tag = "traits";
-                box.Content = $"{traits[i].Name}";
-                panel_Traits.Children.Add(box);
-
-                TextBlock block = new TextBlock();
-                block.TextWrapping = TextWrapping.Wrap;
-                block.Text = $"{traits[i].Description}\n";
-                panel_Traits.Children.Add(block);
+                block.Text = $"{objs[i].Description}\n";
+                panel.Children.Add(block);
             }
         }
 
