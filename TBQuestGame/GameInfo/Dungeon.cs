@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TBQuestGame.GameInfo
 {
     public class Dungeon : Location
-    {
+    { 
         public Location Location { get; set; }
 
         #region CONSTRUCTORS
@@ -24,6 +24,7 @@ namespace TBQuestGame.GameInfo
         }
         #endregion
 
+        #region MAP GENERATION
         protected override Tiles[,] GenerateTiles(Random randObj, TileConstants C)
         {
             Tiles[,] tiles = new Tiles[C.TilesPerRow, C.TilesPerRow];
@@ -115,8 +116,11 @@ namespace TBQuestGame.GameInfo
 
         protected override Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles, TileConstants C)
         {
-            int start = 16;
-            int last = C.TotalTileCount - 16;
+            // The number of tiles the door can be spawned at from 0 => start
+            int start = 8;
+
+            // The number of tiles the door can be spawned at from last => 64
+            int last = C.TotalTileCount - start;
 
             int exit = randObj.Next(0, start);
             int entry = randObj.Next(last, C.TotalTileCount);
@@ -203,16 +207,6 @@ namespace TBQuestGame.GameInfo
             return tiles;
         }
 
-        private (int, int) GetColumnAndRow(int pos, TileConstants C)
-        {
-            double col = pos / C.TilesPerRow;
-            int column = (int)Math.Floor(col);
-
-            int row = pos % C.TilesPerRow;
-
-            return (column, row);
-        }
-
         private Tiles[,] ReplaceSurroundingTiles(int x, int y, Tiles[,] tiles, Tiles tile, Tiles sampler, TileConstants c, Random randObj, int chance)
         {
             Tiles plains = MatchTile(5);
@@ -278,6 +272,18 @@ namespace TBQuestGame.GameInfo
 
             return tiles;
         }
+        #endregion
+
+        #region HELPERS
+        private (int, int) GetColumnAndRow(int pos, TileConstants C)
+        {
+            double col = pos / C.TilesPerRow;
+            int column = (int)Math.Floor(col);
+
+            int row = pos % C.TilesPerRow;
+
+            return (column, row);
+        }
 
         private Tiles MatchTile(int id)
         {
@@ -285,5 +291,6 @@ namespace TBQuestGame.GameInfo
             Tiles tile = t.Find(x => x.ID == id);
             return tile;
         }
+        #endregion
     }
 }
