@@ -24,22 +24,6 @@ namespace TBQuestGame.Data
 
             Player player = new Player(id, name, locationId, tilePosition, icon, role, soldierRole);
 
-            // Remove when player customization is added
-            Moves standard = new Moves("move_default", Moves.DamageType.Melee, 1, 100, Moves.StatusType.None, 0, false, Moves.Ammunition.None);
-            player.MoveOne = standard;
-            player.MoveTwo = standard;
-            player.MoveThree = standard;
-            player.MoveFour = standard;
-            player.MoveFive = standard;
-            player.MoveSix = standard;
-
-            // Remove when player customization is added
-            Traits trait_standard = new Traits("DEFAULT TRAIT", "Default text for the default trait, applied before opening the window.");
-            player.TraitChosenFirst = trait_standard;
-            player.TraitChosenSecond = trait_standard;
-            player.TraitRandomNeg = trait_standard;
-            player.TraitRandomPos = trait_standard;
-
             return player;
         }
 

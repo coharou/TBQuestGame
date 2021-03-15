@@ -96,75 +96,15 @@ namespace TBQuestGame.GameInfo
 
         #region MOVES (attacks)
 
-        private Moves _moveOne;
+        private List<Moves> _moves;
 
-        public Moves MoveOne
+        public List<Moves> Moves
         {
-            get { return _moveOne; }
+            get { return _moves; }
             set 
             { 
-                _moveOne = value;
-                OnPropertyChanged(nameof(MoveOne));
-            }
-        }
-
-        private Moves _moveTwo;
-
-        public Moves MoveTwo
-        {
-            get { return _moveTwo; }
-            set 
-            { 
-                _moveTwo = value;
-                OnPropertyChanged(nameof(MoveTwo));
-            }
-        }
-
-        private Moves _moveThree;
-
-        public Moves MoveThree
-        {
-            get { return _moveThree; }
-            set 
-            { 
-                _moveThree = value;
-                OnPropertyChanged(nameof(MoveThree));
-            }
-        }
-
-        private Moves _moveFour;
-
-        public Moves MoveFour
-        {
-            get { return _moveFour; }
-            set 
-            { 
-                _moveFour = value;
-                OnPropertyChanged(nameof(MoveFour));
-            }
-        }
-
-        private Moves _moveFive;
-
-        public Moves MoveFive
-        {
-            get { return _moveFive; }
-            set 
-            { 
-                _moveFive = value;
-                OnPropertyChanged(nameof(MoveFive));
-            }
-        }
-
-        private Moves _moveSix;
-
-        public Moves MoveSix
-        {
-            get { return _moveSix; }
-            set 
-            { 
-                _moveSix = value;
-                OnPropertyChanged(nameof(MoveSix));
+                _moves = value;
+                OnPropertyChanged(nameof(Moves));
             }
         }
 

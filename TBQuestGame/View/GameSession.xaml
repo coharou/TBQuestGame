@@ -267,12 +267,12 @@
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveOne.Name}"></Label>
-            <Label Grid.Row="0" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveTwo.Name}"></Label>
-            <Label Grid.Row="0" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveThree.Name}"></Label>
-            <Label Grid.Row="1" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveFour.Name}"></Label>
-            <Label Grid.Row="1" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveFive.Name}"></Label>
-            <Label Grid.Row="1" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.MoveSix.Name}"></Label>
+            <Label Grid.Row="0" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[0].Name}"></Label>
+            <Label Grid.Row="0" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[1].Name}"></Label>
+            <Label Grid.Row="0" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[2].Name}"></Label>
+            <Label Grid.Row="1" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[3].Name}"></Label>
+            <Label Grid.Row="1" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[4].Name}"></Label>
+            <Label Grid.Row="1" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[5].Name}"></Label>
         </Grid>
         <!--#endregion-->
 
@@ -309,7 +309,7 @@
         <!--#endregion-->
         
         <!--#region TRAITS MENU-->
-        <Grid Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}">
+        <Grid Visibility="{Binding Gamestate.PausedByTraits, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 MaxWidth="600"

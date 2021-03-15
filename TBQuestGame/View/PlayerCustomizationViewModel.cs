@@ -67,6 +67,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
+        #region CONSTRUCTOR
         public PlayerCustomizationViewModel(Armor[] armor, Traits[] traits, Moves[] moves, Player player)
         {
             Armors = armor;
@@ -74,14 +75,6 @@ namespace TBQuestGame.View
             Moves = moves;
             Player = player;
         }
-
-        public Player SendPlayer()
-        {
-            Player player = Data.GameData.InitPlayer();
-
-            // Enter the player moves, armor, and traits here
-
-            return player;
-        }
+        #endregion
     }
 }

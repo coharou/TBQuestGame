@@ -89,25 +89,28 @@ namespace TBQuestGame.View
         private void Btn_Click_Confirm(object sender, RoutedEventArgs e)
         {
             bool isPlayerReady = CheckIfPlayerReady();
-
             if (isPlayerReady == true)
             {
-                _viewModel.Player.ArmorType = GetArmorInUse();
-
-                List<Traits> traits = GetTraitsInUse();
-                _viewModel.Player.TraitChosenFirst = traits[0];
-                _viewModel.Player.TraitChosenSecond = traits[1];
-
-                List<Moves> moves = GetMovesInUse();
-                _viewModel.Player.MoveOne = moves[0];
-                _viewModel.Player.MoveTwo = moves[1];
-                _viewModel.Player.MoveThree = moves[2];
-                _viewModel.Player.MoveFour = moves[3];
-                _viewModel.Player.MoveFive = moves[4];
-                _viewModel.Player.MoveSix = moves[5];
-
-                Visibility = Visibility.Hidden;
+                ApplyPlayerProps();
+                HideDialog();
             }
+        }
+
+        private void ApplyPlayerProps()
+        {
+            _viewModel.Player.ArmorType = GetArmorInUse();
+
+            List<Traits> traits = GetTraitsInUse();
+            _viewModel.Player.TraitChosenFirst = traits[0];
+            _viewModel.Player.TraitChosenSecond = traits[1];
+
+            List<Moves> moves = GetMovesInUse();
+            _viewModel.Player.Moves = moves;
+        }
+
+        private void HideDialog()
+        {
+            Visibility = Visibility.Hidden;
         }
 
         private List<Moves> GetMovesInUse()
