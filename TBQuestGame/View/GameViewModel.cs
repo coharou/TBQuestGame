@@ -390,7 +390,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        #region TURN TRANSITION METHODS
+        #region Experience METHODS
         public void PrizesForCompletingDungeonLayer()
         {
             Player.Coins += 100;

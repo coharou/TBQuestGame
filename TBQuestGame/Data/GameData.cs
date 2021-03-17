@@ -53,14 +53,14 @@ namespace TBQuestGame.Data
 
             Moves[] moves = new Moves[]
             {
-                new Moves(0, "Javelin", "-", Moves.DamageType.Ranged, 120, 90, Moves.StatusType.Bleeding, 20, false, Moves.Ammunition.None),
-                new Moves(1, "Crossbow", "-", Moves.DamageType.Ranged, 105, 95, Moves.StatusType.None, 0, true, Moves.Ammunition.Arrow),
-                new Moves(2, "Longbow", "-", Moves.DamageType.Ranged, 80, 100, Moves.StatusType.Burning, 80, true, Moves.Ammunition.Arrow),
-                new Moves(3, "Lance", "-", Moves.DamageType.Melee, 105, 95, Moves.StatusType.Bleeding, 30, false, Moves.Ammunition.None),
-                new Moves(4, "Pike", "-", Moves.DamageType.Melee, 90, 100, Moves.StatusType.Bleeding, 10, false, Moves.Ammunition.None),
-                new Moves(5, "Halberd", "-", Moves.DamageType.Melee, 100, 80, Moves.StatusType.Bleeding, 45, false, Moves.Ammunition.None),
-                new Moves(6, "Hand Cannon", "-", Moves.DamageType.Gunpowder, 145, 75, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder),
-                new Moves(7, "Musket", "-", Moves.DamageType.Gunpowder, 120, 85, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder)
+                new Moves(0, "Javelin", "Ranged weapon.", Moves.DamageType.Ranged, 120, 90, Moves.StatusType.Bleeding, 20, false, Moves.Ammunition.None),
+                new Moves(1, "Crossbow", "Ranged weapon.", Moves.DamageType.Ranged, 105, 95, Moves.StatusType.None, 0, true, Moves.Ammunition.Arrow),
+                new Moves(2, "Longbow", "Ranged weapon.", Moves.DamageType.Ranged, 80, 100, Moves.StatusType.Burning, 80, true, Moves.Ammunition.Arrow),
+                new Moves(3, "Lance", "Melee weapon.", Moves.DamageType.Melee, 105, 95, Moves.StatusType.Bleeding, 30, false, Moves.Ammunition.None),
+                new Moves(4, "Pike", "Melee weapon.", Moves.DamageType.Melee, 90, 100, Moves.StatusType.Bleeding, 10, false, Moves.Ammunition.None),
+                new Moves(5, "Halberd", "Melee weapon.", Moves.DamageType.Melee, 100, 80, Moves.StatusType.Bleeding, 45, false, Moves.Ammunition.None),
+                new Moves(6, "Hand Cannon", "Gunpowder weapon.", Moves.DamageType.Gunpowder, 145, 75, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder),
+                new Moves(7, "Musket", "Gunpowder weapon.", Moves.DamageType.Gunpowder, 120, 85, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder)
             };
 
             return moves;

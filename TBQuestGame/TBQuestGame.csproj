@@ -59,6 +59,7 @@
     <Compile Include="GameInfo\Dungeon.cs" />
     <Compile Include="GameInfo\GameObject.cs" />
     <Compile Include="GameInfo\Gamestate.cs" />
+    <Compile Include="GameInfo\Item.cs" />
     <Compile Include="GameInfo\Location.cs" />
     <Compile Include="GameInfo\ObservableObject.cs" />
     <Compile Include="GameInfo\Art.cs" />

@@ -186,7 +186,6 @@ namespace TBQuestGame.View
         private void UpdateMapGridTiles()
         {
             UIElementCollection collection = grid_Map.Children;
-            int TotalTiles = _gameViewModel.GetTotalGridTiles();
 
             int tpr = _gameViewModel.GetTotalTilesPerRow();
             int item = 0;
