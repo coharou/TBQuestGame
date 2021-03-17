@@ -96,7 +96,7 @@ namespace TBQuestGame.View
 
         private List<Moves> GetMovesInUse()
         {
-            List<Moves> moves = new List<Moves>(); ;
+            List<Moves> moves = new List<Moves>();
 
             UIElementCollection collection = panel_Moves.Children;
 
@@ -188,9 +188,9 @@ namespace TBQuestGame.View
         {
             bool isPlayerReady = false;
 
-            bool areMovesReady = CheckMovesBoxes();
-            bool areTraitsReady = CheckTraitsBoxes();
-            bool isArmorReady = CheckArmorButton();
+            bool areMovesReady = AreObjectsChecked(panel_Moves, 6);
+            bool areTraitsReady = AreObjectsChecked(panel_Traits, 2);
+            bool isArmorReady = AreObjectsChecked(panel_Armor, 1);
 
             if ((areMovesReady == true) && (areTraitsReady == true) && (isArmorReady == true))
             {
@@ -200,60 +200,12 @@ namespace TBQuestGame.View
             return isPlayerReady;
         }
 
-        private bool CheckArmorButton()
+        private bool AreObjectsChecked(StackPanel panel, int total_obj)
         {
-            bool isArmorReady = false;
-            UIElementCollection collection = panel_Armor.Children;
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (collection[i] is RadioButton)
-                {
-                    RadioButton btn = (RadioButton)collection[i];
-                    if (btn.IsChecked == true)
-                    {
-                        isArmorReady = true;
-                    }
-                }
-            }
-            return isArmorReady;
-        }
+            bool areObjectsReady = false;
+            int objects_used = 0;
 
-        private bool CheckTraitsBoxes()
-        {
-            bool areTraitsReady = false;
-
-            int traits_desired = 2;
-            int traits_used = 0;
-
-            UIElementCollection collection = panel_Traits.Children;
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if(collection[i] is CheckBox)
-                {
-                    CheckBox box = (CheckBox)collection[i];
-                    if (box.IsChecked == true)
-                    {
-                        traits_used++;
-                    }
-                }
-            }
-
-            if (traits_used == traits_desired)
-            {
-                areTraitsReady = true;
-            }
-
-            return areTraitsReady;
-        }
-
-        private bool CheckMovesBoxes()
-        {
-            bool areMovesReady = false;
-
-            int moves_desired = 6;
-            int moves_used = 0;
-
-            UIElementCollection collection = panel_Moves.Children;
+            UIElementCollection collection = panel.Children;
             for (int i = 0; i < collection.Count; i++)
             {
                 if (collection[i] is CheckBox)
@@ -261,17 +213,26 @@ namespace TBQuestGame.View
                     CheckBox box = (CheckBox)collection[i];
                     if (box.IsChecked == true)
                     {
-                        moves_used++;
+                        objects_used++;
+                    }
+                }
+
+                if (collection[i] is RadioButton)
+                {
+                    RadioButton btn = (RadioButton)collection[i];
+                    if (btn.IsChecked == true)
+                    {
+                        objects_used++;
                     }
                 }
             }
 
-            if (moves_used == moves_desired)
+            if (objects_used == total_obj)
             {
-                areMovesReady = true;
+                areObjectsReady = true;
             }
 
-            return areMovesReady;
+            return areObjectsReady;
         }
 
         private void Btn_Click_Exit(object sender, RoutedEventArgs e)

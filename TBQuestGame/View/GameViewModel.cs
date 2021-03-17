@@ -193,13 +193,6 @@ namespace TBQuestGame.View
             UpdatePlayerPositions(position.Item1, position.Item2);
         }
 
-        public int RetrievePositionOfEntrance()
-        {
-            (int, int) position = FindTileByName("Entrance");
-            int entrance = CalculateTilePosition(position.Item1, position.Item2);
-            return entrance;
-        }
-
         public bool IsTileExit(int column, int row)
         {
             bool isTileExit = false;

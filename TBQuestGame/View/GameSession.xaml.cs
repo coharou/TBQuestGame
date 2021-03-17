@@ -89,7 +89,7 @@ namespace TBQuestGame.View
             Grid.SetRow(character, pos.Item2);
         }
 
-        private void ChangeCharacterIconPositionAlternate()
+        private void ChangeCharacterIconPosition()
         {
             (int, int) coords = _gameViewModel.GetCharacterIconPosition();
             int x = coords.Item1;
@@ -105,22 +105,24 @@ namespace TBQuestGame.View
             Grid.SetRow(character, y);
         }
 
-        private (int, int) ChangeCharacterIconPosition(string tag)
+        private bool PlayerCanMove(RoutedEventArgs e)
         {
-            (int, int) coords = _gameViewModel.CharacterCoordinates(tag);
+            bool canMove = false;
+            Button tile = (Button)e.Source;
+            string tag = (string)tile.Tag;
+            canMove = _gameViewModel.DoPlayerMovement(tag);
+            return canMove;
+        }
+
+        private bool MoveIsExit()
+        {
+            (int, int) coords = _gameViewModel.GetCharacterIconPosition();
+
             int x = coords.Item1;
             int y = coords.Item2;
 
-            UIElementCollection collection = grid_Action.Children;
-
-            // At the moment, this is only prepared for the character object.
-            // Grid updates for other objects, like enemies or items, will not be added until necessary.
-
-            Image character = (Image)collection[0];
-            Grid.SetColumn(character, x);
-            Grid.SetRow(character, y);
-
-            return (x, y);
+            bool isExit = _gameViewModel.IsTileExit(x, y);
+            return isExit;
         }
         #endregion
 
@@ -203,39 +205,23 @@ namespace TBQuestGame.View
             }
         }
 
-        private string GetEntranceDoorTag()
+        private void TransitionDungeonLayers()
         {
-            string tag = "";
-            int position = _gameViewModel.RetrievePositionOfEntrance();
-            UIElementCollection collection = grid_Map.Children;
-            Button tile = (Button)collection[position];
-            tag = (string)tile.Tag;
-            return tag;
+            _gameViewModel.DungeonTransition();
+            UpdateMapGridTiles();
+            _gameViewModel.MatchPlayerPositionToEntrance();
+            ChangeCharacterIconPosition();
         }
         #endregion
 
         #region Tile CLICK METHODS
         private void Tile_Click(object sender, RoutedEventArgs e)
         {
-            Button tile = (Button)e.Source;
-            string tag = (string)tile.Tag;
-            bool canMove = _gameViewModel.DoPlayerMovement(tag);
-
-            if (canMove == true)
+            if (PlayerCanMove(e))
             {
-                (int, int) coords = ChangeCharacterIconPosition(tag);
-
-                int x = coords.Item1;
-                int y = coords.Item2;
-
-                bool isExit = _gameViewModel.IsTileExit(x, y);
-
-                if (isExit == true)
+                if (MoveIsExit())
                 {
-                    _gameViewModel.DungeonTransition();
-                    UpdateMapGridTiles();
-                    _gameViewModel.MatchPlayerPositionToEntrance();
-                    ChangeCharacterIconPositionAlternate();
+                    TransitionDungeonLayers();
                 }
             }
         }
