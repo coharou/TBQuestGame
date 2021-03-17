@@ -219,6 +219,8 @@ namespace TBQuestGame.View
         {
             if (PlayerCanMove(e))
             {
+                ChangeCharacterIconPosition();
+
                 if (MoveIsExit())
                 {
                     TransitionDungeonLayers();
