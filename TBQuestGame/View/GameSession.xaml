@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBQuestGame.View"
         mc:Ignorable="d"
-        WindowState="Normal"
+        WindowState="Maximized"
         ResizeMode="NoResize"
         WindowStyle="None"
         Width="1024"
@@ -355,6 +355,41 @@
                     </Label>
                     <TextBlock 
                         Text="{Binding Player.TraitRandomNeg.Description}" 
+                        Style="{StaticResource txt_desc}">
+                    </TextBlock>
+                </StackPanel>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="btn_ReturnGame_Clicked">
+                    Return to Game
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region INVENTORY OVERLAY -->
+        <Grid Visibility="{Binding Gamestate.PausedByInventory, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                MaxWidth="600"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Orientation="Vertical"
+                Margin="10">
+                <Label 
+                    Style="{StaticResource lbl_Basic}" 
+                    HorizontalAlignment="Center" 
+                    Padding="10">
+                    PLAYER INVENTORY
+                </Label>
+                <StackPanel Margin="10">
+                    <Label 
+                        Content="{Binding Player.TraitChosenFirst.Name}" 
+                        Style="{StaticResource lbl_Basic}">
+                    </Label>
+                    <TextBlock 
+                        Text="{Binding Player.TraitChosenFirst.Description}" 
                         Style="{StaticResource txt_desc}">
                     </TextBlock>
                 </StackPanel>

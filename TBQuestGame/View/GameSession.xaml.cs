@@ -45,7 +45,7 @@ namespace TBQuestGame.View
         #region INTERFACE BUTTONS
         private void btn_Inventory_Clicked(object sender, RoutedEventArgs e)
         {
-            // Update when the inventory is added
+            _gameViewModel.ChangeGamestates("Inventory");
         }
 
         private void btn_Traits_Clicked(object sender, RoutedEventArgs e)

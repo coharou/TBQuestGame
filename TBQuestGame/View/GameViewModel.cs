@@ -96,9 +96,14 @@ namespace TBQuestGame.View
                     Gamestate.PausedByTraits = true;
                     break;
 
+                case "Inventory":
+                    Gamestate.PausedByInventory = true;
+                    break;
+
                 case "ReturnGame":
                     Gamestate.PausedByOptions = false;
                     Gamestate.PausedByTraits = false;
+                    Gamestate.PausedByInventory = false;
                     break;
 
                 default:

@@ -32,6 +32,19 @@ namespace TBQuestGame.GameInfo
                 OnPropertyChanged(nameof(PausedByTraits));
             }
         }
+
+        private bool _pausedByInventory;
+
+        public bool PausedByInventory
+        {
+            get { return _pausedByInventory; }
+            set 
+            { 
+                _pausedByInventory = value;
+                OnPropertyChanged(nameof(PausedByInventory));
+            }
+        }
+
         #endregion
 
         #region ACTION STATUS
@@ -103,6 +116,7 @@ namespace TBQuestGame.GameInfo
         {
             PausedByOptions = false;
             PausedByTraits = false;
+            PausedByInventory = false;
             RandObj = ObtainRandObj();
             CanPlayerAct = canPlayerAct;
             TurnCount = 1;
