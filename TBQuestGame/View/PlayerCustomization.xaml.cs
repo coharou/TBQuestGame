@@ -188,7 +188,7 @@ namespace TBQuestGame.View
         {
             bool isPlayerReady = false;
 
-            bool areMovesReady = AreObjectsChecked(panel_Moves, 6);
+            bool areMovesReady = AreObjectsChecked(panel_Moves, 2);
             bool areTraitsReady = AreObjectsChecked(panel_Traits, 2);
             bool isArmorReady = AreObjectsChecked(panel_Armor, 1);
 

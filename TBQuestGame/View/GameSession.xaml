@@ -261,18 +261,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[0].Name}"></Label>
             <Label Grid.Row="0" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[1].Name}"></Label>
-            <Label Grid.Row="0" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[2].Name}"></Label>
-            <Label Grid.Row="1" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[3].Name}"></Label>
-            <Label Grid.Row="1" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[4].Name}"></Label>
-            <Label Grid.Row="1" Grid.Column="2" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[5].Name}"></Label>
         </Grid>
         <!--#endregion-->
 

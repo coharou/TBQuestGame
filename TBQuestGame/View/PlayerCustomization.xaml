@@ -94,7 +94,7 @@
                             TextAlignment="Center">
                             Moves are the attacks you will use against enemies. 
                             There are three different move classes: Melee, Ranged, and Gunpowder.
-                            You must choose six moves before proceeding to the game.
+                            You must choose two moves before proceeding to the game.
                         </TextBlock>
                         <ScrollViewer
                             Style = "{StaticResource scr_vw}" 
