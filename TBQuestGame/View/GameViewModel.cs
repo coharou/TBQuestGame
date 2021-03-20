@@ -74,25 +74,21 @@ namespace TBQuestGame.View
         #endregion
 
         #region CONSTRUCTORS
-        public GameViewModel(Player player, Location location, Gamestate gamestate, Traits[] traits)
+        public GameViewModel(Player player, Gamestate gamestate, Traits[] traits)
         {
             _player = player;
+            _traits = traits;
+            TraitStartUp(gamestate);
+            _player = Player;
 
             C = new TileConstants();
 
-            _location = location;
-
-            _traits = traits;
-
-            MapGrid = _location.TileGrid;
-
-            MatchPlayerPositionToEntrance();
-
-            TraitStartUp(gamestate);
-
-            _player = Player;
-
             _gameState = gamestate;
+
+            _location = SetupStartLocation();
+            MapGrid = _location.TileGrid;
+            MatchPlayerPositionToEntrance();
+            UpdateDungeonValues();
         }
         #endregion
 
@@ -239,14 +235,87 @@ namespace TBQuestGame.View
             Player.MovementCurrent = Player.MovementMax;
             Gamestate.CanPlayerAct = true;
         }
+        #endregion
+
+        #region DUNGEON TRANSITIONING PROCESS
+
+        public Location SetupStartLocation()
+        {
+            Location location = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+            return location;
+        }
 
         public void DungeonTransition()
         {
+            // Called when the player has completed a layer of a dungeon
+            // Examples: reaching the dungeon exit; using an item
+
+            UpdateDungeonValues();
             InitiateNewLocation();
-            PrizesForCompletingDungeonLayer();
-            Gamestate.LocationCount += 1;
+
             Gamestate.Location = Location.Name;
         }
+
+        public void UpdateDungeonValues()
+        {
+            Gamestate.LayerCount += 1;
+            Gamestate.LocID += 1;
+
+            if (Gamestate.LayerCount > 3)
+            {
+                Gamestate.LocationCount += 1;
+                Gamestate.LayerCount = 1;
+            }
+
+            PrizesForCompletingDungeonLayer();
+        }
+
+        public void InitiateNewLocation()
+        {
+            if (Gamestate.LocationCount <= 2)
+            {
+                Location.Name = "Starting Area Forest";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+                MapGrid = standard.TileGrid;
+            }
+            if (Gamestate.LocationCount == 3 || Gamestate.LocationCount == 4)
+            {
+                Location.Name = "River Seine, Part 1";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.River);
+                MapGrid = standard.TileGrid;
+            }
+            if (Gamestate.LocationCount == 5)
+            {
+                Location.Name = "Village, Part 1";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+                MapGrid = standard.TileGrid;
+            }
+            if (Gamestate.LocationCount == 6)
+            {
+                Location.Name = "Return to the Forest";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+                MapGrid = standard.TileGrid;
+            }
+            if (Gamestate.LocationCount == 7 || Gamestate.LocationCount == 8)
+            {
+                Location.Name = "River Seine, Part 2";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.River);
+                MapGrid = standard.TileGrid;
+            }
+            if (Gamestate.LocationCount == 9)
+            {
+                Location.Name = "Village, Part 2";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+                MapGrid = standard.TileGrid;
+            }
+            if (Gamestate.LocationCount == 10)
+            {
+                Location.Name = "Flashback";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+                MapGrid = standard.TileGrid;
+            }  
+        }
+
         #endregion
 
         #region Enemy TURN PROCESS
@@ -335,12 +404,6 @@ namespace TBQuestGame.View
             TurnTransition();
 
             return isTileExit;
-        }
-
-        public void InitiateNewLocation()
-        {
-            Location standard = new Dungeon(Gamestate.LocationCount, "Default", "Initialized when the game loads", Gamestate.RandObj);
-            MapGrid = standard.TileGrid;
         }
 
         public void UpdatePlayerMovement(int tCol, int tRow)

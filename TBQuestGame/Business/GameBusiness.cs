@@ -38,9 +38,7 @@ namespace TBQuestGame.Business
             customsSession.ShowDialog();
 
             _player = _playerCustoms.Player;
-            _location = GameData.InitDefaultLocation(_gamestate);
-            _gamestate.Location = _location.Name;
-            _gameViewModel = new GameViewModel(_player, _location, _gamestate, _traits);
+            _gameViewModel = new GameViewModel(_player, _gamestate, _traits);
 
             GameSession gameSession = new GameSession(_gameViewModel);
             gameSession.DataContext = _gameViewModel;

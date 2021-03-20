@@ -10,13 +10,22 @@ namespace TBQuestGame.GameInfo
     { 
         public Location Location { get; set; }
 
+        public Biome BiomeType { get; set; }
+
+        public enum Biome
+        {
+            Forest,
+            River
+        }
+
         #region CONSTRUCTORS
-        public Dungeon(int id, string name, string description, Random randObj) :
+        public Dungeon(int id, string name, string description, Random randObj, Biome biomeType) :
             base(id, name, description, randObj)
         {
             ID = id;
             Name = name;
             Description = description;
+            BiomeType = biomeType;
 
             TileConstants C = new TileConstants();
 
@@ -37,6 +46,11 @@ namespace TBQuestGame.GameInfo
 
             // Spreads the forest types throughout the map for dense clusters
             tiles = SpreadFringeForest(tiles, C, randObj);
+
+            if (BiomeType == Biome.River)
+            {
+                tiles = GenerateRiverTiles(tiles, C, randObj);
+            }
 
             // Sets the door positions on the grid
             tiles = SetDoorPositions(randObj, tiles, C);
@@ -112,6 +126,48 @@ namespace TBQuestGame.GameInfo
             }
 
             return tiles;
+        }
+
+        private Tiles[,] GenerateRiverTiles(Tiles[,] tiles, TileConstants C, Random randObj)
+        {
+            for (int x = 0; x < C.TilesPerRow; x++)
+            {
+                for (int y = 0; y < C.TilesPerRow; y++)
+                {
+                    if (x == 1 || x == 6)
+                    {
+                        tiles[y, x] = GenerateBetweenTwoTileTypes(C, randObj, MatchTileID(8), MatchTileID(5), 75);
+                    }
+                    if (x == 2 || x == 5)
+                    {
+                        tiles[y, x] = GenerateBetweenTwoTileTypes(C, randObj, MatchTileID(9), MatchTileID(1), 95);
+                    }
+                    if (x == 3 || x == 4)
+                    {
+                        tiles[y, x] = GenerateBetweenTwoTileTypes(C, randObj, MatchTileID(9), MatchTileID(1), 80);
+                    }
+                }
+            }
+
+            return tiles;
+        }
+
+        private Tiles GenerateBetweenTwoTileTypes(TileConstants C, Random randObj, Tiles desired, Tiles alternate, int chance)
+        {
+            Tiles tile = MatchTile(5);
+
+            int value = randObj.Next(0, 100);
+
+            if (value <= chance)
+            {
+                tile = desired;
+            }
+            else
+            {
+                tile = alternate;
+            }
+
+            return tile;
         }
 
         protected override Tiles[,] SetDoorPositions(Random randObj, Tiles[,] tiles, TileConstants C)

@@ -68,6 +68,15 @@ namespace TBQuestGame.GameInfo
             }
         }
 
+        private int _layerCount;
+
+        public int LayerCount
+        {
+            get { return _layerCount; }
+            set { _layerCount = value; }
+        }
+
+
         private int _locationCount;
 
         public int LocationCount
@@ -91,6 +100,15 @@ namespace TBQuestGame.GameInfo
                 OnPropertyChanged(nameof(Location));
             }
         }
+
+        private int _locID;
+
+        public int LocID
+        {
+            get { return _locID; }
+            set { _locID = value; }
+        }
+
 
 
         #endregion
@@ -119,9 +137,11 @@ namespace TBQuestGame.GameInfo
             PausedByInventory = false;
             RandObj = ObtainRandObj();
             CanPlayerAct = canPlayerAct;
+            LayerCount = 1;
             TurnCount = 1;
             LocationCount = 1;
             Location = "";
+            LocID = 0;
         }
         #endregion
     }

@@ -145,11 +145,5 @@ namespace TBQuestGame.Data
 
             return assets;
         }
-
-        public static Location InitDefaultLocation(Gamestate gamestate)
-        {
-            Location standard = new Dungeon(0, "Default", "Initialized when the game loads", gamestate.RandObj);
-            return standard;
-        }
     }
 }
