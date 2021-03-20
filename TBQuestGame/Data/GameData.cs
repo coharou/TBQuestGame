@@ -70,16 +70,40 @@ namespace TBQuestGame.Data
         {
             Traits[] traits = new Traits[]
             {
-                new Traits(0, "CHARISMATIC", "Merchants offer items at a lower price than usual. At the start of the game, receive a one-time boost to Coins."),
-                new Traits(1, "RESOURCEFUL", "75% chance to not consume ammunition on using a move. 10% more damage from Ranged and Gunpowder moves."),
-                new Traits(2, "HARDY", "Regenerate Health 100% faster."),
-                new Traits(3, "FORAGER", "50% chance to receive more items when killing enemies or picking up items off of the ground."),
-                new Traits(4, "ECCENTRIC", "Status effects are 40% more likely to land on an enemy. Status effects deal more damage to enemies."),
-                new Traits(5, "EXPERIENCED", "All moves are 15% more accurate. At the start of the game, receive a one-time boost to Experience."),
-                new Traits(6, "WEAKLING", "-10% damage when using Melee moves. +5% damage taken from enemy moves."),
-                new Traits(7, "RECKLESS", "50% chance to consume additional ammunition on using a move."),
-                new Traits(8, "ASOCIAL", "Merchants offer items at a higher price than usual.")
+                new Traits(0, "CHARISMATIC", "Merchants offer items at a lower price than usual. At the start of the game, receive a one-time bonus in Coins.", true),
+                new Traits(1, "RESOURCEFUL", "75% chance to not consume ammunition on using a move. 10% more damage from Ranged and Gunpowder moves.", true),
+                new Traits(2, "HARDY", "Regenerate Health 100% faster.", true),
+                new Traits(3, "FORAGER", "50% chance to receive more items when killing enemies or picking up items off of the ground.", true),
+                new Traits(4, "ECCENTRIC", "Status effects are 40% more likely to land on an enemy. At the start of the game, receive a one-time bonus in Coins.", true),
+                new Traits(5, "EXPERIENCED", "All moves are 15% more accurate. At the start of the game, receive a one-time boost to Experience.", true),
+                new Traits(6, "WEAKLING", "-10% damage when using Melee moves. +5% damage taken from enemy moves.", false),
+                new Traits(7, "RECKLESS", "50% chance to consume additional ammunition on using a move.", false),
+                new Traits(8, "ASOCIAL", "Merchants offer items at a higher price than usual.", false)
             };
+
+            traits[0].MerchantInfluence = -25;
+            traits[0].CoinBonus = 200;
+
+            traits[1].AmmoUseMod = -75;
+            traits[1].GunpowderStrMod = 10;
+            traits[1].RangedStrMod = 10;
+
+            traits[2].RegenMod = 2;
+
+            traits[3].ForagingMod = 50;
+
+            traits[4].StatusEffectMod = 40;
+            traits[4].CoinBonus = 100;
+
+            traits[5].AccuracyMod = 15;
+            traits[5].ExperienceBonus = 10;
+
+            traits[6].MeleeStrMod = -10;
+            traits[6].DefenseMod = -5;
+
+            traits[7].AmmoUseMod = -50;
+
+            traits[8].MerchantInfluence = 25;
 
             return traits;
         }

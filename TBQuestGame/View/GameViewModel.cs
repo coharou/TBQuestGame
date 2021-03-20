@@ -22,6 +22,15 @@ namespace TBQuestGame.View
             }
         }
 
+        private Traits[] _traits;
+
+        public Traits[] Traits
+        {
+            get { return _traits; }
+            set { _traits = value; }
+        }
+
+
         private Gamestate _gameState;
 
         public Gamestate Gamestate
@@ -65,7 +74,7 @@ namespace TBQuestGame.View
         #endregion
 
         #region CONSTRUCTORS
-        public GameViewModel(Player player, Location location, Gamestate gamestate)
+        public GameViewModel(Player player, Location location, Gamestate gamestate, Traits[] traits)
         {
             _player = player;
 
@@ -73,14 +82,126 @@ namespace TBQuestGame.View
 
             _location = location;
 
+            _traits = traits;
+
             MapGrid = _location.TileGrid;
 
             MatchPlayerPositionToEntrance();
+
+            TraitStartUp(gamestate);
 
             _player = Player;
 
             _gameState = gamestate;
         }
+        #endregion
+
+        #region Player Trait METHODS
+        public void TraitStartUp(Gamestate gamestate)
+        {
+            Player.TraitRandomPos = GetRandomTraits(true, gamestate);
+            Player.TraitRandomNeg = GetRandomTraits(false, gamestate);
+            ApplyTraitToPlayerStats(Player.TraitChosenFirst);
+            ApplyTraitToPlayerStats(Player.TraitChosenSecond);
+            ApplyTraitToPlayerStats(Player.TraitRandomPos);
+            ApplyTraitToPlayerStats(Player.TraitRandomNeg);
+        }
+
+        public void ApplyTraitToPlayerStats(Traits trait)
+        {
+            if (trait.AccuracyMod.GetType() != null)
+            {
+                Player.AccuracyModGunpowder += trait.AccuracyMod;
+                Player.AccuracyModMelee += trait.AccuracyMod;
+                Player.AccuracyModRanged += trait.AccuracyMod;
+            }
+            if (trait.AmmoUseMod.GetType() != null)
+            {
+                Player.ResourcefulnessMod += trait.AmmoUseMod;
+            }
+            if (trait.DefenseMod.GetType() != null)
+            {
+                Player.DefenseModMelee += trait.DefenseMod;
+                Player.DefenseModGunpowder += trait.DefenseMod;
+                Player.DefenseModRanged += trait.DefenseMod;
+            }
+            if (trait.ExperienceBonus.GetType() != null)
+            {
+                Player.Experience += trait.ExperienceBonus;
+            }
+            if (trait.ForagingMod.GetType() != null)
+            {
+                Player.Foraging += trait.ForagingMod;
+            }
+            if (trait.CoinBonus.GetType() != null)
+            {
+                Player.Coins += trait.CoinBonus;
+            }
+            if (trait.GunpowderStrMod.GetType() != null)
+            {
+                Player.StrengthModGunpowder += trait.GunpowderStrMod;
+            }
+            if (trait.HealthMod.GetType() != null)
+            {
+                Player.HealthMax += trait.HealthMod;
+                Player.HealthCurrent += trait.HealthMod;
+            }
+            if (trait.MeleeStrMod.GetType() != null)
+            {
+                Player.StrengthModMelee += trait.MeleeStrMod;
+            }
+            if (trait.MerchantInfluence.GetType() != null)
+            {
+                Player.Charisma += trait.MerchantInfluence;
+            }
+            if (trait.RangedStrMod.GetType() != null)
+            {
+                Player.StrengthModRanged += trait.RangedStrMod;
+            }
+            if (trait.RegenMod.GetType() != null)
+            {
+                Player.HealthRegenerationRate += trait.RegenMod;
+            }
+            if (trait.StatusEffectMod.GetType() != null)
+            {
+                Player.StatusInflictMod += trait.StatusEffectMod;
+            }
+        }
+
+        public Traits GetRandomTraits(bool isPositive, Gamestate gamestate)
+        {
+            Traits trait = Traits[0];
+            List<Traits> traitCollection = new List<Traits>();
+            bool traitFound = false;
+
+            foreach (var tr in Traits)
+            {
+                if (isPositive == tr.IsPositive)
+                {
+                    if (Player.TraitChosenFirst.ID != tr.ID || Player.TraitChosenSecond.ID != tr.ID)
+                    {
+                        traitCollection.Add(tr);
+                    }
+                }
+            }
+
+            do
+            {
+                foreach (var tr in traitCollection)
+                {
+                    int r = gamestate.RandObj.Next(0, 10);
+                    if (r == 1)
+                    {
+                        trait = tr;
+                        traitFound = true;
+                        break;
+                    }
+                }
+            } while (traitFound == false);
+
+            return trait;
+        }
+
         #endregion
 
         #region Gamestate CHANGING METHODS
