@@ -49,6 +49,26 @@ namespace TBQuestGame.View
             DisplayInventoryInfo();
         }
 
+        private void Btn_Inventory_Closed(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("ReturnGame");
+            ClearInventoryMenu();
+        }
+
+        private void Btn_Inventory_TrashItem(object sender, RoutedEventArgs e)
+        {
+            RemoveItemFromInventory();
+            ClearInventoryMenu();
+            DisplayInventoryInfo();
+        }
+
+        private void Btn_Inventory_UseItem(object sender, RoutedEventArgs e)
+        {
+            UseItemFromInventory();
+            ClearInventoryMenu();
+            DisplayInventoryInfo();
+        }
+
         private void btn_Traits_Clicked(object sender, RoutedEventArgs e)
         {
             _gameViewModel.ChangeGamestates("Traits");
@@ -78,7 +98,83 @@ namespace TBQuestGame.View
         #region INVENTORY MANAGEMENT
         private void DisplayInventoryInfo()
         {
+            (List<String>, List<String>, List<String>) obj = _gameViewModel.GetPlayerInventory();
 
+            List<String> name = obj.Item1;
+            List<String> desc = obj.Item2;
+            List<String> tag = obj.Item3;
+
+            for (int i = 0; i < name.Count; i++)
+            {
+                RadioButton btn = new RadioButton();
+                btn.Tag = $"{tag[i]}";
+                btn.Content = $"{name[i]}";
+                btn.Name = $"{name[i]}";
+                inv_Obj.Children.Add(btn);
+
+                TextBlock block = new TextBlock();
+                block.TextWrapping = TextWrapping.Wrap;
+                block.Text = $"{desc[i]}\n";
+                inv_Obj.Children.Add(block);
+            }
+        }
+
+        private void UseItemFromInventory()
+        {
+            UIElementCollection collection = inv_Obj.Children;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is RadioButton)
+                {
+                    RadioButton btn = (RadioButton)collection[i];
+
+                    if (btn.IsChecked == true)
+                    {
+                        string name = btn.Name;
+                        bool teleport = _gameViewModel.UseItemFromInventory(name);
+                        if (teleport == true)
+                        {
+                            TransitionDungeonLayers();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void RemoveItemFromInventory()
+        {
+            UIElementCollection collection = inv_Obj.Children;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is RadioButton)
+                {
+                    RadioButton btn = (RadioButton)collection[i];
+
+                    if (btn.IsChecked == true)
+                    {
+                        string name = btn.Name;
+                        _gameViewModel.RemoveItemFromInventory(name);
+                    }
+                }
+            }
+        }
+
+        private void ClearInventoryMenu()
+        {
+            UIElementCollection collection = inv_Obj.Children;
+            List<Object> storage = new List<Object>();
+
+            foreach (var item in collection)
+            {
+                storage.Add(item);
+            }
+
+            foreach (var item in storage)
+            {
+                collection.Remove((UIElement)item);
+            }
         }
         #endregion
 

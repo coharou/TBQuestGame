@@ -111,6 +111,11 @@ namespace TBQuestGame.View
             GenerateItemList();
             MatchPlayerPositionToEntrance();
             UpdateDungeonValues();
+
+            // For presentation purposes. Remove once unneeded.
+            Player.HealthCurrent = 99;
+            Player.Inventory.Add(MatchItemType(Item.Tag.Teleport));
+            Player.Inventory.Add(MatchItemType(Item.Tag.Health));
         }
         #endregion
 
@@ -332,6 +337,13 @@ namespace TBQuestGame.View
             return i;
         }
 
+        public Item MatchItemName(string name)
+        {
+            List<Item> iList = Items;
+            Item i = iList.Find(x => x.Name == name);
+            return i;
+        }
+
         public int QuantityOfItemsToGenerate()
         {
             // 100% chance to have an item on the map
@@ -387,6 +399,46 @@ namespace TBQuestGame.View
             ItemGrid[x, y] = def;
 
             Player.Inventory.Add(item);
+        }
+
+        public void RemoveItemFromInventory(string name)
+        {
+            Item item = MatchItemName(name);
+            Player.Inventory.Remove(item);
+        }
+
+        public bool UseItemFromInventory(string name)
+        {
+            Item item = MatchItemName(name);
+
+            bool teleport = false;
+
+            switch (item.ItemTag)
+            {
+                case Item.Tag.Health:
+                    HealPlayer();
+                    break;
+                case Item.Tag.Teleport:
+                    teleport = true;
+                    break;
+                case Item.Tag.None:
+                    break;
+                default:
+                    break;
+            }
+
+            Player.Inventory.Remove(item);
+
+            return teleport;
+        }
+
+        public void HealPlayer()
+        {
+            Player.HealthCurrent += 50;
+            if (Player.HealthCurrent > 100)
+            {
+                Player.HealthCurrent = 100;
+            }
         }
         #endregion
 
@@ -807,6 +859,24 @@ namespace TBQuestGame.View
             }
 
             return isItemReal;
+        }
+
+        public (List<String>, List<String>, List<String>) GetPlayerInventory()
+        {
+            List<Item> items = Player.Inventory;
+
+            List<String> name = new List<string>();
+            List<String> description = new List<string>();
+            List<String> tag = new List<string>();
+
+            foreach (var i in items)
+            {
+                name.Add(i.Name);
+                description.Add(i.Description);
+                tag.Add(i.ItemTag.ToString());
+            }
+
+            return (name, description, tag);
         }
         #endregion
     }

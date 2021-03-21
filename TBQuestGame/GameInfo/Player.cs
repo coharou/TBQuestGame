@@ -90,6 +90,7 @@ namespace TBQuestGame.GameInfo
             set
             {
                 _inventory = value;
+                OnPropertyChanged(nameof(Inventory));
             }
         }
 
