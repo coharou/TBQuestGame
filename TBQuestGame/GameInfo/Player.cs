@@ -82,7 +82,16 @@ namespace TBQuestGame.GameInfo
 
         public int ExperienceMax { get; set; }
 
-        // Inventory prop - to be added later
+        private List<Item> _inventory;
+
+        public List<Item> Inventory
+        {
+            get { return _inventory; }
+            set
+            {
+                _inventory = value;
+            }
+        }
 
         private int _coins;
 
@@ -192,7 +201,7 @@ namespace TBQuestGame.GameInfo
             Experience = 0;
             ExperienceMax = 100;
 
-            // Ignore inventory - assigned during player customization
+            Inventory = new List<Item>();
 
             Coins = 0;
         }

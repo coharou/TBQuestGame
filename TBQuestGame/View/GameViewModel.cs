@@ -107,6 +107,8 @@ namespace TBQuestGame.View
             _items = items;
             _location = SetupStartLocation();
             MapGrid = _location.TileGrid;
+
+            GenerateItemList();
             MatchPlayerPositionToEntrance();
             UpdateDungeonValues();
         }
@@ -258,7 +260,134 @@ namespace TBQuestGame.View
         #endregion
 
         #region ITEM GENERATION
+        public void GenerateItemList()
+        {
+            bool isGenerating = ShouldItemsBeGenerated();
+            if (isGenerating == true)
+            {
+                int itemCount = QuantityOfItemsToGenerate();
+                ItemGrid = BuildItemList(itemCount);
+            }
+            else
+            {
+                ItemGrid = BuildItemList(0);
+            }
+        }
 
+        public Item[,] BuildItemList(int amount)
+        {
+            Item[,] items = new Item[C.TilesPerRow, C.TilesPerRow];
+
+            Item def = MatchItemType(Item.Tag.None);
+
+            for (int x = 0; x < C.TilesPerRow; x++)
+            {
+                for (int y = 0; y < C.TilesPerRow; y++)
+                {
+                    items[x, y] = def;
+                }
+            }
+
+            for (int i = 0; i < amount; i++)
+            {
+                bool passable = false;
+                do
+                {
+                    int sampleX = Gamestate.RandObj.Next(0, C.TilesPerRow);
+                    int sampleY = Gamestate.RandObj.Next(0, C.TilesPerRow);
+                    if (MapGrid[sampleX, sampleY].Passable == true)
+                    {
+                        items[sampleX, sampleY] = GetRandomItem();
+
+                        passable = true;
+                    }
+                } while (passable == false);
+            }
+
+            return items;
+        }
+
+        public Item GetRandomItem()
+        {
+            Item item = MatchItemType(Item.Tag.None);
+
+            int sample = Gamestate.RandObj.Next(0, 100);
+
+            if (sample < 80)
+            {
+                item = MatchItemType(Item.Tag.Health);
+            }
+            else
+            {
+                item = MatchItemType(Item.Tag.Teleport);
+            }
+
+            return item;
+        }
+
+        public Item MatchItemType(Item.Tag tag)
+        {
+            List<Item> iList = Items;
+            Item i = iList.Find(x => x.ItemTag == tag);
+            return i;
+        }
+
+        public int QuantityOfItemsToGenerate()
+        {
+            // 100% chance to have an item on the map
+            int quantity = 1;
+
+            int sample = Gamestate.RandObj.Next(0, 100);
+
+            if (sample < 50)
+            {
+                // 50% chance to have two items on the map
+                quantity += 1;
+            }
+
+            return quantity;
+        }
+
+        public bool ShouldItemsBeGenerated()
+        {
+            bool generateItems = false;
+
+            int sample = Gamestate.RandObj.Next(0, 100);
+
+            if (sample < 70)
+            {
+                // 70% chance that items will be generated on the layer
+                generateItems = true;
+            }
+
+            return generateItems;
+        }
+
+        public bool DoesTileHaveItems(int x, int y)
+        {
+            bool anyItems = false;
+
+            Item def = MatchItemType(Item.Tag.None);
+
+            Item item = ItemGrid[x, y];
+
+            if (item.ItemTag != def.ItemTag)
+            {
+                anyItems = true;
+            }
+
+            return anyItems;
+        }
+
+        public void MoveItemToInventory(int x, int y)
+        {
+            Item def = MatchItemType(Item.Tag.None);
+            Item item = ItemGrid[x, y];
+
+            ItemGrid[x, y] = def;
+
+            Player.Inventory.Add(item);
+        }
         #endregion
 
         #region DUNGEON TRANSITIONING PROCESS
@@ -276,6 +405,8 @@ namespace TBQuestGame.View
 
             UpdateDungeonValues();
             InitiateNewLocation();
+
+            GenerateItemList();
 
             Gamestate.Location = Location.Name;
         }
@@ -655,6 +786,27 @@ namespace TBQuestGame.View
             int row = Player.TilePositionRow;
 
             return (column, row);
+        }
+
+        public string GetItemIconPath()
+        {
+            string path = "pack://application:,,,/Assets/item.png";
+            return path;
+        }
+
+        public bool IsItemReal(int x, int y)
+        {
+            bool isItemReal = false;
+
+            Item.Tag tag = ItemGrid[x, y].ItemTag;
+            Item.Tag def = Item.Tag.None;
+
+            if (tag != def)
+            {
+                isItemReal = true;
+            }
+
+            return isItemReal;
         }
         #endregion
     }

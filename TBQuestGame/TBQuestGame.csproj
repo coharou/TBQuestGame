@@ -87,7 +87,6 @@
     <Compile Include="GameInfo\Armor.cs" />
     <Compile Include="GameInfo\Character.cs" />
     <Compile Include="GameInfo\Combatant.cs" />
-    <Compile Include="GameInfo\Inventory.cs" />
     <Compile Include="GameInfo\Moves.cs" />
     <Compile Include="GameInfo\Player.cs" />
     <Compile Include="GameInfo\Traits.cs" />
@@ -188,6 +187,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\wood_frame.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\item.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

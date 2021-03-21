@@ -37,7 +37,7 @@ namespace TBQuestGame.View
             SetGridDefinitions(grid_Map);
             CreateMapGrid();
             SetGridDefinitions(grid_Action);
-
+            AddItemsToGrid();
             CreateCharacterIcon();
         }
         #endregion
@@ -46,6 +46,7 @@ namespace TBQuestGame.View
         private void btn_Inventory_Clicked(object sender, RoutedEventArgs e)
         {
             _gameViewModel.ChangeGamestates("Inventory");
+            DisplayInventoryInfo();
         }
 
         private void btn_Traits_Clicked(object sender, RoutedEventArgs e)
@@ -71,6 +72,109 @@ namespace TBQuestGame.View
         private void btn_Exit_Clicked(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        #endregion
+
+        #region INVENTORY MANAGEMENT
+        private void DisplayInventoryInfo()
+        {
+
+        }
+        #endregion
+
+        #region ITEM GENERATION
+        private void AddItemsToGrid()
+        {
+            int tpr = _gameViewModel.GetTotalTilesPerRow();
+
+            for (int x = 0; x < tpr; x++)
+            {
+                for (int y = 0; y < tpr; y++)
+                {
+                    bool isItemReal = _gameViewModel.IsItemReal(x, y);
+                
+                    if (isItemReal == true)
+                    {
+                        Image item = new Image();
+                        grid_Map.Children.Add(item);
+                        item.Name = "Item";
+                        item.Tag = $"{x}-{y}";
+
+                        string path = _gameViewModel.GetItemIconPath();
+                        item.Source = ReturnImageSource(path);
+
+                        Grid.SetColumn(item, x);
+                        Grid.SetRow(item, y);
+                    }
+                }
+            }
+        }
+
+        private void RemoveAllItemsFromGrid()
+        {
+            UIElementCollection collection = grid_Map.Children;
+
+            List<Image> images = new List<Image>();
+
+            foreach (var item in collection)
+            {
+                if (item is Image)
+                {
+                    Image image = (Image)item;
+                    images.Add(image);
+                }
+            }
+
+            foreach (var item in images)
+            {
+                string name = item.Name;
+                if (name == "Item")
+                {
+                    collection.Remove(item);
+                }
+            }
+        }
+
+        private void RemoveSpecificItem(int x, int y)
+        {
+            UIElementCollection collection = grid_Map.Children;
+
+            List<Image> images = new List<Image>();
+
+            foreach (var item in collection)
+            {
+                if (item is Image)
+                {
+                    Image image = (Image)item;
+                    string tag = $"{x}-{y}";
+
+                    if (image.Tag.ToString() == tag)
+                    {
+                        images.Add(image);
+                    }
+                }
+            }
+
+            foreach (var item in images)
+            {
+                collection.Remove(item);
+            }
+        }
+
+        private void CheckForItems()
+        {
+            (int, int) coords = _gameViewModel.GetCharacterIconPosition();
+
+            int x = coords.Item1;
+            int y = coords.Item2;
+
+            bool itemFound = _gameViewModel.DoesTileHaveItems(x, y);
+
+            if (itemFound == true)
+            {
+                _gameViewModel.MoveItemToInventory(x, y);
+                RemoveSpecificItem(x, y);
+            }
         }
         #endregion
 
@@ -207,7 +311,9 @@ namespace TBQuestGame.View
         private void TransitionDungeonLayers()
         {
             _gameViewModel.DungeonTransition();
+            RemoveAllItemsFromGrid();
             UpdateMapGridTiles();
+            AddItemsToGrid();
             _gameViewModel.MatchPlayerPositionToEntrance();
             ChangeCharacterIconPosition();
         }
@@ -219,6 +325,8 @@ namespace TBQuestGame.View
             if (PlayerCanMove(e))
             {
                 ChangeCharacterIconPosition();
+
+                CheckForItems();
 
                 if (MoveIsExit())
                 {
