@@ -100,6 +100,55 @@ namespace TBQuestGame.View
         {
             Close();
         }
+
+        private void Btn_Inventory_Refresh_Clicked(object sender, RoutedEventArgs e)
+        {
+            ClearInventoryMenu();
+            DisplayInventoryInfo();
+        }
+
+        private void Btn_Inventory_Filter_Clicked(object sender, RoutedEventArgs e)
+        {
+            Button filter = (Button)e.Source;
+            string name = filter.Name;
+            List<String> names = _gameViewModel.FilterInventoryByList(name);
+
+            List<TextBlock> textBlocks = new List<TextBlock>();
+            List<RadioButton> radioButtons = new List<RadioButton>();
+
+            UIElementCollection collection = inv_Obj.Children;
+
+
+            foreach (var x in collection)
+            {
+                foreach (var y in names)
+                {
+                    if (x is TextBlock)
+                    {
+                        TextBlock xBlock = (TextBlock)x;
+                        if (xBlock.Tag.ToString() != y)
+                        {
+                            textBlocks.Add(xBlock);
+                        }
+                    }
+                    if (x is RadioButton)
+                    {
+                        RadioButton xBtn = (RadioButton)x;
+                        if (xBtn.Tag.ToString() != y)
+                        {
+                            radioButtons.Add(xBtn);
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < textBlocks.Count; i++)
+            {
+                collection.Remove(textBlocks[i]);
+                collection.Remove(radioButtons[i]);
+            }
+
+        }
         #endregion
 
         #region INVENTORY MANAGEMENT
@@ -120,6 +169,7 @@ namespace TBQuestGame.View
                 inv_Obj.Children.Add(btn);
 
                 TextBlock block = new TextBlock();
+                block.Tag = $"{tag[i]}";
                 block.TextWrapping = TextWrapping.Wrap;
                 block.Text = $"{desc[i]}\n";
                 inv_Obj.Children.Add(block);

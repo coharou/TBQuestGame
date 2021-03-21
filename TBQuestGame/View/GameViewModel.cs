@@ -441,6 +441,33 @@ namespace TBQuestGame.View
             }
         }
 
+        public List<String> FilterInventoryByList(string name)
+        {
+            List<Item.Tag> tags = new List<Item.Tag>();
+
+            switch (name)
+            {
+                case "Status":
+                    tags.Add(Item.Tag.Health);
+                    break;
+                case "Location":
+                    tags.Add(Item.Tag.Teleport);
+                    break;
+                default:
+                    break;
+            }
+
+            List<String> names = new List<String>();
+
+            foreach (var i in tags)
+            {
+                string v = i.ToString();
+                names.Add(v);
+            }
+
+            return names;
+        }
+
         public void ResortInventory()
         {
             List<String> names = new List<String>();
