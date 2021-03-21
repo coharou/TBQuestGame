@@ -440,6 +440,26 @@ namespace TBQuestGame.View
                 Player.HealthCurrent = 100;
             }
         }
+
+        public void ResortInventory()
+        {
+            List<String> names = new List<String>();
+
+            foreach (var i in Player.Inventory)
+            {
+                names.Add(i.Name);
+            }
+
+            names.Sort();
+
+            Player.Inventory.Clear();
+
+            foreach (var i in names)
+            {
+                Item item = MatchItemName(i);
+                Player.Inventory.Add(item);
+            }
+        }
         #endregion
 
         #region DUNGEON TRANSITIONING PROCESS

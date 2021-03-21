@@ -69,6 +69,13 @@ namespace TBQuestGame.View
             DisplayInventoryInfo();
         }
 
+        private void Btn_Inventory_Sort(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ResortInventory();
+            ClearInventoryMenu();
+            DisplayInventoryInfo();
+        }
+
         private void btn_Traits_Clicked(object sender, RoutedEventArgs e)
         {
             _gameViewModel.ChangeGamestates("Traits");

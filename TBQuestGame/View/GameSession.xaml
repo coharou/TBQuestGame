@@ -371,6 +371,7 @@
         <Grid Visibility="{Binding Gamestate.PausedByInventory, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
+                Width="400"
                 MaxWidth="600"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
@@ -383,7 +384,7 @@
                     Padding="10">
                     PLAYER INVENTORY
                 </Label>
-                <StackPanel x:Name="inv_Obj">
+                <StackPanel x:Name="inv_Obj" Margin="15">
 
                 </StackPanel>
                 <StackPanel 
@@ -398,6 +399,15 @@
                         Style="{StaticResource btn_Any_Menu}"
                         Click="Btn_Inventory_TrashItem">
                         Throw Out
+                    </Button>
+                </StackPanel>
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+                    <Button 
+                        Style="{StaticResource btn_Any_Menu}"
+                        Click="Btn_Inventory_Sort">
+                        Sort
                     </Button>
                 </StackPanel>
                 <Button 
