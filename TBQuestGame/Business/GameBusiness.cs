@@ -20,6 +20,7 @@ namespace TBQuestGame.Business
         Armor[] _armor;
         Moves[] _moves;
         Traits[] _traits;
+        List<Item> _items;
         #endregion
 
         #region CONSTRUCTOR
@@ -37,8 +38,10 @@ namespace TBQuestGame.Business
             customsSession.DataContext = _playerCustoms;
             customsSession.ShowDialog();
 
+
             _player = _playerCustoms.Player;
-            _gameViewModel = new GameViewModel(_player, _gamestate, _traits);
+            _items = GameData.InitItems();
+            _gameViewModel = new GameViewModel(_player, _gamestate, _traits, _items);
 
             GameSession gameSession = new GameSession(_gameViewModel);
             gameSession.DataContext = _gameViewModel;

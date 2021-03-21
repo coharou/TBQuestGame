@@ -8,10 +8,19 @@ namespace TBQuestGame.GameInfo
 {
     public class Item : GameObject
     {
-        public Item(int id, string name, string description) :
+        public Tag ItemTag { get; set; }
+
+        public enum Tag
+        {
+            Health,
+            Teleport,
+            None
+        }
+
+        public Item(int id, string name, string description, Tag tag) :
             base(id, name, description)
         {
-            
+            ItemTag = tag;
         }
     }
 }

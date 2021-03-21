@@ -71,10 +71,30 @@ namespace TBQuestGame.View
                 OnPropertyChanged(nameof(Location));
             }
         }
+
+        private Item[,] _itemGrid;
+
+        public Item[,] ItemGrid
+        {
+            get { return _itemGrid; }
+            set 
+            { 
+                _itemGrid = value;
+            }
+        }
+
+        private List<Item> _items;
+
+        public List<Item> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
+
         #endregion
 
         #region CONSTRUCTORS
-        public GameViewModel(Player player, Gamestate gamestate, Traits[] traits)
+        public GameViewModel(Player player, Gamestate gamestate, Traits[] traits, List<Item> items)
         {
             _player = player;
             _traits = traits;
@@ -84,7 +104,7 @@ namespace TBQuestGame.View
             C = new TileConstants();
 
             _gameState = gamestate;
-
+            _items = items;
             _location = SetupStartLocation();
             MapGrid = _location.TileGrid;
             MatchPlayerPositionToEntrance();
@@ -235,6 +255,10 @@ namespace TBQuestGame.View
             Player.MovementCurrent = Player.MovementMax;
             Gamestate.CanPlayerAct = true;
         }
+        #endregion
+
+        #region ITEM GENERATION
+
         #endregion
 
         #region DUNGEON TRANSITIONING PROCESS
