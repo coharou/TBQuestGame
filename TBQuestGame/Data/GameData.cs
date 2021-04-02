@@ -9,7 +9,7 @@ namespace TBQuestGame.Data
 {
     public class GameData
     {
-        public static Player InitPlayer() 
+        public static Player InitPlayer()
         {
             int id = 1;
             string name = "player_default";
@@ -25,6 +25,19 @@ namespace TBQuestGame.Data
             Player player = new Player(id, name, locationId, tilePosition, icon, role, soldierRole);
 
             return player;
+        }
+
+        public static Combatant[] InitEnemyTypes()
+        {
+            string path = "pack://application:,,,/Assets/character_icons/";
+            Art icon = new Art(1, "Enemy", path + "enemy.png");
+
+            Combatant[] combatants = new Combatant[]
+            {
+                
+            };
+
+            return combatants;
         }
 
         public static Armor[] InitArmor()
