@@ -27,17 +27,17 @@ namespace TBQuestGame.Data
             return player;
         }
 
-        public static Combatant[] InitEnemyTypes()
+        public static Enemy[] InitEnemyTypes()
         {
             string path = "pack://application:,,,/Assets/character_icons/";
             Art icon = new Art(1, "Enemy", path + "enemy.png");
 
-            Combatant[] combatants = new Combatant[]
+            Enemy[] enemies = new Enemy[]
             {
                 
             };
 
-            return combatants;
+            return enemies;
         }
 
         public static Armor[] InitArmor()
