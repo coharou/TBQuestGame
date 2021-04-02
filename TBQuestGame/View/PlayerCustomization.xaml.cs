@@ -87,6 +87,7 @@ namespace TBQuestGame.View
 
             List<Moves> moves = GetMovesInUse();
             _viewModel.Player.Moves = moves;
+            _viewModel.Player.SelectedMove = moves[0];
         }
 
         private void HideDialog()

@@ -15,7 +15,6 @@ namespace TBQuestGame.Business
         GameViewModel _gameViewModel;
         PlayerCustomizationViewModel _playerCustoms;
         Player _player;
-        Location _location;
         Gamestate _gamestate;
         Armor[] _armor;
         Moves[] _moves;
@@ -37,7 +36,6 @@ namespace TBQuestGame.Business
             PlayerCustomization customsSession = new PlayerCustomization(_playerCustoms);
             customsSession.DataContext = _playerCustoms;
             customsSession.ShowDialog();
-
 
             _player = _playerCustoms.Player;
             _items = GameData.InitItems();

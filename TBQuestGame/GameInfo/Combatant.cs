@@ -52,22 +52,6 @@ namespace TBQuestGame.GameInfo
         public int MovementBase { get; set; }
         #endregion
 
-        #region POWER / VALOR
-
-        // These properties will be configured at a later date.
-
-        // They will only be used and calculated during combat.
-
-        // They also only apply to combat, not movement or
-        // general interactions with NPC.
-
-        public int Power { get; set; }
-
-        public int PowerModifier { get; set; }
-
-        public int Valor { get; set; }
-        #endregion
-
         #region STATUS EFFECTS
         public int StatusInflictMod { get; set; }
 
@@ -109,6 +93,19 @@ namespace TBQuestGame.GameInfo
         }
 
         public int ResourcefulnessMod { get; set; }
+
+        private Moves _selectedMove;
+
+        public Moves SelectedMove
+        {
+            get { return _selectedMove; }
+            set
+            { 
+                _selectedMove = value;
+                OnPropertyChanged(nameof(Moves));
+            }
+        }
+
         #endregion
 
         #region NEW ROLE
@@ -142,6 +139,7 @@ namespace TBQuestGame.GameInfo
             LocationID = locationId;
             TilePosition = tilePosition;
             Icon = icon;
+
             HealthBase = 100;
             HealthCurrent = HealthBase;
             HealthMax = HealthBase;
@@ -172,6 +170,7 @@ namespace TBQuestGame.GameInfo
             AccuracyModRanged = 0;
 
             // Ignore combatant moves - assigned in the GameData class
+            // Ignore selected move - assigned in GameData class
 
             ResourcefulnessMod = 0;
         }

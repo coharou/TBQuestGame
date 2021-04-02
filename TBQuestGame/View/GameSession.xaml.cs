@@ -162,16 +162,20 @@ namespace TBQuestGame.View
 
             for (int i = 0; i < name.Count; i++)
             {
-                RadioButton btn = new RadioButton();
-                btn.Tag = $"{tag[i]}";
-                btn.Content = $"{name[i]}";
-                btn.Name = $"{name[i]}";
+                RadioButton btn = new RadioButton
+                {
+                    Tag = $"{tag[i]}",
+                    Content = $"{name[i]}",
+                    Name = $"{name[i]}"
+                };
                 inv_Obj.Children.Add(btn);
 
-                TextBlock block = new TextBlock();
-                block.Tag = $"{tag[i]}";
-                block.TextWrapping = TextWrapping.Wrap;
-                block.Text = $"{desc[i]}\n";
+                TextBlock block = new TextBlock
+                {
+                    Tag = $"{tag[i]}",
+                    TextWrapping = TextWrapping.Wrap,
+                    Text = $"{desc[i]}\n"
+                };
                 inv_Obj.Children.Add(block);
             }
         }
