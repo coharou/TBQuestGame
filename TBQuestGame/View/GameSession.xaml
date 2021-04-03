@@ -106,7 +106,7 @@
     
     <Grid Width="1024" Height="768">
         <Rectangle Fill="LightGray"></Rectangle>
-        <Image Source="/TBQuestGame;component/Assets/wood_frame.png"/>
+        <Image Source="/TBQuestGame;component/Assets/new_wireframe.png"/>
 
         <Grid x:Name="grid_Map" 
             Width="480" 
@@ -176,7 +176,7 @@
         
         <!--#region HUD INFO -->
         <StackPanel 
-            Margin="350,30,334,678">
+            Margin="350,10,334,698">
             <Label 
                 Content="TBQuestGame"
                 HorizontalAlignment="Center"

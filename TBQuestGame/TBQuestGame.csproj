@@ -202,5 +202,10 @@
   <ItemGroup>
     <Resource Include="Assets\character_icons\enemy.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\new_wireframe.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
