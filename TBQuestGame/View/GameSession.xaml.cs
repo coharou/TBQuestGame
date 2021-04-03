@@ -352,7 +352,7 @@ namespace TBQuestGame.View
                         Image e = new Image();
                         grid_Action.Children.Add(e);
                         e.Name = "Enemy";
-                        e.Tag = $"{x}-{y}";
+                        e.Tag = $"c{x}_r{y}";
                         e.MouseRightButtonUp += Enemy_Right_Clicked;
 
                         string path = _gameViewModel.GetEnemyIconPath();
@@ -368,7 +368,40 @@ namespace TBQuestGame.View
 
         private void Enemy_Right_Clicked(object sender, RoutedEventArgs e)
         {
-            // unsure
+            Image img = (Image)e.Source;
+            string tag = (string)img.Tag;
+            bool isEnemyRemoved = _gameViewModel.TestPlayerAttack(tag);
+            if (isEnemyRemoved == true)
+            {
+                RemoveSpecificEnemyFromGrid(tag);
+            }
+        }
+
+        private void RemoveSpecificEnemyFromGrid(string tag)
+        {
+            UIElementCollection collection = grid_Action.Children;
+            List<Image> images = new List<Image>();
+
+            foreach (var elem in collection)
+            {
+                if (elem is Image)
+                {
+                    Image image = (Image)elem;
+                    images.Add(image);
+                }
+            }
+
+            foreach (var img in images)
+            {
+                string name = img.Name;
+                if (name == "Enemy")
+                {
+                    if (img.Tag.ToString() == tag)
+                    {
+                        collection.Remove(img);
+                    }
+                }
+            }
         }
 
         private void RemoveAllEnemiesFromGrid()

@@ -46,16 +46,17 @@ namespace TBQuestGame.Data
             Art icon = new Art(1, "Enemy", path + "enemy.png");
 
             Moves[] moves = InitMoves();
+            Armor[] armor = InitArmor();
 
             List<Enemy> enemies = new List<Enemy>
             {
-                new Enemy(0, "Pikeman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Pikeman, moves[4]),
-                new Enemy(1, "Crossbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Crossbowman, moves[1]),
-                new Enemy(2, "Longbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Archer, moves[2]),
-                new Enemy(3, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, moves[3]),
-                new Enemy(4, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, moves[5]),
-                new Enemy(5, "Arquebusier ", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, moves[6]),
-                new Enemy(6, "Musketman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, moves[7])
+                new Enemy(0, "Pikeman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Pikeman, moves[4], armor[0]),
+                new Enemy(1, "Crossbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Crossbowman, moves[1], armor[1]),
+                new Enemy(2, "Longbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Archer, moves[2], armor[0]),
+                new Enemy(3, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, moves[3], armor[1]),
+                new Enemy(4, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, moves[5], armor[2]),
+                new Enemy(5, "Arquebusier ", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, moves[6], armor[1]),
+                new Enemy(6, "Musketman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, moves[7], armor[2])
             };
 
             return enemies;

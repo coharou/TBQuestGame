@@ -273,7 +273,7 @@
         <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
         
         <!--#region MENU OPTIONS -->
-        <Grid Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}">
+        <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 HorizontalAlignment="Center" 
@@ -303,7 +303,7 @@
         <!--#endregion-->
         
         <!--#region TRAITS MENU-->
-        <Grid Visibility="{Binding Gamestate.PausedByTraits, Converter={StaticResource bool_Visibility}}">
+        <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 MaxWidth="600"
@@ -368,7 +368,7 @@
         <!--#endregion-->
         
         <!--#region INVENTORY OVERLAY -->
-        <Grid Visibility="{Binding Gamestate.PausedByInventory, Converter={StaticResource bool_Visibility}}">
+        <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 Width="400"

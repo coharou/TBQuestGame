@@ -7,11 +7,12 @@ using TBQuestGame.GameInfo;
 
 namespace TBQuestGame.Utilities
 {
-    class Combat
+    public class Combat
     {
         public Combatant ProcessAttack(Combatant agg, Combatant def, Random ran)
         {
             bool doesMoveLand = AccuracyCheck(agg, ran);
+            Console.WriteLine(doesMoveLand);
             if (doesMoveLand == true)
             {
                 int dmg = AggDamage(agg);
@@ -29,26 +30,31 @@ namespace TBQuestGame.Utilities
         private bool AccuracyCheck(Combatant com, Random ran)
         {
             bool doesAttackLand = false;
-            int acc = 0;
+            int accMod = 0;
 
             Moves.DamageType type = com.SelectedMove.DamageClass;
             switch (type)
             {
                 case Moves.DamageType.Gunpowder:
-                    acc = com.AccuracyModGunpowder;
+                    accMod = com.AccuracyModGunpowder;
                     break;
                 case Moves.DamageType.Ranged:
-                    acc = com.AccuracyModRanged;
+                    accMod = com.AccuracyModRanged;
                     break;
                 case Moves.DamageType.Melee:
-                    acc = com.AccuracyModMelee;
+                    accMod = com.AccuracyModMelee;
                     break;
                 default:
                     break;
             }
 
+            int acc = com.SelectedMove.Accuracy;
+            double dMod = accMod / 100;
+            int iMod = (int)Math.Floor(dMod * acc);
+            int fullAcc = acc + iMod;
+
             int rng = ran.Next(0, 100);
-            if (acc >= rng)
+            if (fullAcc >= rng)
             {
                 doesAttackLand = true;
             }

@@ -10,23 +10,12 @@ namespace TBQuestGame.GameInfo
     {
         public int PrevPosition { get; set; }
 
-        private Moves _move;
-
-        public Moves Move
-        {
-            get { return _move; }
-            set 
-            { 
-                _move = value;
-                OnPropertyChanged(nameof(Move));
-            }
-        }
-
-        public Enemy(int id, string name, int locationId, int tilePosition, Art icon, Role role, SoldierRole extendedRole, Moves move):
+        public Enemy(int id, string name, int locationId, int tilePosition, Art icon, Role role, SoldierRole extendedRole, Moves selectedMove, Armor armor):
             base(id, name, locationId, tilePosition, icon, role, extendedRole)
         {
             PrevPosition = tilePosition;
-            Move = move;
+            SelectedMove = selectedMove;
+            ArmorType = armor;
         }
     }
 }

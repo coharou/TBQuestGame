@@ -35,7 +35,17 @@ namespace TBQuestGame.GameInfo
         #endregion
 
         #region ARMOR
-        public Armor ArmorType { get; set; }
+        private Armor _armorType;
+
+        public Armor ArmorType
+        {
+            get { return _armorType; }
+            set 
+            { 
+                _armorType = value;
+                OnPropertyChanged(nameof(ArmorType));
+            }
+        }
 
         public int DefenseModRanged { get; set; }
 

@@ -120,7 +120,11 @@ namespace TBQuestGame.View
         public List<Enemy> EnemyNPCs
         {
             get { return _enemyNPCs; }
-            set { _enemyNPCs = value; }
+            set 
+            { 
+                _enemyNPCs = value;
+                OnPropertyChanged(nameof(EnemyNPCs));
+            }
         }
 
         private List<int> _enemyPosX;
@@ -138,6 +142,15 @@ namespace TBQuestGame.View
             get { return _enemyPosY; }
             set { _enemyPosY = value; }
         }
+
+        private Utilities.Combat _combat;
+
+        public Utilities.Combat Combat
+        {
+            get { return _combat; }
+            set { _combat = value; }
+        }
+
         #endregion
 
         #region CONSTRUCTORS
@@ -159,6 +172,10 @@ namespace TBQuestGame.View
 
             EnemyPosX = new List<int>();
             EnemyPosY = new List<int>();
+
+            Player.SelectedMove = Player.Moves[0];
+
+            Combat = new Utilities.Combat();
 
             GenerateItemList();
             CreateListsOfNPCs();
@@ -558,6 +575,97 @@ namespace TBQuestGame.View
             }
 
             return isOccupied;
+        }
+
+        public bool TestPlayerAttack(string tag)
+        {
+            bool didEnemyDie = false;
+
+            (int, int) coords = CharacterCoordinates(tag);
+            int x = coords.Item1;
+            int y = coords.Item2;
+
+            bool isPlayerAdj = IsPlayerAdjacent(x, y);
+
+            if (isPlayerAdj == true)
+            {
+                Enemy enemy = FindEnemyFromList(x, y);
+
+                enemy = (Enemy)Combat.ProcessAttack(Player, enemy, Gamestate.RandObj);
+
+                Console.WriteLine("hello!");
+
+                didEnemyDie = TestIfEnemyAlive(enemy);
+                if (didEnemyDie == true)
+                {
+                    RemoveEnemyFromList(enemy);
+                }
+            }
+
+            return didEnemyDie;
+        }
+
+        public bool TestIfEnemyAlive(Enemy e)
+        {
+            bool isDead = false;
+
+            int hp = e.HealthCurrent;
+            if (hp <= 0)
+            {
+                isDead = true;
+            }
+
+            return isDead;
+        }
+
+        public void RemoveEnemyFromList(Enemy e)
+        {
+            EnemyNPCs.Remove(e);
+        }
+
+        /// <summary>
+        /// Finds an Enemy NPC by their tile position from among all the enemy NPCs on the field.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private Enemy FindEnemyFromList(int x, int y)
+        {
+            Enemy enemy = FindEnemyByID(0);
+
+            for (int i = 0; i < EnemyNPCs.Count; i++)
+            {
+                if (EnemyPosX[i] == x && EnemyPosY[i] == y)
+                {
+                    enemy = EnemyNPCs[i];
+                }
+            }
+
+            return enemy;
+        }
+
+        private bool IsPlayerAdjacent(int enemyX, int enemyY)
+        {
+            bool isAdj = false;    
+
+            if (enemyX - 1 == Player.TilePositionColumn && enemyY == Player.TilePositionRow)
+            {
+                isAdj = true;
+            }
+            if (enemyX + 1 == Player.TilePositionColumn && enemyY == Player.TilePositionRow)
+            {
+                isAdj = true;
+            }
+            if (enemyY - 1 == Player.TilePositionRow && enemyX == Player.TilePositionColumn)
+            {
+                isAdj = true;
+            }
+            if (enemyY + 1 == Player.TilePositionRow && enemyX == Player.TilePositionColumn)
+            {
+                isAdj = true;
+            }
+
+            return isAdj;
         }
 
         public string GetEnemyIconPath()
