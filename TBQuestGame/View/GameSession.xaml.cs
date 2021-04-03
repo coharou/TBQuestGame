@@ -38,6 +38,7 @@ namespace TBQuestGame.View
             CreateMapGrid();
             SetGridDefinitions(grid_Action);
             AddItemsToGrid();
+            AddEnemiesToGrid();
             CreateCharacterIcon();
         }
         #endregion
@@ -335,6 +336,67 @@ namespace TBQuestGame.View
         }
         #endregion
 
+        #region Enemy SPAWN, DESPAWN METHODS
+        private void AddEnemiesToGrid()
+        {
+            int tpr = _gameViewModel.GetTotalTilesPerRow();
+            int enemies = 0;
+            for (int x = 0; x < tpr; x++)
+            {
+                for (int y = 0; y < tpr; y++)
+                {
+                    bool isEnemyThere = _gameViewModel.IsOccupiedByEnemy(x, y);
+
+                    if (isEnemyThere == true)
+                    {
+                        Image e = new Image();
+                        grid_Action.Children.Add(e);
+                        e.Name = "Enemy";
+                        e.Tag = $"{x}-{y}";
+                        e.MouseRightButtonUp += Enemy_Right_Clicked;
+
+                        string path = _gameViewModel.GetEnemyIconPath();
+                        e.Source = ReturnImageSource(path);
+
+                        Grid.SetColumn(e, x);
+                        Grid.SetRow(e, y);
+                        enemies++;
+                    }
+                }
+            }
+        }
+
+        private void Enemy_Right_Clicked(object sender, RoutedEventArgs e)
+        {
+            // unsure
+        }
+
+        private void RemoveAllEnemiesFromGrid()
+        {
+            UIElementCollection collection = grid_Action.Children;
+
+            List<Image> images = new List<Image>();
+
+            foreach (var elem in collection)
+            {
+                if (elem is Image)
+                {
+                    Image image = (Image)elem;
+                    images.Add(image);
+                }
+            }
+
+            foreach (var img in images)
+            {
+                string name = img.Name;
+                if (name == "Enemy")
+                {
+                    collection.Remove(img);
+                }
+            }
+        }
+        #endregion
+
         #region Character RESPONSE METHODS
         private void CreateCharacterIcon()
         {
@@ -358,12 +420,16 @@ namespace TBQuestGame.View
 
             UIElementCollection collection = grid_Action.Children;
 
-            // At the moment, this is only prepared for the character object.
-            // Grid updates for other objects, like enemies or items, will not be added until necessary.
-
-            Image character = (Image)collection[0];
-            Grid.SetColumn(character, x);
-            Grid.SetRow(character, y);
+            foreach (var item in collection)
+            {
+                Image img = (Image)item;
+                if (img.Name == "Character")
+                {
+                    Image character = img;
+                    Grid.SetColumn(character, x);
+                    Grid.SetRow(character, y);
+                }
+            }
         }
 
         private bool PlayerCanMove(RoutedEventArgs e)
@@ -468,9 +534,15 @@ namespace TBQuestGame.View
         private void TransitionDungeonLayers()
         {
             _gameViewModel.DungeonTransition();
+
             RemoveAllItemsFromGrid();
+            RemoveAllEnemiesFromGrid();
+
             UpdateMapGridTiles();
+
             AddItemsToGrid();
+            AddEnemiesToGrid();
+
             _gameViewModel.MatchPlayerPositionToEntrance();
             ChangeCharacterIconPosition();
         }

@@ -91,10 +91,57 @@ namespace TBQuestGame.View
             set { _items = value; }
         }
 
+        private List<Enemy> _enemyTypes;
+
+        public List<Enemy> EnemyTypes
+        {
+            get { return _enemyTypes; }
+            set { _enemyTypes = value; }
+        }
+
+        private List<PassiveNPC> _passiveTypes;
+
+        public List<PassiveNPC> PassiveTypes
+        {
+            get { return _passiveTypes; }
+            set { _passiveTypes = value; }
+        }
+
+        private List<PassiveNPC> _passiveNPCs;
+
+        public List<PassiveNPC> PassiveNPCs
+        {
+            get { return _passiveNPCs; }
+            set { _passiveNPCs = value; }
+        }
+
+        private List<Enemy> _enemyNPCs;
+
+        public List<Enemy> EnemyNPCs
+        {
+            get { return _enemyNPCs; }
+            set { _enemyNPCs = value; }
+        }
+
+        private List<int> _enemyPosX;
+
+        public List<int> EnemyPosX
+        {
+            get { return _enemyPosX; }
+            set { _enemyPosX = value; }
+        }
+
+        private List<int> _enemyPosY;
+
+        public List<int> EnemyPosY
+        {
+            get { return _enemyPosY; }
+            set { _enemyPosY = value; }
+        }
         #endregion
 
         #region CONSTRUCTORS
-        public GameViewModel(Player player, Gamestate gamestate, Traits[] traits, List<Item> items)
+        public GameViewModel(Player player, Gamestate gamestate, Traits[] traits, List<Item> items, List<Enemy> enemyTypes, List<PassiveNPC> passiveTypes)
         {
             _player = player;
             _traits = traits;
@@ -105,21 +152,26 @@ namespace TBQuestGame.View
 
             _gameState = gamestate;
             _items = items;
+            _enemyTypes = enemyTypes;
+            _passiveTypes = passiveTypes;
             _location = SetupStartLocation();
             MapGrid = _location.TileGrid;
 
+            EnemyPosX = new List<int>();
+            EnemyPosY = new List<int>();
+
             GenerateItemList();
+            CreateListsOfNPCs();
             MatchPlayerPositionToEntrance();
             UpdateDungeonValues();
-
-            // For presentation purposes. Remove once unneeded.
-            Player.HealthCurrent = 99;
-            Player.Inventory.Add(MatchItemType(Item.Tag.Teleport));
-            Player.Inventory.Add(MatchItemType(Item.Tag.Health));
         }
         #endregion
 
         #region Player Trait METHODS
+        /// <summary>
+        /// Inits the player's random traits. Inits application of the player's traits to their stats.
+        /// </summary>
+        /// <param name="gamestate"></param>
         public void TraitStartUp(Gamestate gamestate)
         {
             Player.TraitRandomPos = GetRandomTraits(true, gamestate);
@@ -261,6 +313,260 @@ namespace TBQuestGame.View
             Gamestate.TurnCount += 1;
             Player.MovementCurrent = Player.MovementMax;
             Gamestate.CanPlayerAct = true;
+        }
+        #endregion
+
+        #region NPC SPAWNING
+        public void CreateListsOfNPCs()
+        {
+            // Spawn passive NPCs first, then enemies
+            // bool isMerchantSpawning = ShouldMerchantSpawn();
+            /*
+            if (isMerchantSpawning == true)
+            {
+                PassiveNPC merchant = FindPassiveByID(0);
+                PassiveNPCs.Add(merchant);
+            }
+            */
+
+            int enemyCount = NumberOfEnemiesToSpawn();
+
+            List<Enemy> tempEnemies = GetEnemiesForList(enemyCount);
+            EnemyNPCs = tempEnemies;
+
+            GiveEnemiesPositions();
+        }
+
+        public void GiveEnemiesPositions()
+        {
+            for (int i = 0; i < EnemyNPCs.Count; i++)
+            {
+                bool passable = false;
+                bool occupied = false;
+
+                do
+                {
+                    int sampleX = Gamestate.RandObj.Next(0, C.TilesPerRow);
+                    int sampleY = Gamestate.RandObj.Next(0, C.TilesPerRow);
+
+                    if (MapGrid[sampleX, sampleY].Passable == true)
+                    {
+                        if (MapGrid[sampleX, sampleY].ID != 3 && MapGrid[sampleX, sampleY].ID != 4)
+                        {
+                            if (i == 0)
+                            {
+                                EnemyPosX.Add(sampleX);
+                                EnemyPosY.Add(sampleY);
+                                passable = true;
+                            }
+                            else
+                            {
+                                for (int e = 0; e < EnemyPosX.Count; e++)
+                                {
+                                    if (EnemyPosX[e] == sampleX && EnemyPosY[e] == sampleY)
+                                    {
+                                        occupied = true;
+                                    }
+                                }
+
+                                if (occupied == false)
+                                {
+                                    EnemyPosX.Add(sampleX);
+                                    EnemyPosY.Add(sampleY);
+                                    passable = true;
+                                }
+
+                                occupied = false;
+                            }
+
+                        }
+                    }
+                } while (passable == false);
+            }
+        }
+
+        private List<Enemy> GetEnemiesForList(int enemyCount)
+        {
+            List<Enemy> enemies = new List<Enemy>();
+
+            for (int i = 0; i < enemyCount; i++)
+            {
+                Enemy sample = FindEnemyByID(3);
+
+                int ran = Gamestate.RandObj.Next(0, 100);
+
+                if (Gamestate.LocationCount < 6)
+                {
+                    if (ran >= 0 && ran < 50)
+                    {
+                        // 50%, Pikeman
+                        sample = FindEnemyByID(0);
+                    }
+                    else if (ran >= 50 && ran < 55)
+                    {
+                        // 5%, Crossbowman
+                        sample = FindEnemyByID(1);
+                    }
+                    else if (ran >= 55 && ran < 90)
+                    {
+                        // 35%, Longbowman
+                        sample = FindEnemyByID(2);
+                    }
+                    else
+                    {
+                        // 10%, Lance-equipped Knight
+                        sample = FindEnemyByID(3);
+                    }
+                }
+                else
+                {
+                    if (ran >= 0 && ran < 15)
+                    {
+                        // 15%, Lance-equipped Knight
+                        sample = FindEnemyByID(3);
+                    }
+                    else if (ran >= 15 && ran < 35)
+                    {
+                        // 20%, Halberd-equipped Knight
+                        sample = FindEnemyByID(4);
+                    }
+                    else if (ran >= 35 && ran < 60)
+                    {
+                        // 25%, Arquebusier
+                        sample = FindEnemyByID(5);
+                    }
+                    else if (ran >= 60 && ran < 75)
+                    {
+                        // 15%, Musketman
+                        sample = FindEnemyByID(6);
+                    }
+                    else
+                    {
+                        // 25%, Crossbowman
+                        sample = FindEnemyByID(1);
+                    }
+                }
+
+                enemies.Add(sample);
+            }
+
+            return enemies;
+        }
+
+        private int NumberOfEnemiesToSpawn()
+        {
+            // Six (6) enemies are guaranteed to spawn.
+            int count = 6;
+
+            // For each dungeon layer the player has moved through, test adding another enemy.
+            // There is a 50% chance to spawn an additional enemy on the first layer.
+
+            // If the user is at the third layer, there is are 3 opportunities to add more enemies, at 50% chances.
+            // For each unsuccessful attempt, there is a 20% extra chance to spawn an enemy.
+            // Once a successful attempt occurs after a miss, the chance is set back to 50%.
+            // i.e  ATTEMPT 1 @ 50% = miss; so ATTEMPT 2 @ 70%.
+            //      IF ATTEMPT 2 = success, ATTEMPT 3 will be @ 50% chance.
+
+            // Only 1, 2, 3
+
+            int chance = 50;
+            for (int i = 0; i < Gamestate.LayerCount; i++)
+            {
+                int ran = Gamestate.RandObj.Next(0, 100);
+                if (chance > ran)
+                {
+                    count++;
+
+                    if (chance > 50)
+                    {
+                        chance = 50;
+                    }
+                }
+                else
+                {
+                    chance += 20;
+                }
+            }
+
+            return count;
+        }
+
+        private Enemy FindEnemyByID(int id)
+        {
+            List<Enemy> eTypes = EnemyTypes;
+            Enemy e = eTypes.Find(x => x.ID == id);
+            return e;
+        }
+
+        private PassiveNPC FindPassiveByID(int id)
+        {
+            List<PassiveNPC> pTypes = PassiveTypes;
+            PassiveNPC p = pTypes.Find(x => x.ID == id);
+            return p;
+        }
+
+        private bool ShouldMerchantSpawn()
+        {
+            bool isMerchantSpawning = false;
+
+            int chance = 0;
+
+            switch (Gamestate.TimeSinceMerchantSpawn)
+            {
+                case 0:
+                    chance = 50;
+                    break;
+                case 1:
+                    chance = 60;
+                    break;
+                case 2:
+                    chance = 70;
+                    break;
+                case 3:
+                    chance = 80;
+                    break;
+                case 4:
+                    chance = 90;
+                    break;
+                default:
+                    chance = 100;
+                    break;
+            }
+
+            int ran = Gamestate.RandObj.Next(0, 100);
+
+            if (chance >= ran)
+            {
+                isMerchantSpawning = true;
+            }
+
+            return isMerchantSpawning;
+        }
+        #endregion
+
+        #region NPC LOCATIONS
+        public bool IsOccupiedByEnemy(int x, int y)
+        {
+            bool isOccupied = false;
+
+            for (int i = 0; i < EnemyNPCs.Count; i++)
+            {
+                if (EnemyPosX[i] == x && EnemyPosY[i] == y)
+                {
+                    isOccupied = true;
+                }
+            }
+
+            return isOccupied;
+        }
+
+        public string GetEnemyIconPath()
+        {
+            // This will need to be updated when many enemy sprites are added
+            // It will need parameters for enemy position
+
+            string path = EnemyNPCs[0].Icon.Path;
+            return path;
         }
         #endregion
 
@@ -493,7 +799,7 @@ namespace TBQuestGame.View
 
         public Location SetupStartLocation()
         {
-            Location location = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+            Location location = new Dungeon(Gamestate.LocID, "The Beginning", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
             return location;
         }
 
@@ -506,6 +812,12 @@ namespace TBQuestGame.View
             InitiateNewLocation();
 
             GenerateItemList();
+
+            EnemyNPCs.Clear();
+            EnemyPosX.Clear();
+            EnemyPosY.Clear();
+
+            CreateListsOfNPCs();
 
             Gamestate.Location = Location.Name;
         }
@@ -528,43 +840,43 @@ namespace TBQuestGame.View
         {
             if (Gamestate.LocationCount <= 2)
             {
-                Location.Name = "Starting Area Forest";
+                Location.Name = "The Beginning";
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
                 MapGrid = standard.TileGrid;
             }
             if (Gamestate.LocationCount == 3 || Gamestate.LocationCount == 4)
             {
-                Location.Name = "River Seine, Part 1";
+                Location.Name = "The River";
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.River);
                 MapGrid = standard.TileGrid;
             }
             if (Gamestate.LocationCount == 5)
             {
-                Location.Name = "Village, Part 1";
+                Location.Name = "The Village";
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
                 MapGrid = standard.TileGrid;
             }
             if (Gamestate.LocationCount == 6)
             {
-                Location.Name = "Return to the Forest";
+                Location.Name = "The Return";
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
                 MapGrid = standard.TileGrid;
             }
             if (Gamestate.LocationCount == 7 || Gamestate.LocationCount == 8)
             {
-                Location.Name = "River Seine, Part 2";
+                Location.Name = "The River";
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.River);
                 MapGrid = standard.TileGrid;
             }
             if (Gamestate.LocationCount == 9)
             {
-                Location.Name = "Village, Part 2";
+                Location.Name = "The Village";
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
                 MapGrid = standard.TileGrid;
             }
             if (Gamestate.LocationCount == 10)
             {
-                Location.Name = "Flashback";
+                Location.Name = "A Flashback";
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
                 MapGrid = standard.TileGrid;
             }  

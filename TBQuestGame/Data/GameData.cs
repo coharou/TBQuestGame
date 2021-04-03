@@ -27,14 +27,35 @@ namespace TBQuestGame.Data
             return player;
         }
 
-        public static Enemy[] InitEnemyTypes()
+        public static List<PassiveNPC> InitPassiveTypes()
+        {
+            string path = "pack://application:,,,/Assets/character_icons/";
+            Art icon = new Art(2, "Merchant", path + "merchant.png");
+
+            List<PassiveNPC> passiveTypes = new List<PassiveNPC>
+            {
+                new PassiveNPC(0, "Merchant", 0, 0, icon, Character.Role.Merchant)
+            };
+
+            return passiveTypes;
+        }
+
+        public static List<Enemy> InitEnemyTypes()
         {
             string path = "pack://application:,,,/Assets/character_icons/";
             Art icon = new Art(1, "Enemy", path + "enemy.png");
 
-            Enemy[] enemies = new Enemy[]
+            Moves[] moves = InitMoves();
+
+            List<Enemy> enemies = new List<Enemy>
             {
-                
+                new Enemy(0, "Pikeman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Pikeman, moves[4]),
+                new Enemy(1, "Crossbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Crossbowman, moves[1]),
+                new Enemy(2, "Longbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Archer, moves[2]),
+                new Enemy(3, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, moves[3]),
+                new Enemy(4, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, moves[5]),
+                new Enemy(5, "Arquebusier ", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, moves[6]),
+                new Enemy(6, "Musketman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, moves[7])
             };
 
             return enemies;
@@ -66,14 +87,14 @@ namespace TBQuestGame.Data
 
             Moves[] moves = new Moves[]
             {
-                new Moves(0, "Javelin", "Ranged weapon.", Moves.DamageType.Ranged, 120, 90, Moves.StatusType.Bleeding, 20, false, Moves.Ammunition.None),
-                new Moves(1, "Crossbow", "Ranged weapon.", Moves.DamageType.Ranged, 105, 95, Moves.StatusType.None, 0, true, Moves.Ammunition.Arrow),
-                new Moves(2, "Longbow", "Ranged weapon.", Moves.DamageType.Ranged, 80, 100, Moves.StatusType.Burning, 80, true, Moves.Ammunition.Arrow),
-                new Moves(3, "Lance", "Melee weapon.", Moves.DamageType.Melee, 105, 95, Moves.StatusType.Bleeding, 30, false, Moves.Ammunition.None),
-                new Moves(4, "Pike", "Melee weapon.", Moves.DamageType.Melee, 90, 100, Moves.StatusType.Bleeding, 10, false, Moves.Ammunition.None),
-                new Moves(5, "Halberd", "Melee weapon.", Moves.DamageType.Melee, 100, 80, Moves.StatusType.Bleeding, 45, false, Moves.Ammunition.None),
-                new Moves(6, "Hand Cannon", "Gunpowder weapon.", Moves.DamageType.Gunpowder, 145, 75, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder),
-                new Moves(7, "Musket", "Gunpowder weapon.", Moves.DamageType.Gunpowder, 120, 85, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder)
+                new Moves(0, "Javelin", "Ranged weapon.", Moves.DamageType.Ranged, 30, 85, Moves.StatusType.Bleeding, 20, false, Moves.Ammunition.None),
+                new Moves(1, "Crossbow", "Ranged weapon.", Moves.DamageType.Ranged, 45, 95, Moves.StatusType.None, 0, true, Moves.Ammunition.Arrow),
+                new Moves(2, "Longbow", "Ranged weapon.", Moves.DamageType.Ranged, 30, 100, Moves.StatusType.Burning, 80, true, Moves.Ammunition.Arrow),
+                new Moves(3, "Lance", "Melee weapon.", Moves.DamageType.Melee, 35, 95, Moves.StatusType.None, 30, false, Moves.Ammunition.None),
+                new Moves(4, "Pike", "Melee weapon.", Moves.DamageType.Melee, 25, 100, Moves.StatusType.Bleeding, 10, false, Moves.Ammunition.None),
+                new Moves(5, "Halberd", "Melee weapon.", Moves.DamageType.Melee, 45, 80, Moves.StatusType.Bleeding, 45, false, Moves.Ammunition.None),
+                new Moves(6, "Arquebus", "Gunpowder weapon.", Moves.DamageType.Gunpowder, 65, 75, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder),
+                new Moves(7, "Musket", "Gunpowder weapon.", Moves.DamageType.Gunpowder, 75, 85, Moves.StatusType.None, 0, true, Moves.Ammunition.Gunpowder)
             };
 
             return moves;

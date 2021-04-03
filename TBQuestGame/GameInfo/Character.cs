@@ -63,6 +63,10 @@ namespace TBQuestGame.GameInfo
         }
         #endregion
 
+        public int PositionX { get; set; }
+
+        public int PositionY { get; set; }
+
         #region CONSTRUCTOR
         public Character(int id, string name, int locationId, int tilePosition, Art icon, Role role)
         {
@@ -73,6 +77,8 @@ namespace TBQuestGame.GameInfo
             LocationID = locationId;
             TilePosition = tilePosition;
             Icon = icon;
+            PositionX = 0;
+            PositionY = 0;
         }
         #endregion
     }

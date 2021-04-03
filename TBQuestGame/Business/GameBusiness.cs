@@ -20,6 +20,8 @@ namespace TBQuestGame.Business
         Moves[] _moves;
         Traits[] _traits;
         List<Item> _items;
+        List<Enemy> _enemies;
+        List<PassiveNPC> _passives;
         #endregion
 
         #region CONSTRUCTOR
@@ -39,7 +41,9 @@ namespace TBQuestGame.Business
 
             _player = _playerCustoms.Player;
             _items = GameData.InitItems();
-            _gameViewModel = new GameViewModel(_player, _gamestate, _traits, _items);
+            _enemies = GameData.InitEnemyTypes();
+            _passives = GameData.InitPassiveTypes();
+            _gameViewModel = new GameViewModel(_player, _gamestate, _traits, _items, _enemies, _passives);
 
             GameSession gameSession = new GameSession(_gameViewModel);
             gameSession.DataContext = _gameViewModel;

@@ -15,7 +15,11 @@ namespace TBQuestGame.GameInfo
         public Moves Move
         {
             get { return _move; }
-            set { _move = value; }
+            set 
+            { 
+                _move = value;
+                OnPropertyChanged(nameof(Move));
+            }
         }
 
         public Enemy(int id, string name, int locationId, int tilePosition, Art icon, Role role, SoldierRole extendedRole, Moves move):

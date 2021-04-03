@@ -109,6 +109,7 @@ namespace TBQuestGame.GameInfo
             set { _locID = value; }
         }
 
+        public int TimeSinceMerchantSpawn { get; set; }
 
 
         #endregion
@@ -139,6 +140,7 @@ namespace TBQuestGame.GameInfo
             CanPlayerAct = canPlayerAct;
             LayerCount = 1;
             TurnCount = 1;
+            TimeSinceMerchantSpawn = 0;
             LocationCount = 1;
             Location = "";
             LocID = 0;

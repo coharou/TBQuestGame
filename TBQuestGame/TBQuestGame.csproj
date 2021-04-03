@@ -60,10 +60,12 @@
     <Compile Include="GameInfo\Enemy.cs" />
     <Compile Include="GameInfo\GameObject.cs" />
     <Compile Include="GameInfo\Gamestate.cs" />
+    <Compile Include="GameInfo\IShop.cs" />
     <Compile Include="GameInfo\Item.cs" />
     <Compile Include="GameInfo\Location.cs" />
     <Compile Include="GameInfo\ObservableObject.cs" />
     <Compile Include="GameInfo\Art.cs" />
+    <Compile Include="GameInfo\PassiveNPC.cs" />
     <Compile Include="GameInfo\TileConstants.cs" />
     <Compile Include="GameInfo\Tiles.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
