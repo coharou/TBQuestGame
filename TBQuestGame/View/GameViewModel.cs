@@ -762,9 +762,7 @@ namespace TBQuestGame.View
         {
             bool didEnemyDie = false;
 
-            (int, int) coords = CharacterCoordinates(tag);
-            int x = coords.Item1;
-            int y = coords.Item2;
+            CharacterCoordinates(tag, out int x, out int y);
 
             bool isPlayerAdj = IsPlayerAdjacent(x, y);
 
@@ -788,10 +786,7 @@ namespace TBQuestGame.View
         {
             bool didPlayerDie = false;
 
-            (int, int) coords = CharacterCoordinates(tag);
-            int x = coords.Item1;
-            int y = coords.Item2;
-
+            CharacterCoordinates(tag, out int x, out int y);
             Enemy enemy = FindEnemyFromList(x, y);
 
             Player = (Player)Combat.ProcessAttack(enemy, Player, Gamestate.RandObj);
@@ -1227,9 +1222,8 @@ namespace TBQuestGame.View
             // If the player has movement points at their disposal ...
             if (Player.MovementCurrent > 0)
             {
-                (int, int) coord = CharacterCoordinates(tag);
-                int column = coord.Item1;
-                int row = coord.Item2;
+                CharacterCoordinates(tag, out int column, out int row);
+
 
                 bool tileInRange = IsTileInPlayerMoveRange(column, row);
 
@@ -1318,14 +1312,12 @@ namespace TBQuestGame.View
             Player.TilePosition = CalculateTilePosition(column, row);
         }
 
-        public (int, int) CharacterCoordinates(string tag)
+        public void CharacterCoordinates(string tag, out int x, out int y)
         {
             string[] parts = tag.Split('_');
 
-            int column = UpdateToCoordinates(parts[0]);
-            int row = UpdateToCoordinates(parts[1]);
-
-            return (column, row);
+            x = UpdateToCoordinates(parts[0]);
+            y = UpdateToCoordinates(parts[1]);
         }
 
         private bool AreTilesPassable(int tileCol, int tileRow)
@@ -1576,10 +1568,7 @@ namespace TBQuestGame.View
 
         public void HoverOverInfo(string tag)
         {
-            (int, int) coords = CharacterCoordinates(tag);
-            int x = coords.Item1;
-            int y = coords.Item2;
-
+            CharacterCoordinates(tag, out int x, out int y);
             Enemy enemy = FindEnemyFromList(x, y);
 
             Tips.Name = enemy.Name;
