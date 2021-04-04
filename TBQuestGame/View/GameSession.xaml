@@ -263,6 +263,7 @@
         </StackPanel>
         <!--#endregion-->
 
+        <!--#region NPC HOVER TOOLTIP DISPLAY -->
         <StackPanel Orientation="Vertical" Margin="810,304,34,327" HorizontalAlignment="Center" Width="180">
             <Label Style="{StaticResource lbl_Basic}" Content="ENEMY DETAILS"></Label>
             <StackPanel Orientation="Horizontal">
@@ -306,6 +307,7 @@
                 </TextBlock>
             </StackPanel>
         </StackPanel>
+        <!-- #endregion -->
 
         <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
 
@@ -405,7 +407,7 @@
         <!--#endregion-->
 
         <!--#region INVENTORY OVERLAY -->
-        <Grid Visibility="Hidden">
+        <Grid Visibility="{Binding Gamestate.PausedByInventory, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 Width="400"
@@ -477,6 +479,49 @@
                 <Button 
                     Style="{StaticResource btn_Any_Menu}" 
                     Click="Btn_Inventory_Closed">
+                    Return to Game
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region INVENTORY OVERLAY -->
+        <Grid Visibility="{Binding Gamestate.PausedByMerchant, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                Width="400"
+                MaxWidth="600"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Orientation="Vertical"
+                Margin="10">
+                <Label 
+                    Style="{StaticResource lbl_Basic}" 
+                    HorizontalAlignment="Center" 
+                    Padding="10">
+                    The Merchant's Trade Post
+                </Label>
+                <StackPanel Margin="15">
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Visible">
+                        <StackPanel Margin="5" x:Name="shop_Obj">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+                    <Button 
+                        Style="{StaticResource btn_Any_Menu}"
+                        Click="Btn_Merchant_PurchaseItem">
+                        Purchase
+                    </Button>
+                </StackPanel>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="Btn_Merchant_Closed">
                     Return to Game
                 </Button>
             </StackPanel>

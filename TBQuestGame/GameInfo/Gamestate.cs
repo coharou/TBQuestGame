@@ -33,6 +33,19 @@ namespace TBQuestGame.GameInfo
             }
         }
 
+        private bool _pausedByMerchant;
+
+        public bool PausedByMerchant
+        {
+            get { return _pausedByMerchant; }
+            set 
+            { 
+                _pausedByMerchant = value;
+                OnPropertyChanged(nameof(PausedByMerchant));
+            }
+        }
+
+
         private bool _pausedByInventory;
 
         public bool PausedByInventory
@@ -140,13 +153,19 @@ namespace TBQuestGame.GameInfo
             PausedByOptions = false;
             PausedByTraits = false;
             PausedByInventory = false;
+            PausedByMerchant = false;
+
             RandObj = ObtainRandObj();
+
             CanPlayerAct = canPlayerAct;
+
             LayerCount = 1;
             TurnCount = 1;
+
             TimeSinceMerchantSpawn = 0;
+
             LocationCount = 1;
-            Location = "";
+            Location = "The Beginning";
             LocID = 0;
         }
         #endregion

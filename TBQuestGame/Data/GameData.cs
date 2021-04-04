@@ -185,9 +185,9 @@ namespace TBQuestGame.Data
         {
             List<Item> items = new List<Item>()
             {
-                new Item(0, "None", "DEFAULT", Item.Tag.None),
-                new Item(1, "Bandage", "Heals the player when used.", Item.Tag.Health),
-                new Item(2, "Evasion", "The player moves one dungeon layer ahead when used.", Item.Tag.Teleport)
+                new Item(0, "None", "DEFAULT", Item.Tag.None, 0),
+                new Item(1, "Bandage", "Heals the player when used.", Item.Tag.Health, 200),
+                new Item(2, "Evasion", "The player moves one dungeon layer ahead when used.", Item.Tag.Teleport, 500)
             };
 
             return items;

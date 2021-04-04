@@ -48,34 +48,34 @@ namespace TBQuestGame.View
         private void btn_Inventory_Clicked(object sender, RoutedEventArgs e)
         {
             _gameViewModel.ChangeGamestates("Inventory");
-            DisplayInventoryInfo();
+            DisplayItemLists(GameInfo.Character.Role.Soldier, inv_Obj);
         }
 
         private void Btn_Inventory_Closed(object sender, RoutedEventArgs e)
         {
             _gameViewModel.ChangeGamestates("ReturnGame");
-            ClearInventoryMenu();
+            ClearItemLists(inv_Obj);
         }
 
         private void Btn_Inventory_TrashItem(object sender, RoutedEventArgs e)
         {
             RemoveItemFromInventory();
-            ClearInventoryMenu();
-            DisplayInventoryInfo();
+            ClearItemLists(inv_Obj);
+            DisplayItemLists(GameInfo.Character.Role.Soldier, inv_Obj);
         }
 
         private void Btn_Inventory_UseItem(object sender, RoutedEventArgs e)
         {
             UseItemFromInventory();
-            ClearInventoryMenu();
-            DisplayInventoryInfo();
+            ClearItemLists(inv_Obj);
+            DisplayItemLists(GameInfo.Character.Role.Soldier, inv_Obj);
         }
 
         private void Btn_Inventory_Sort(object sender, RoutedEventArgs e)
         {
             _gameViewModel.ResortInventory();
-            ClearInventoryMenu();
-            DisplayInventoryInfo();
+            ClearItemLists(inv_Obj);
+            DisplayItemLists(GameInfo.Character.Role.Soldier, inv_Obj);
         }
 
         private void btn_Traits_Clicked(object sender, RoutedEventArgs e)
@@ -105,8 +105,8 @@ namespace TBQuestGame.View
 
         private void Btn_Inventory_Refresh_Clicked(object sender, RoutedEventArgs e)
         {
-            ClearInventoryMenu();
-            DisplayInventoryInfo();
+            ClearItemLists(inv_Obj);
+            DisplayItemLists(GameInfo.Character.Role.Soldier, inv_Obj);
         }
 
         private void Btn_Inventory_Filter_Clicked(object sender, RoutedEventArgs e)
@@ -154,33 +154,6 @@ namespace TBQuestGame.View
         #endregion
 
         #region INVENTORY MANAGEMENT
-        private void DisplayInventoryInfo()
-        {
-            (List<String>, List<String>, List<String>) obj = _gameViewModel.GetPlayerInventory();
-
-            List<String> name = obj.Item1;
-            List<String> desc = obj.Item2;
-            List<String> tag = obj.Item3;
-
-            for (int i = 0; i < name.Count; i++)
-            {
-                RadioButton btn = new RadioButton
-                {
-                    Tag = $"{tag[i]}",
-                    Content = $"{name[i]}",
-                    Name = $"{name[i]}"
-                };
-                inv_Obj.Children.Add(btn);
-
-                TextBlock block = new TextBlock
-                {
-                    Tag = $"{tag[i]}",
-                    TextWrapping = TextWrapping.Wrap,
-                    Text = $"{desc[i]}\n"
-                };
-                inv_Obj.Children.Add(block);
-            }
-        }
 
         private void UseItemFromInventory()
         {
@@ -221,22 +194,6 @@ namespace TBQuestGame.View
                         _gameViewModel.RemoveItemFromInventory(name);
                     }
                 }
-            }
-        }
-
-        private void ClearInventoryMenu()
-        {
-            UIElementCollection collection = inv_Obj.Children;
-            List<Object> storage = new List<Object>();
-
-            foreach (var item in collection)
-            {
-                storage.Add(item);
-            }
-
-            foreach (var item in storage)
-            {
-                collection.Remove((UIElement)item);
             }
         }
         #endregion
@@ -353,7 +310,9 @@ namespace TBQuestGame.View
                         grid_Action.Children.Add(p);
                         p.Name = "Passive";
                         p.Tag = $"c{x}_r{y}";
-                        // Add click methods here
+                        p.MouseRightButtonUp += Rt_Clicked_Merchant;
+                        // Hover into method to show details
+                        p.MouseLeave += RemoveHoverTooltip;
 
                         string path = _gameViewModel.GetMerchantIcon();
                         p.Source = ReturnImageSource(path);
@@ -388,6 +347,90 @@ namespace TBQuestGame.View
                     collection.Remove(img);
                 }
             }
+        }
+        #endregion
+
+        #region Merchant MENU METHODS
+        private void Rt_Clicked_Merchant(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("Merchant");
+            DisplayItemLists(GameInfo.Character.Role.Merchant, shop_Obj);
+        }
+
+        private void DisplayItemLists(GameInfo.Character.Role role, StackPanel panelObj)
+        {
+            (List<String>, List<String>, List<String>) obj = _gameViewModel.GetRoleInventory(role);
+
+            List<String> name = obj.Item1;
+            List<String> desc = obj.Item2;
+            List<String> tag = obj.Item3;
+
+            for (int i = 0; i < name.Count; i++)
+            {
+                RadioButton btn = new RadioButton
+                {
+                    Tag = $"{tag[i]}",
+                    Content = $"{name[i]}",
+                    Name = $"{name[i]}"
+                };
+                panelObj.Children.Add(btn);
+
+                TextBlock block = new TextBlock
+                {
+                    Tag = $"{tag[i]}",
+                    TextWrapping = TextWrapping.Wrap,
+                    Text = $"{desc[i]}\n"
+                };
+                panelObj.Children.Add(block);
+            }
+        }
+
+        private void ClearItemLists(StackPanel panelObj)
+        {
+            UIElementCollection collection = panelObj.Children;
+            List<Object> storage = new List<Object>();
+
+            foreach (var item in collection)
+            {
+                storage.Add(item);
+            }
+
+            foreach (var item in storage)
+            {
+                collection.Remove((UIElement)item);
+            }
+        }
+
+        private void PurchaseItemFromShop()
+        {
+            UIElementCollection collection = shop_Obj.Children;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is RadioButton)
+                {
+                    RadioButton btn = (RadioButton)collection[i];
+
+                    if (btn.IsChecked == true)
+                    {
+                        string name = btn.Name;
+                        _gameViewModel.TestTransaction(name);
+                    }
+                }
+            }
+        }
+
+        private void Btn_Merchant_PurchaseItem(object sender, RoutedEventArgs e)
+        {
+            PurchaseItemFromShop();
+            ClearItemLists(shop_Obj);
+            DisplayItemLists(GameInfo.Character.Role.Merchant, shop_Obj);
+        }
+
+        private void Btn_Merchant_Closed(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("ReturnGame");
+            ClearItemLists(shop_Obj);
         }
         #endregion
 

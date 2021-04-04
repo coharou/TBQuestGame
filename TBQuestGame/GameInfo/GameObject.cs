@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBQuestGame.GameInfo
 {
-    public class GameObject
+    public class GameObject : ObservableObject
     {
         #region ID
         public int ID { get; set; }

@@ -116,7 +116,11 @@ namespace TBQuestGame.View
         public List<PassiveNPC> PassiveNPCs
         {
             get { return _passiveNPCs; }
-            set { _passiveNPCs = value; }
+            set 
+            { 
+                _passiveNPCs = value;
+                OnPropertyChanged(nameof(EnemyNPCs));
+            }
         }
 
         private List<int> _passivePosX;
@@ -352,10 +356,15 @@ namespace TBQuestGame.View
                     Gamestate.PausedByInventory = true;
                     break;
 
+                case "Merchant":
+                    Gamestate.PausedByMerchant = true;
+                    break;
+
                 case "ReturnGame":
                     Gamestate.PausedByOptions = false;
                     Gamestate.PausedByTraits = false;
                     Gamestate.PausedByInventory = false;
+                    Gamestate.PausedByMerchant = false;
                     break;
 
                 default:
@@ -679,6 +688,58 @@ namespace TBQuestGame.View
 
             return isOccupied;
         }
+
+        public void ItemFromShopToPlayer(string name)
+        {
+            Item item = MatchItemName(name);
+            Player.Inventory.Add(item);
+        }
+
+        private bool IsAbleToPurchase(string name)
+        {
+            bool isAble = false;
+
+            Item item = MatchItemName(name);
+            if (Player.Coins >= item.Cost)
+            {
+                isAble = true;
+                DeductCoinsFromPlayer(item.Cost);
+            }
+
+            return isAble;
+        }
+
+        public void DeductCoinsFromPlayer(int fee)
+        {
+            Player.Coins -= fee;
+        }
+
+        public void TestTransaction(string name)
+        {
+            bool canPurchase = IsAbleToPurchase(name);
+
+            if (canPurchase == true)
+            {
+                ItemFromShopToPlayer(name);
+                RemoveItemFromMerchant(name);
+            }
+        }
+
+        public void RemoveItemFromMerchant(string name)
+        {
+            Item item = MatchItemName(name);
+            List<Item> toRemove = new List<Item>();
+
+            foreach (var m in PassiveNPCs[0].MerchShop)
+            {
+                if (item.ID == m.ID)
+                {
+                    toRemove.Add(m);
+                }
+            }
+
+            PassiveNPCs[0].MerchShop.Remove(toRemove[0]);
+        }
         #endregion
 
         #region NPC LOCATIONS
@@ -888,6 +949,13 @@ namespace TBQuestGame.View
         {
             List<Item> iList = Items;
             Item i = iList.Find(x => x.ItemTag == tag);
+            return i;
+        }
+
+        public Item MatchItemID(int id)
+        {
+            List<Item> iList = Items;
+            Item i = iList.Find(x => x.ID == id);
             return i;
         }
 
@@ -1472,9 +1540,18 @@ namespace TBQuestGame.View
             return isItemReal;
         }
 
-        public (List<String>, List<String>, List<String>) GetPlayerInventory()
+        public (List<String>, List<String>, List<String>) GetRoleInventory(Character.Role role)
         {
-            List<Item> items = Player.Inventory;
+            List<Item> items = new List<Item>();
+
+            if (role == Character.Role.Soldier)
+            {
+                items = Player.Inventory;
+            }
+            if (role == Character.Role.Merchant)
+            {
+                items = PassiveNPCs[0].MerchShop;
+            }
 
             List<String> name = new List<string>();
             List<String> description = new List<string>();

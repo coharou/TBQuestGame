@@ -17,10 +17,20 @@ namespace TBQuestGame.GameInfo
             None
         }
 
-        public Item(int id, string name, string description, Tag tag) :
+        private int _cost;
+
+        public int Cost
+        {
+            get { return _cost; }
+            set { _cost = value; }
+        }
+
+
+        public Item(int id, string name, string description, Tag tag, int cost) :
             base(id, name, description)
         {
             ItemTag = tag;
+            Cost = cost;
         }
     }
 }
