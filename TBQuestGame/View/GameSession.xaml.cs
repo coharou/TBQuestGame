@@ -157,43 +157,21 @@ namespace TBQuestGame.View
 
         private void UseItemFromInventory()
         {
-            UIElementCollection collection = inv_Obj.Children;
-
-            for (int i = 0; i < collection.Count; i++)
+            if (IsRadioButtonChecked(inv_Obj, out string name))
             {
-                if (collection[i] is RadioButton)
+                bool teleport = _gameViewModel.UseItemFromInventory(name);
+                if (teleport == true)
                 {
-                    RadioButton btn = (RadioButton)collection[i];
-
-                    if (btn.IsChecked == true)
-                    {
-                        string name = btn.Name;
-                        bool teleport = _gameViewModel.UseItemFromInventory(name);
-                        if (teleport == true)
-                        {
-                            TransitionDungeonLayers();
-                        }
-                    }
+                    TransitionDungeonLayers();
                 }
             }
         }
 
         private void RemoveItemFromInventory()
         {
-            UIElementCollection collection = inv_Obj.Children;
-
-            for (int i = 0; i < collection.Count; i++)
+            if (IsRadioButtonChecked(inv_Obj, out string name))
             {
-                if (collection[i] is RadioButton)
-                {
-                    RadioButton btn = (RadioButton)collection[i];
-
-                    if (btn.IsChecked == true)
-                    {
-                        string name = btn.Name;
-                        _gameViewModel.RemoveItemFromInventory(name);
-                    }
-                }
+                _gameViewModel.RemoveItemFromInventory(name);
             }
         }
         #endregion
@@ -408,20 +386,9 @@ namespace TBQuestGame.View
 
         private void PurchaseItemFromShop()
         {
-            UIElementCollection collection = shop_Obj.Children;
-
-            for (int i = 0; i < collection.Count; i++)
+            if (IsRadioButtonChecked(shop_Obj, out string name))
             {
-                if (collection[i] is RadioButton)
-                {
-                    RadioButton btn = (RadioButton)collection[i];
-
-                    if (btn.IsChecked == true)
-                    {
-                        string name = btn.Name;
-                        _gameViewModel.TestTransaction(name);
-                    }
-                }
+                _gameViewModel.TestTransaction(name);
             }
         }
 
@@ -725,7 +692,29 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        #region Image RELATED METHODS
+        #region Utility Methods
+        private bool IsRadioButtonChecked(StackPanel panel, out string name)
+        {
+            UIElementCollection collection = panel.Children;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] is RadioButton)
+                {
+                    RadioButton btn = (RadioButton)collection[i];
+
+                    if (btn.IsChecked == true)
+                    {
+                        name = btn.Name;
+                        return true;
+                    }
+                }
+            }
+
+            name = null;
+            return false;
+        }
+
         private ImageSource ReturnImageSource(string path)
         {
             ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
