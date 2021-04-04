@@ -377,6 +377,11 @@ namespace TBQuestGame.View
             {
                 RemoveSpecificEnemyFromGrid(tag);
             }
+            bool didPlayerDie = _gameViewModel.EnemyDefends(tag);
+            if (didPlayerDie == true)
+            {
+                Close();
+            }
         }
 
         private void RemoveSpecificEnemyFromGrid(string tag)

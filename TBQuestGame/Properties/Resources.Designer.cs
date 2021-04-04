@@ -193,6 +193,16 @@ namespace TBQuestGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap peaceful {
+            get {
+                object obj = ResourceManager.GetObject("peaceful", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap rocks {
             get {
                 object obj = ResourceManager.GetObject("rocks", resourceCulture);

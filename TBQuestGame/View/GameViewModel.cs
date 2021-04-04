@@ -614,8 +614,6 @@ namespace TBQuestGame.View
 
                 enemy = (Enemy)Combat.ProcessAttack(Player, enemy, Gamestate.RandObj);
 
-                Console.WriteLine("hello!");
-
                 didEnemyDie = TestIfEnemyAlive(enemy);
                 if (didEnemyDie == true)
                 {
@@ -624,6 +622,28 @@ namespace TBQuestGame.View
             }
 
             return didEnemyDie;
+        }
+
+        public bool EnemyDefends(string tag)
+        {
+            bool didPlayerDie = false;
+
+            (int, int) coords = CharacterCoordinates(tag);
+            int x = coords.Item1;
+            int y = coords.Item2;
+
+            Enemy enemy = FindEnemyFromList(x, y);
+
+            Player = (Player)Combat.ProcessAttack(enemy, Player, Gamestate.RandObj);
+
+            if (Player.HealthCurrent <= 0)
+            {
+                didPlayerDie = true;
+            }
+
+            TurnTransition();
+
+            return didPlayerDie;
         }
 
         public bool TestIfEnemyAlive(Enemy e)
