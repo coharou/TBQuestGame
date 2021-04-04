@@ -1511,12 +1511,10 @@ namespace TBQuestGame.View
             return path;    
         }
 
-        public (int, int) GetCharacterIconPosition()
+        public void GetCharacterIconPosition(out int x, out int y)
         {
-            int column = Player.TilePositionColumn;
-            int row = Player.TilePositionRow;
-
-            return (column, row);
+            x = Player.TilePositionColumn;
+            y = Player.TilePositionRow;
         }
 
         public string GetItemIconPath()

@@ -206,27 +206,7 @@ namespace TBQuestGame.View
 
         private void RemoveAllItemsFromGrid()
         {
-            UIElementCollection collection = grid_Map.Children;
-
-            List<Image> images = new List<Image>();
-
-            foreach (var item in collection)
-            {
-                if (item is Image)
-                {
-                    Image image = (Image)item;
-                    images.Add(image);
-                }
-            }
-
-            foreach (var item in images)
-            {
-                string name = item.Name;
-                if (name == "Item")
-                {
-                    collection.Remove(item);
-                }
-            }
+            RemoveAllGameObjectsByName(grid_Map, "Item");
         }
 
         private void RemoveSpecificItem(int x, int y)
@@ -257,10 +237,7 @@ namespace TBQuestGame.View
 
         private void CheckForItems()
         {
-            (int, int) coords = _gameViewModel.GetCharacterIconPosition();
-
-            int x = coords.Item1;
-            int y = coords.Item2;
+             _gameViewModel.GetCharacterIconPosition(out int x, out int y);
 
             bool itemFound = _gameViewModel.DoesTileHaveItems(x, y);
 
@@ -309,27 +286,7 @@ namespace TBQuestGame.View
 
         private void RemovePassivesFromGrid()
         {
-            UIElementCollection collection = grid_Action.Children;
-
-            List<Image> images = new List<Image>();
-
-            foreach (var elem in collection)
-            {
-                if (elem is Image)
-                {
-                    Image image = (Image)elem;
-                    images.Add(image);
-                }
-            }
-
-            foreach (var img in images)
-            {
-                string name = img.Name;
-                if (name == "Passive")
-                {
-                    collection.Remove(img);
-                }
-            }
+            RemoveAllGameObjectsByName(grid_Action, "Passive");
         }
         #endregion
 
@@ -484,27 +441,7 @@ namespace TBQuestGame.View
 
         private void RemoveAllEnemiesFromGrid()
         {
-            UIElementCollection collection = grid_Action.Children;
-
-            List<Image> images = new List<Image>();
-
-            foreach (var elem in collection)
-            {
-                if (elem is Image)
-                {
-                    Image image = (Image)elem;
-                    images.Add(image);
-                }
-            }
-
-            foreach (var img in images)
-            {
-                string name = img.Name;
-                if (name == "Enemy")
-                {
-                    collection.Remove(img);
-                }
-            }
+            RemoveAllGameObjectsByName(grid_Action, "Enemy");
         }
         #endregion
 
@@ -532,16 +469,14 @@ namespace TBQuestGame.View
             string path = _gameViewModel.GetCharacterIconPath();
             character.Source = ReturnImageSource(path);
 
-            (int, int) pos = _gameViewModel.GetCharacterIconPosition();
-            Grid.SetColumn(character, pos.Item1);
-            Grid.SetRow(character, pos.Item2);
+            _gameViewModel.GetCharacterIconPosition(out int x, out int y);
+            Grid.SetColumn(character, x);
+            Grid.SetRow(character, y);
         }
 
         private void ChangeCharacterIconPosition()
         {
-            (int, int) coords = _gameViewModel.GetCharacterIconPosition();
-            int x = coords.Item1;
-            int y = coords.Item2;
+            _gameViewModel.GetCharacterIconPosition(out int x, out int y);
 
             UIElementCollection collection = grid_Action.Children;
 
@@ -568,11 +503,7 @@ namespace TBQuestGame.View
 
         private bool MoveIsExit()
         {
-            (int, int) coords = _gameViewModel.GetCharacterIconPosition();
-
-            int x = coords.Item1;
-            int y = coords.Item2;
-
+            _gameViewModel.GetCharacterIconPosition(out int x, out int y);
             bool isExit = _gameViewModel.IsTileExit(x, y);
             return isExit;
         }
@@ -693,16 +624,20 @@ namespace TBQuestGame.View
         #endregion
 
         #region Utility Methods
+        /// <summary>
+        /// Checks if a radio button is checked in a given StackPanel object.
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="name"></param>
+        /// <returns>The name of the checked button. True if checked.</returns>
         private bool IsRadioButtonChecked(StackPanel panel, out string name)
         {
             UIElementCollection collection = panel.Children;
 
             for (int i = 0; i < collection.Count; i++)
             {
-                if (collection[i] is RadioButton)
+                if (collection[i] is RadioButton btn)
                 {
-                    RadioButton btn = (RadioButton)collection[i];
-
                     if (btn.IsChecked == true)
                     {
                         name = btn.Name;
@@ -715,6 +650,40 @@ namespace TBQuestGame.View
             return false;
         }
 
+        /// <summary>
+        /// Removes all objects from a given grid based on the generic name provided.
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <param name="objName"></param>
+        private void RemoveAllGameObjectsByName(Grid grid, string objName)
+        {
+            UIElementCollection collection = grid.Children;
+
+            List<Image> images = new List<Image>();
+
+            foreach (var elem in collection)
+            {
+                if (elem is Image image)
+                {
+                    images.Add(image);
+                }
+            }
+
+            foreach (var img in images)
+            {
+                string iName = img.Name;
+                if (iName == objName)
+                {
+                    collection.Remove(img);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Converts a string address path to an ImageSource.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>An ImageSource object, which can be used by Image.Source properties.</returns>
         private ImageSource ReturnImageSource(string path)
         {
             ImageSourceConverter imageSourceConverter = new ImageSourceConverter();
