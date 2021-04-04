@@ -96,7 +96,11 @@ namespace TBQuestGame.View
         public List<Enemy> EnemyTypes
         {
             get { return _enemyTypes; }
-            set { _enemyTypes = value; }
+            set 
+            { 
+                _enemyTypes = value;
+                OnPropertyChanged(nameof(EnemyTypes));
+            }
         }
 
         private List<PassiveNPC> _passiveTypes;
@@ -151,6 +155,19 @@ namespace TBQuestGame.View
             set { _combat = value; }
         }
 
+        private Tooltip _tips;
+
+        public Tooltip Tips
+        {
+            get { return _tips; }
+            set 
+            {
+                _tips = value;
+                OnPropertyChanged(nameof(Tips));
+            }
+        }
+
+
         #endregion
 
         #region CONSTRUCTORS
@@ -176,6 +193,8 @@ namespace TBQuestGame.View
             Player.SelectedMove = Player.Moves[0];
 
             Combat = new Utilities.Combat();
+
+            Tips = new Tooltip("", "", "", "", "");
 
             GenerateItemList();
             CreateListsOfNPCs();
@@ -464,7 +483,9 @@ namespace TBQuestGame.View
                     }
                 }
 
-                enemies.Add(sample);
+                Enemy e = new Enemy(sample.ID, sample.Name, sample.LocationID, sample.TilePosition, sample.Icon, sample.RoleDescriptor, sample.ExtendedRole, sample.SelectedMove, sample.ArmorType);
+
+                enemies.Add(e);
             }
 
             return enemies;
@@ -1344,6 +1365,30 @@ namespace TBQuestGame.View
             }
 
             return (name, description, tag);
+        }
+
+        public void HoverOverInfo(string tag)
+        {
+            (int, int) coords = CharacterCoordinates(tag);
+            int x = coords.Item1;
+            int y = coords.Item2;
+
+            Enemy enemy = FindEnemyFromList(x, y);
+
+            Tips.Name = enemy.Name;
+            Tips.CurrentHP = $"{enemy.HealthCurrent}";
+            Tips.MaxHP = $"{enemy.HealthMax}";
+            Tips.Armor = enemy.ArmorType.Name;
+            Tips.Move = enemy.SelectedMove.Name;
+        }
+
+        public void RemoveHoverInfo()
+        {
+            Tips.Name = "";
+            Tips.CurrentHP = "";
+            Tips.MaxHP = "";
+            Tips.Armor = "";
+            Tips.Move = "";
         }
         #endregion
     }

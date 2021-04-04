@@ -13,7 +13,7 @@
         Background="Black"
         Title="GameSession"
         Loaded="Window_Loaded">
-    
+
     <!--#region STYLES -->
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="bool_Visibility"></BooleanToVisibilityConverter>
@@ -103,7 +103,7 @@
         </Style>
     </Window.Resources>
     <!--#endregion-->
-    
+
     <Grid Width="1024" Height="768">
         <Rectangle Fill="LightGray"></Rectangle>
         <Image Source="/TBQuestGame;component/Assets/new_wireframe.png"/>
@@ -127,7 +127,7 @@
             <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
             <Grid.RowDefinitions></Grid.RowDefinitions>
         </Grid>
-        
+
         <!--#region INTERFACE BUTTONS -->
         <Button 
             Style="{StaticResource btn_large}" 
@@ -173,7 +173,7 @@
             OPTIONS
         </Label>
         <!--#endregion-->
-        
+
         <!--#region HUD INFO -->
         <StackPanel 
             Margin="350,10,334,698">
@@ -226,7 +226,7 @@
             <StackPanel Orientation="Horizontal">
                 <Label 
                     Style="{StaticResource lbl_player_info}">
-                    Health: 
+                    Health:
                 </Label>
                 <TextBlock 
                     Style="{StaticResource txt_player_val}" 
@@ -255,23 +255,60 @@
             </StackPanel>
         </StackPanel>
         <!--#endregion-->
-        
+
         <!--#region MOVE POOL-->
-        <Grid Margin="350,690,347,21">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[0].Name}"></Label>
-            <Label Grid.Row="0" Grid.Column="1" Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[1].Name}"></Label>
-        </Grid>
+        <StackPanel Margin="89,690,802,21" Orientation="Vertical">
+            <Label Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[0].Name}"></Label>
+            <Label Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[1].Name}"></Label>
+        </StackPanel>
         <!--#endregion-->
 
+        <StackPanel Orientation="Vertical" Margin="810,304,34,327" HorizontalAlignment="Center" Width="180">
+            <Label Style="{StaticResource lbl_Basic}" Content="ENEMY DETAILS"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Label 
+                    Style="{StaticResource lbl_player_info}">
+                    Name:
+                </Label>
+                <TextBlock 
+                    Style="{StaticResource txt_player_val}" 
+                    Text="{Binding Tips.Name}">
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label 
+                    Style="{StaticResource lbl_player_info}">
+                    Health:
+                </Label>
+                <TextBlock 
+                    Style="{StaticResource txt_player_val}" 
+                    Text="{Binding Tips.CurrentHP}">
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label 
+                    Style="{StaticResource lbl_player_info}">
+                    Armor:
+                </Label>
+                <TextBlock 
+                    Style="{StaticResource txt_player_val}" 
+                    Text="{Binding Tips.Armor}">
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label 
+                    Style="{StaticResource lbl_player_info}">
+                    Move:
+                </Label>
+                <TextBlock 
+                    Style="{StaticResource txt_player_val}" 
+                    Text="{Binding Tips.Move}">
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+
         <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
-        
+
         <!--#region MENU OPTIONS -->
         <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
@@ -301,7 +338,7 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
-        
+
         <!--#region TRAITS MENU-->
         <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
@@ -366,7 +403,7 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
-        
+
         <!--#region INVENTORY OVERLAY -->
         <Grid Visibility="Hidden">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
@@ -388,7 +425,7 @@
                     <ScrollViewer 
                         VerticalScrollBarVisibility="Visible">
                         <StackPanel Margin="5" x:Name="inv_Obj">
-                            
+
                         </StackPanel>
                     </ScrollViewer>
                 </StackPanel>
@@ -445,6 +482,6 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
-        
+
     </Grid>
 </Window>

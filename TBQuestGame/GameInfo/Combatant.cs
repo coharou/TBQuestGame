@@ -22,7 +22,6 @@ namespace TBQuestGame.GameInfo
             }
         }
 
-
         public int HealthMax { get; set; }
 
         public int HealthBase { get; set; }

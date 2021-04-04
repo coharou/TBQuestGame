@@ -354,6 +354,8 @@ namespace TBQuestGame.View
                         e.Name = "Enemy";
                         e.Tag = $"c{x}_r{y}";
                         e.MouseRightButtonUp += Enemy_Right_Clicked;
+                        e.MouseEnter += HoverTooltipDisplay;
+                        e.MouseLeave += RemoveHoverTooltip;
 
                         string path = _gameViewModel.GetEnemyIconPath();
                         e.Source = ReturnImageSource(path);
@@ -427,6 +429,20 @@ namespace TBQuestGame.View
                     collection.Remove(img);
                 }
             }
+        }
+        #endregion
+
+        #region HOVER TOOLTIP DISPLAY
+        private void HoverTooltipDisplay(object sender, RoutedEventArgs e)
+        {
+            Image img = (Image)e.Source;
+            string tag = (string)img.Tag;
+            _gameViewModel.HoverOverInfo(tag);
+        }
+
+        private void RemoveHoverTooltip(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.RemoveHoverInfo();
         }
         #endregion
 
