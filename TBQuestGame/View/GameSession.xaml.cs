@@ -39,6 +39,7 @@ namespace TBQuestGame.View
             SetGridDefinitions(grid_Action);
             AddItemsToGrid();
             AddEnemiesToGrid();
+            AddPassivesToGrid();
             CreateCharacterIcon();
         }
         #endregion
@@ -336,11 +337,64 @@ namespace TBQuestGame.View
         }
         #endregion
 
+        #region PassiveNPC SPAWN, DESPAWN
+        private void AddPassivesToGrid()
+        {
+            int tpr = _gameViewModel.GetTotalTilesPerRow();
+            for (int x = 0; x < tpr; x++)
+            {
+                for (int y = 0; y < tpr; y++)
+                {
+                    bool isPassiveThere = _gameViewModel.IsPassiveThere(x, y);
+
+                    if (isPassiveThere == true)
+                    {
+                        Image p = new Image();
+                        grid_Action.Children.Add(p);
+                        p.Name = "Passive";
+                        p.Tag = $"c{x}_r{y}";
+                        // Add click methods here
+
+                        string path = _gameViewModel.GetMerchantIcon();
+                        p.Source = ReturnImageSource(path);
+
+                        Grid.SetColumn(p, x);
+                        Grid.SetRow(p, y);
+                    }
+                }
+            }
+        }
+
+        private void RemovePassivesFromGrid()
+        {
+            UIElementCollection collection = grid_Action.Children;
+
+            List<Image> images = new List<Image>();
+
+            foreach (var elem in collection)
+            {
+                if (elem is Image)
+                {
+                    Image image = (Image)elem;
+                    images.Add(image);
+                }
+            }
+
+            foreach (var img in images)
+            {
+                string name = img.Name;
+                if (name == "Passive")
+                {
+                    collection.Remove(img);
+                }
+            }
+        }
+        #endregion
+
         #region Enemy SPAWN, DESPAWN METHODS
         private void AddEnemiesToGrid()
         {
             int tpr = _gameViewModel.GetTotalTilesPerRow();
-            int enemies = 0;
             for (int x = 0; x < tpr; x++)
             {
                 for (int y = 0; y < tpr; y++)
@@ -362,7 +416,6 @@ namespace TBQuestGame.View
 
                         Grid.SetColumn(e, x);
                         Grid.SetRow(e, y);
-                        enemies++;
                     }
                 }
             }
@@ -377,10 +430,13 @@ namespace TBQuestGame.View
             {
                 RemoveSpecificEnemyFromGrid(tag);
             }
-            bool didPlayerDie = _gameViewModel.EnemyDefends(tag);
-            if (didPlayerDie == true)
+            else
             {
-                Close();
+                bool didPlayerDie = _gameViewModel.EnemyDefends(tag);
+                if (didPlayerDie == true)
+                {
+                    Close();
+                }
             }
         }
 
@@ -591,11 +647,13 @@ namespace TBQuestGame.View
 
             RemoveAllItemsFromGrid();
             RemoveAllEnemiesFromGrid();
+            RemovePassivesFromGrid();
 
             UpdateMapGridTiles();
 
             AddItemsToGrid();
             AddEnemiesToGrid();
+            AddPassivesToGrid();
 
             _gameViewModel.MatchPlayerPositionToEntrance();
             ChangeCharacterIconPosition();

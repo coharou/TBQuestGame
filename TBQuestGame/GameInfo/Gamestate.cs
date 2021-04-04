@@ -109,9 +109,13 @@ namespace TBQuestGame.GameInfo
             set { _locID = value; }
         }
 
-        public int TimeSinceMerchantSpawn { get; set; }
+        private int _timeSinceMerchantSpawn;
 
-
+        public int TimeSinceMerchantSpawn
+        {
+            get { return _timeSinceMerchantSpawn; }
+            set { _timeSinceMerchantSpawn = value; }
+        }
         #endregion
 
         #region OBJECT FOR Random CLASS

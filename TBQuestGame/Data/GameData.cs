@@ -30,7 +30,7 @@ namespace TBQuestGame.Data
         public static List<PassiveNPC> InitPassiveTypes()
         {
             string path = "pack://application:,,,/Assets/character_icons/";
-            Art icon = new Art(2, "Merchant", path + "merchant.png");
+            Art icon = new Art(2, "Merchant", path + "peaceful.png");
 
             List<PassiveNPC> passiveTypes = new List<PassiveNPC>
             {

@@ -119,6 +119,22 @@ namespace TBQuestGame.View
             set { _passiveNPCs = value; }
         }
 
+        private List<int> _passivePosX;
+
+        public List<int> PassivePosX
+        {
+            get { return _passivePosX; }
+            set { _passivePosX = value; }
+        }
+
+        private List<int> _passivePosY;
+
+        public List<int> PassivePosY
+        {
+            get { return _passivePosY; }
+            set { _passivePosY = value; }
+        }
+
         private List<Enemy> _enemyNPCs;
 
         public List<Enemy> EnemyNPCs
@@ -186,6 +202,10 @@ namespace TBQuestGame.View
             _passiveTypes = passiveTypes;
             _location = SetupStartLocation();
             MapGrid = _location.TileGrid;
+
+            PassiveNPCs = new List<PassiveNPC>();
+            PassivePosX = new List<int>();
+            PassivePosY = new List<int>();
 
             EnemyPosX = new List<int>();
             EnemyPosY = new List<int>();
@@ -355,22 +375,77 @@ namespace TBQuestGame.View
         #region NPC SPAWNING
         public void CreateListsOfNPCs()
         {
-            // Spawn passive NPCs first, then enemies
-            // bool isMerchantSpawning = ShouldMerchantSpawn();
-            /*
+            bool isMerchantSpawning = ShouldMerchantSpawn();
             if (isMerchantSpawning == true)
             {
                 PassiveNPC merchant = FindPassiveByID(0);
-                PassiveNPCs.Add(merchant);
+                PassiveNPC p = new PassiveNPC(merchant.ID, merchant.Name, merchant.LocationID, merchant.TilePosition, merchant.Icon, merchant.RoleDescriptor);
+                PassiveNPCs.Add(p);
+                Gamestate.TimeSinceMerchantSpawn = 0;
+                GivePassivesPositions();
             }
-            */
 
             int enemyCount = NumberOfEnemiesToSpawn();
-
-            List<Enemy> tempEnemies = GetEnemiesForList(enemyCount);
-            EnemyNPCs = tempEnemies;
-
+            EnemyNPCs = GetEnemiesForList(enemyCount);
             GiveEnemiesPositions();
+        }
+
+        public void RemoveAllPassives()
+        {
+            PassiveNPCs.Clear();
+            PassivePosX.Clear();
+            PassivePosY.Clear();
+        }
+
+        public void GivePassivesPositions()
+        {
+            if (PassiveNPCs.GetType() != null)
+            {
+                for (int i = 0; i < PassiveNPCs.Count; i++)
+                {
+                    bool passable = false;
+                    bool occupied = false;
+
+                    do
+                    {
+                        int sampleX = Gamestate.RandObj.Next(0, C.TilesPerRow);
+                        int sampleY = Gamestate.RandObj.Next(0, C.TilesPerRow);
+
+                        if (MapGrid[sampleX, sampleY].Passable == true)
+                        {
+                            if (MapGrid[sampleX, sampleY].ID != 3 && MapGrid[sampleX, sampleY].ID != 4)
+                            {
+                                if (i == 0)
+                                {
+                                    PassivePosX.Add(sampleX);
+                                    PassivePosY.Add(sampleY);
+                                    passable = true;
+                                }
+                                else
+                                {
+                                    for (int e = 0; e < EnemyPosX.Count; e++)
+                                    {
+                                        if (EnemyPosX[e] == sampleX && EnemyPosY[e] == sampleY)
+                                        {
+                                            occupied = true;
+                                        }
+                                    }
+
+                                    if (occupied == false)
+                                    {
+                                        PassivePosX.Add(sampleX);
+                                        PassivePosY.Add(sampleY);
+                                        passable = true;
+                                    }
+
+                                    occupied = false;
+                                }
+
+                            }
+                        }
+                    } while (passable == false);
+                }
+            }
         }
 
         public void GiveEnemiesPositions()
@@ -555,13 +630,13 @@ namespace TBQuestGame.View
                     chance = 50;
                     break;
                 case 1:
-                    chance = 60;
+                    chance = 50;
                     break;
                 case 2:
-                    chance = 70;
+                    chance = 60;
                     break;
                 case 3:
-                    chance = 80;
+                    chance = 75;
                     break;
                 case 4:
                     chance = 90;
@@ -579,6 +654,30 @@ namespace TBQuestGame.View
             }
 
             return isMerchantSpawning;
+        }
+
+        public string GetMerchantIcon()
+        {
+            string path = PassiveNPCs[0].Icon.Path;
+            return path;
+        }
+
+        public bool IsPassiveThere(int x, int y)
+        {
+            bool isOccupied = false;
+
+            if (PassiveNPCs.GetType() != null)
+            {
+                for (int i = 0; i < PassiveNPCs.Count; i++)
+                {
+                    if (PassivePosX[i] == x && PassivePosY[i] == y)
+                    {
+                        isOccupied = true;
+                    }
+                }
+            }
+
+            return isOccupied;
         }
         #endregion
 
@@ -962,9 +1061,13 @@ namespace TBQuestGame.View
 
             GenerateItemList();
 
+            RemoveAllPassives();
+
             EnemyNPCs.Clear();
             EnemyPosX.Clear();
             EnemyPosY.Clear();
+
+            Gamestate.TimeSinceMerchantSpawn = Gamestate.TimeSinceMerchantSpawn + 1;
 
             CreateListsOfNPCs();
 

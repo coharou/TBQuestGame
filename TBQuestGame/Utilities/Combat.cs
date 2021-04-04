@@ -12,7 +12,6 @@ namespace TBQuestGame.Utilities
         public Combatant ProcessAttack(Combatant agg, Combatant def, Random ran)
         {
             bool doesMoveLand = AccuracyCheck(agg, ran);
-            Console.WriteLine(doesMoveLand);
             if (doesMoveLand == true)
             {
                 int dmg = AggDamage(agg);
