@@ -11,7 +11,7 @@ namespace TBQuestGame.View
     {
         #region PROPERTIES
         private Player _player;
-
+        
         public Player Player
         {
             get { return _player; }
@@ -1565,6 +1565,15 @@ namespace TBQuestGame.View
             }
 
             return (name, description, tag);
+        }
+
+        public void HoverOverPassive()
+        {
+            Tips.Name = PassiveNPCs[0].Name;
+            Tips.CurrentHP = "Invincible";
+            Tips.MaxHP = "";
+            Tips.Armor = "";
+            Tips.Move = ""; 
         }
 
         public void HoverOverInfo(string tag)

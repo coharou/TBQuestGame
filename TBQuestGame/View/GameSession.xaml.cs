@@ -311,7 +311,7 @@ namespace TBQuestGame.View
                         p.Name = "Passive";
                         p.Tag = $"c{x}_r{y}";
                         p.MouseRightButtonUp += Rt_Clicked_Merchant;
-                        // Hover into method to show details
+                        p.MouseEnter += HoverOverPassiveNPCs;
                         p.MouseLeave += RemoveHoverTooltip;
 
                         string path = _gameViewModel.GetMerchantIcon();
@@ -322,6 +322,11 @@ namespace TBQuestGame.View
                     }
                 }
             }
+        }
+
+        private void HoverOverPassiveNPCs(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.HoverOverPassive();
         }
 
         private void RemovePassivesFromGrid()

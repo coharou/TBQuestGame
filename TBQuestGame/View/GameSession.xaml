@@ -265,7 +265,7 @@
 
         <!--#region NPC HOVER TOOLTIP DISPLAY -->
         <StackPanel Orientation="Vertical" Margin="810,304,34,327" HorizontalAlignment="Center" Width="180">
-            <Label Style="{StaticResource lbl_Basic}" Content="ENEMY DETAILS"></Label>
+            <Label Style="{StaticResource lbl_Basic}" Content="NPC DETAILS"></Label>
             <StackPanel Orientation="Horizontal">
                 <Label 
                     Style="{StaticResource lbl_player_info}">
@@ -312,7 +312,7 @@
         <!-- Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}" -->
 
         <!--#region MENU OPTIONS -->
-        <Grid Visibility="Hidden">
+        <Grid Visibility="{Binding Gamestate.PausedByOptions, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 HorizontalAlignment="Center" 
@@ -342,7 +342,7 @@
         <!--#endregion-->
 
         <!--#region TRAITS MENU-->
-        <Grid Visibility="Hidden">
+        <Grid Visibility="{Binding Gamestate.PausedByTraits, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 
                 MaxWidth="600"
