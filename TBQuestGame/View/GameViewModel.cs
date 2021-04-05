@@ -175,6 +175,15 @@ namespace TBQuestGame.View
             set { _combat = value; }
         }
 
+        private GameConst _gc;
+
+        public GameConst GC
+        {
+            get { return _gc; }
+            set { _gc = value; }
+        }
+
+
         private Tooltip _tips;
 
         public Tooltip Tips
@@ -217,6 +226,7 @@ namespace TBQuestGame.View
             Player.SelectedMove = Player.Moves[0];
 
             Combat = new Utilities.Combat();
+            GC = new GameConst();
 
             Tips = new Tooltip("", "", "", "", "");
 
@@ -339,7 +349,7 @@ namespace TBQuestGame.View
 
         #endregion
 
-        #region Gamestate CHANGING METHODS
+        #region Changing the Gamestate and turns
         public void ChangeGamestates(string type)
         {
             switch (type)
@@ -381,7 +391,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        #region NPC SPAWNING
+        #region Spawning all NPCs
         public void CreateListsOfNPCs()
         {
             bool isMerchantSpawning = ShouldMerchantSpawn();
@@ -740,9 +750,7 @@ namespace TBQuestGame.View
 
             PassiveNPCs[0].MerchShop.Remove(toRemove[0]);
         }
-        #endregion
 
-        #region NPC LOCATIONS
         public bool IsOccupiedByEnemy(int x, int y)
         {
             bool isOccupied = false;
@@ -874,7 +882,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        #region ITEM GENERATION
+        #region Generating items
         public void GenerateItemList()
         {
             bool isGenerating = ShouldItemsBeGenerated();
@@ -1106,7 +1114,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        #region DUNGEON TRANSITIONING PROCESS
+        #region Location and dungeon transitioning
 
         public Location SetupStartLocation()
         {
@@ -1199,7 +1207,7 @@ namespace TBQuestGame.View
 
         #endregion
 
-        #region Enemy TURN PROCESS
+        #region Enemy's turn process
         public void DoEnemyTurn()
         {
             // When enemies are implemented, CanPlayerAct will likely be
@@ -1214,7 +1222,7 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        #region Tile AND Movement METHODS
+        #region Checking tiles and movement
         public bool DoPlayerMovement(string tag)
         {
             bool canMove = false;
@@ -1457,14 +1465,19 @@ namespace TBQuestGame.View
         }
         #endregion
 
-        #region Experience METHODS
+        #region Property updates from prizes
         public void PrizesForCompletingDungeonLayer()
         {
-            Player.Coins += 100;
+            Player.Coins += GC.COINS_FROM_COMPLETING_LAYER;
+        }
+
+        public void PrizesForCompletingDungeon()
+        {
+            Player.Coins += GC.COINS_FROM_COMPLETING_DUNGEON;
         }
         #endregion
 
-        #region Grid METHODS
+        #region Grid set-up information
         // Applies adequate View -> Viewmodel -> Model translations for building the grid.
         // This ensures that the view does not have to directly reference the model.
         //  ex. Creating a TileConstants object in the view is not necessary.
@@ -1556,14 +1569,16 @@ namespace TBQuestGame.View
 
             return (name, description, tag);
         }
+        #endregion
 
+        #region Hover tooltips
         public void HoverOverPassive()
         {
             Tips.Name = PassiveNPCs[0].Name;
             Tips.CurrentHP = "Invincible";
             Tips.MaxHP = "";
             Tips.Armor = "";
-            Tips.Move = ""; 
+            Tips.Move = "";
         }
 
         public void HoverOverInfo(string tag)

@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="GameInfo\Dungeon.cs" />
     <Compile Include="GameInfo\Enemy.cs" />
+    <Compile Include="GameInfo\GameConst.cs" />
     <Compile Include="GameInfo\GameObject.cs" />
     <Compile Include="GameInfo\Gamestate.cs" />
     <Compile Include="GameInfo\IShop.cs" />
