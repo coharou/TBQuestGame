@@ -11,12 +11,14 @@ namespace TBQuestGame.Utilities
     {
         public Combatant ProcessAttack(Combatant agg, Combatant def, Random ran)
         {
-            bool doesMoveLand = AccuracyCheck(agg, ran);
-            if (doesMoveLand == true)
+            if (DoesAttackHit(agg, ran))
             {
                 int dmg = AggDamage(agg);
+                Console.WriteLine(dmg);
                 double dfn = DefDefense(agg, def);
+
                 def.HealthCurrent -= CalcRealDmg(dmg, dfn);
+
                 if (agg.SelectedMove.StatusEffect != Moves.StatusType.None)
                 {
                     def = ApplyStatusEffect(agg, def, ran);
@@ -26,39 +28,35 @@ namespace TBQuestGame.Utilities
             return def;
         }
 
-        private bool AccuracyCheck(Combatant com, Random ran)
+        private bool DoesAttackHit(Combatant com, Random ran)
         {
-            bool doesAttackLand = false;
-            int accMod = 0;
+            int mod = 0;
 
             Moves.DamageType type = com.SelectedMove.DamageClass;
             switch (type)
             {
                 case Moves.DamageType.Gunpowder:
-                    accMod = com.AccuracyModGunpowder;
+                    mod = com.AccuracyModGunpowder;
                     break;
                 case Moves.DamageType.Ranged:
-                    accMod = com.AccuracyModRanged;
+                    mod = com.AccuracyModRanged;
                     break;
                 case Moves.DamageType.Melee:
-                    accMod = com.AccuracyModMelee;
+                    mod = com.AccuracyModMelee;
                     break;
                 default:
                     break;
             }
 
-            int acc = com.SelectedMove.Accuracy;
-            double dMod = accMod / 100;
-            int iMod = (int)Math.Floor(dMod * acc);
-            int fullAcc = acc + iMod;
-
+            int accuracy = AdjustedValueFromModifier(com.SelectedMove.Accuracy, mod);
             int rng = ran.Next(0, 100);
-            if (fullAcc >= rng)
+
+            if (accuracy >= rng)
             {
-                doesAttackLand = true;
+                return true;
             }
 
-            return doesAttackLand;
+            return false;
         }
 
         private int AggDamage(Combatant agg)
@@ -81,28 +79,33 @@ namespace TBQuestGame.Utilities
                     break;
             }
 
-            int wpnDmg = agg.SelectedMove.Damage;
-            double extraDmg = (mod * wpnDmg) / 100;
-            int dmgAdj = (int)Math.Floor(extraDmg + wpnDmg);
+            return AdjustedValueFromModifier(agg.SelectedMove.Damage, mod);
+        }
 
-            return dmgAdj;
+        private int AdjustedValueFromModifier(int initial, int iModifier)
+        {
+            double dModifier = Convert.ToDouble(iModifier);
+            dModifier /= 100;
+            int iExtra = (int)Math.Floor(dModifier * initial);
+            int total = initial + iExtra;
+            return total;
         }
 
         private double DefDefense(Combatant agg, Combatant def)
         {
-            int dfn = 0;
+            double dfn = 0;
 
             Moves.DamageType type = agg.SelectedMove.DamageClass;
             switch (type)
             {
                 case Moves.DamageType.Gunpowder:
-                    dfn = def.DefenseModGunpowder;
+                    dfn += def.DefenseModGunpowder + def.ArmorType.ResistGunpowder;
                     break;
                 case Moves.DamageType.Ranged:
-                    dfn = def.DefenseModRanged;
+                    dfn += def.DefenseModRanged + def.ArmorType.ResistRanged;
                     break;
                 case Moves.DamageType.Melee:
-                    dfn = def.DefenseModMelee;
+                    dfn += def.DefenseModMelee + def.ArmorType.ResistMelee;
                     break;
                 default:
                     break;
