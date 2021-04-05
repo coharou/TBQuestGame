@@ -313,7 +313,7 @@ namespace TBQuestGame.View
             }
         }
 
-        public Traits GetRandomTraits(bool isPositive, Gamestate gamestate)
+        public Traits GetRandomTraits(bool wantPositive, Gamestate gamestate)
         {
             Traits trait = Traits[0];
             List<Traits> traitCollection = new List<Traits>();
@@ -321,9 +321,9 @@ namespace TBQuestGame.View
 
             foreach (var tr in Traits)
             {
-                if (isPositive == tr.IsPositive)
+                if (wantPositive == tr.IsPositive)
                 {
-                    if (Player.TraitChosenFirst.ID != tr.ID || Player.TraitChosenSecond.ID != tr.ID)
+                    if (Player.TraitChosenFirst.ID != tr.ID && Player.TraitChosenSecond.ID != tr.ID)
                     {
                         traitCollection.Add(tr);
                     }

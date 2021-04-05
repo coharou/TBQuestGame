@@ -14,9 +14,8 @@ namespace TBQuestGame.Utilities
             if (DoesAttackHit(agg, ran))
             {
                 int dmg = AggDamage(agg);
-                Console.WriteLine(dmg);
                 double dfn = DefDefense(agg, def);
-
+                
                 def.HealthCurrent -= CalcRealDmg(dmg, dfn);
 
                 if (agg.SelectedMove.StatusEffect != Moves.StatusType.None)
