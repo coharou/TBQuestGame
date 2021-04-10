@@ -172,6 +172,17 @@
             Margin="904,59,0,0">
             OPTIONS
         </Label>
+
+        <Button 
+            Style="{StaticResource btn_large}" 
+            Margin="884,628,0,0" 
+            Click="Btn_Quests_Clicked">
+        </Button>
+        <Label 
+            Style="{StaticResource lbl_temp}" 
+            Margin="912,690,0,0">
+            QUESTS
+        </Label>
         <!--#endregion-->
 
         <!--#region HUD INFO -->
@@ -484,8 +495,42 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
+        
+        <!-- #region QUESTS OVERLAY -->
+        <Grid Visibility="{Binding Gamestate.PausedByQuests, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                Width="400"
+                MaxWidth="600"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Orientation="Vertical"
+                Margin="10">
+                <Label 
+                    Style="{StaticResource lbl_Basic}" 
+                    HorizontalAlignment="Center" 
+                    Padding="10">
+                    Quests
+                </Label>
+                <StackPanel Margin="15">
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Visible">
+                        <StackPanel Margin="5" x:Name="quests_Obj">
 
-        <!--#region INVENTORY OVERLAY -->
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="Btn_Quests_Closed">
+                    Return to Game
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region MERCHANT OVERLAY -->
         <Grid Visibility="{Binding Gamestate.PausedByMerchant, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
             <StackPanel 

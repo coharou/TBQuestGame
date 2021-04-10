@@ -67,6 +67,7 @@
     <Compile Include="GameInfo\ObservableObject.cs" />
     <Compile Include="GameInfo\Art.cs" />
     <Compile Include="GameInfo\PassiveNPC.cs" />
+    <Compile Include="GameInfo\Quests.cs" />
     <Compile Include="GameInfo\TileConstants.cs" />
     <Compile Include="GameInfo\Tiles.cs" />
     <Compile Include="GameInfo\Tooltip.cs" />

@@ -153,6 +153,52 @@ namespace TBQuestGame.View
         }
         #endregion
 
+        #region Quests manager
+
+        private void Btn_Quests_Clicked(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("Quests");
+            DisplayQuestsInViewer();
+        }
+
+        private void DisplayQuestsInViewer()
+        {
+            List<String> desc = _gameViewModel.GetQuests();
+
+            for (int i = 0; i < desc.Count; i++)
+            {
+                TextBlock block = new TextBlock
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Text = $"{desc[i]}\n"
+                };
+                quests_Obj.Children.Add(block);
+            }
+        }
+
+        private void ClearQuestsInViewer()
+        {
+            List<Object> objs = new List<Object>();
+
+            foreach (var i in quests_Obj.Children)
+            {
+                objs.Add(i);
+            }
+
+            foreach (var i in objs)
+            {
+                quests_Obj.Children.Remove((UIElement)i);
+            }
+        }
+
+        private void Btn_Quests_Closed(object sender, RoutedEventArgs e)
+        {
+            _gameViewModel.ChangeGamestates("ReturnGame");
+            ClearQuestsInViewer();
+        }
+
+        #endregion
+
         #region INVENTORY MANAGEMENT
 
         private void UseItemFromInventory()

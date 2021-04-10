@@ -21,6 +21,19 @@ namespace TBQuestGame.GameInfo
             }
         }
 
+        private bool _pausedByQuests;
+
+        public bool PausedByQuests
+        {
+            get { return _pausedByQuests; }
+            set 
+            { 
+                _pausedByQuests = value;
+                OnPropertyChanged(nameof(PausedByQuests));
+            }
+        }
+
+
         private bool _pausedByTraits;
 
         public bool PausedByTraits
@@ -154,6 +167,7 @@ namespace TBQuestGame.GameInfo
             PausedByTraits = false;
             PausedByInventory = false;
             PausedByMerchant = false;
+            PausedByQuests = false;
 
             RandObj = ObtainRandObj();
 

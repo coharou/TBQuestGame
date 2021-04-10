@@ -196,6 +196,13 @@ namespace TBQuestGame.View
             }
         }
 
+        private List<Quests> _quests;
+
+        public List<Quests> Quests
+        {
+            get { return _quests; }
+            set { _quests = value; }
+        }
 
         #endregion
 
@@ -224,6 +231,11 @@ namespace TBQuestGame.View
             EnemyPosY = new List<int>();
 
             Player.SelectedMove = Player.Moves[0];
+
+            Quests = new List<Quests>
+            {
+                CreateNewQuest()
+            };
 
             Combat = new Utilities.Combat();
             GC = new GameConst();
@@ -370,11 +382,16 @@ namespace TBQuestGame.View
                     Gamestate.PausedByMerchant = true;
                     break;
 
+                case "Quests":
+                    Gamestate.PausedByQuests = true;
+                    break;
+
                 case "ReturnGame":
                     Gamestate.PausedByOptions = false;
                     Gamestate.PausedByTraits = false;
                     Gamestate.PausedByInventory = false;
                     Gamestate.PausedByMerchant = false;
+                    Gamestate.PausedByQuests = false;
                     break;
 
                 default:
@@ -766,62 +783,6 @@ namespace TBQuestGame.View
             return isOccupied;
         }
 
-        public bool TestPlayerAttack(string tag)
-        {
-            bool didEnemyDie = false;
-
-            CharacterCoordinates(tag, out int x, out int y);
-
-            bool isPlayerAdj = IsPlayerAdjacent(x, y);
-
-            if (isPlayerAdj == true)
-            {
-                Enemy enemy = FindEnemyFromList(x, y);
-
-                enemy = (Enemy)Combat.ProcessAttack(Player, enemy, Gamestate.RandObj);
-
-                didEnemyDie = TestIfEnemyAlive(enemy);
-                if (didEnemyDie == true)
-                {
-                    RemoveEnemyFromList(enemy);
-                }
-            }
-
-            return didEnemyDie;
-        }
-
-        public bool EnemyDefends(string tag)
-        {
-            bool didPlayerDie = false;
-
-            CharacterCoordinates(tag, out int x, out int y);
-            Enemy enemy = FindEnemyFromList(x, y);
-
-            Player = (Player)Combat.ProcessAttack(enemy, Player, Gamestate.RandObj);
-
-            if (Player.HealthCurrent <= 0)
-            {
-                didPlayerDie = true;
-            }
-
-            TurnTransition();
-
-            return didPlayerDie;
-        }
-
-        public bool TestIfEnemyAlive(Enemy e)
-        {
-            bool isDead = false;
-
-            int hp = e.HealthCurrent;
-            if (hp <= 0)
-            {
-                isDead = true;
-            }
-
-            return isDead;
-        }
-
         public void RemoveEnemyFromList(Enemy e)
         {
             EnemyNPCs.Remove(e);
@@ -879,6 +840,102 @@ namespace TBQuestGame.View
 
             string path = EnemyNPCs[0].Icon.Path;
             return path;
+        }
+        #endregion
+
+        #region Quest handling
+
+        private Quests CreateNewQuest()
+        {
+            Quests quest = new Quests();
+            return quest;
+        }
+
+        public void RemoveTheQuest(Quests q)
+        {
+            Quests.Remove(q);
+        }
+
+        public void CheckQuestFulfillment(Enemy e)
+        {
+            List<Quests> container = new List<Quests>();
+
+            foreach (var q in Quests)
+            {
+                if (q.IsGoalCompleted(e))
+                {
+                    container.Add(q);
+                    Player.Coins += q.ProvidePlayerReward();
+                }
+            }
+
+            if (container.GetType() != null)
+            {
+                foreach (var q in container)
+                {
+                    RemoveTheQuest(q);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Battling methods
+        public bool TestPlayerAttack(string tag)
+        {
+            bool didEnemyDie = false;
+
+            CharacterCoordinates(tag, out int x, out int y);
+
+            bool isPlayerAdj = IsPlayerAdjacent(x, y);
+
+            if (isPlayerAdj == true)
+            {
+                Enemy enemy = FindEnemyFromList(x, y);
+
+                enemy = (Enemy)Combat.ProcessAttack(Player, enemy, Gamestate.RandObj);
+
+                didEnemyDie = TestIfEnemyAlive(enemy);
+                if (didEnemyDie == true)
+                {
+                    CheckQuestFulfillment(enemy);
+                    RemoveEnemyFromList(enemy);
+                }
+            }
+
+            return didEnemyDie;
+        }
+
+        public bool EnemyDefends(string tag)
+        {
+            bool didPlayerDie = false;
+
+            CharacterCoordinates(tag, out int x, out int y);
+            Enemy enemy = FindEnemyFromList(x, y);
+
+            Player = (Player)Combat.ProcessAttack(enemy, Player, Gamestate.RandObj);
+
+            if (Player.HealthCurrent <= 0)
+            {
+                didPlayerDie = true;
+            }
+
+            TurnTransition();
+
+            return didPlayerDie;
+        }
+
+        public bool TestIfEnemyAlive(Enemy e)
+        {
+            bool isDead = false;
+
+            int hp = e.HealthCurrent;
+            if (hp <= 0)
+            {
+                isDead = true;
+            }
+
+            return isDead;
         }
         #endregion
 
@@ -1154,6 +1211,7 @@ namespace TBQuestGame.View
             {
                 Gamestate.LocationCount += 1;
                 Gamestate.LayerCount = 1;
+                Quests.Add(CreateNewQuest());
             }
 
             PrizesForCompletingDungeonLayer();
@@ -1541,6 +1599,18 @@ namespace TBQuestGame.View
             }
 
             return isItemReal;
+        }
+
+        public List<String> GetQuests()
+        {
+            List<String> descs = new List<String>();
+
+            foreach (var q in Quests)
+            {
+                descs.Add(q.Description);
+            }
+
+            return descs;
         }
 
         public (List<String>, List<String>, List<String>) GetRoleInventory(Character.Role role)
