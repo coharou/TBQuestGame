@@ -198,17 +198,14 @@ namespace TBQuestGame.Data
 
             List<Tiles> assets = new List<Tiles>()
             {
-                new Tiles(0, "Default", path + "tile_samples/default.png", "Generic", true),
                 new Tiles(1, "Deep_Water", path + "tiles/deep_water.png", "River", false),
                 new Tiles(2, "Dense_Forest", path + "tiles/forest.png", "General", false),
-                new Tiles(3, "Entrance", path + "tile_samples/default.png", "Generic", true),
-                new Tiles(4, "Exit", path + "tile_samples/exit.png", "Generic", true),
-                new Tiles(5, "Fields", path + "tile_samples/fields.png", "General", true),
+                new Tiles(3, "Entrance", path + "tiles/entrance.png", "Generic", true),
+                new Tiles(4, "Exit", path + "tiles/exit.png", "Generic", true),
+                new Tiles(5, "Fields", path + "tiles/fields.png", "General", true),
                 new Tiles(6, "Forest_Fringe", path + "tiles/fringe_forest.png", "General", true),
-                new Tiles(7, "Rocks", path + "tile_samples/rocks.png", "General", false),
                 new Tiles(8, "Sand", path + "tiles/sand.png", "River", true),
-                new Tiles(9, "Shallow_Water", path + "tiles/shallow_water.png", "General", true),
-                new Tiles(10, "Thorns", path + "tile_samples/thorns.png", "Forest", false)
+                new Tiles(9, "Shallow_Water", path + "tiles/shallow_water.png", "General", true)
             };
 
             return assets;

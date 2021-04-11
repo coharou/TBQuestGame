@@ -144,38 +144,7 @@
     <Resource Include="Assets\tile_door.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\tile_samples\deep_water.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\tile_samples\default.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\tile_samples\dense_forest.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\tile_samples\exit.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\tile_samples\rocks.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\tile_samples\sand.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\tile_samples\shallow_water.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\tile_samples\thorns.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\character_icons\default_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\tile_samples\entrance.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\tiles\fringe_forest.png">
@@ -184,11 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\tiles\forest.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\tile_samples\fields.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -216,10 +180,26 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\tiles\deep_water.png" />
-    <Resource Include="Assets\tiles\fields.png" />
     <Resource Include="Assets\tiles\sand.png" />
-    <Resource Include="Assets\tiles\shallow_water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tiles\deep_water.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\tiles\entrance.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\tiles\exit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\tiles\shallow_water.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tiles\fields.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
