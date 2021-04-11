@@ -10,9 +10,9 @@ namespace TBQuestGame.View
     public class PlayerCustomizationViewModel : ObservableObject 
     {
         #region PROPS
-        private Armor[] _armors;
+        private List<Armor> _armors;
 
-        public Armor[] Armors
+        public List<Armor> Armors
         {
             get { return _armors; }
             set
@@ -22,9 +22,9 @@ namespace TBQuestGame.View
             }
         }
 
-        private Traits[] _traits;
+        private List<Traits> _traits;
 
-        public Traits[] Traits
+        public List<Traits> Traits
         {
             get { return _traits; }
             set
@@ -34,9 +34,9 @@ namespace TBQuestGame.View
             }
         }
 
-        private Moves[] _moves;
+        private List<Moves> _moves;
 
-        public Moves[] Moves
+        public List<Moves> Moves
         {
             get { return _moves; }
             set
@@ -68,7 +68,7 @@ namespace TBQuestGame.View
         #endregion
 
         #region CONSTRUCTOR
-        public PlayerCustomizationViewModel(Armor[] armor, Traits[] traits, Moves[] moves, Player player)
+        public PlayerCustomizationViewModel(List<Armor> armor, List<Traits> traits, List<Moves> moves, Player player)
         {
             Armors = armor;
             Traits = traits;

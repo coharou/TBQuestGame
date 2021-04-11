@@ -178,12 +178,12 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\tile_samples\fringe_forest.png">
+    <Resource Include="Assets\tiles\fringe_forest.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\tile_samples\forest.png">
+    <Resource Include="Assets\tiles\forest.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -214,6 +214,12 @@
     <Resource Include="Assets\character_icons\peaceful.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tiles\deep_water.png" />
+    <Resource Include="Assets\tiles\fields.png" />
+    <Resource Include="Assets\tiles\sand.png" />
+    <Resource Include="Assets\tiles\shallow_water.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

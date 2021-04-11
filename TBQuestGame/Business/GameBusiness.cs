@@ -14,12 +14,21 @@ namespace TBQuestGame.Business
         #region PROPS
         GameViewModel _gameViewModel;
         PlayerCustomizationViewModel _playerCustoms;
+
         Player _player;
         Gamestate _gamestate;
-        Armor[] _armor;
-        Moves[] _moves;
-        Traits[] _traits;
+
+        List<Armor> _armor;
+        List<Armor> _customizeArmor;
+
+        List<Moves> _moves;
+        List<Moves> _customizeMoves;
+
+        List<Traits> _traits;
+        List<Traits> _customizeTraits;
+
         List<Item> _items;
+
         List<Enemy> _enemies;
         List<PassiveNPC> _passives;
         #endregion
@@ -29,14 +38,25 @@ namespace TBQuestGame.Business
         {
             _gamestate = new Gamestate(false);
 
-            _armor = GameData.InitArmor();
-            _moves = GameData.InitMoves();
-            _traits = GameData.InitTraits();
+            GameData.InitArmor(out List<Armor> fullArmor, out List<Armor> customizeArmor);
+            _customizeArmor = customizeArmor;
+            _armor = fullArmor;
+         
+            GameData.InitMoves(out List<Moves> fullSet, out List<Moves> customizeSet);
+            _customizeMoves = customizeSet;
+            _moves = fullSet;
+
+            GameData.InitTraits(out List<Traits> fullTraits, out List<Traits> customizeTraits);
+            _customizeTraits = customizeTraits;
+            _traits = fullTraits;
+
             _player = GameData.InitPlayer();
 
-            _playerCustoms = new PlayerCustomizationViewModel(_armor, _traits, _moves, _player);
-            PlayerCustomization customsSession = new PlayerCustomization(_playerCustoms);
-            customsSession.DataContext = _playerCustoms;
+            _playerCustoms = new PlayerCustomizationViewModel(_customizeArmor, _customizeTraits, _customizeMoves, _player);
+            PlayerCustomization customsSession = new PlayerCustomization(_playerCustoms)
+            {
+                DataContext = _playerCustoms
+            };
             customsSession.ShowDialog();
 
             _player = _playerCustoms.Player;

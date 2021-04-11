@@ -28,41 +28,73 @@ namespace TBQuestGame.View
 
             InitializeComponent();
 
-            AddObjectsToScrollViewer(_viewModel.Traits, "traits", panel_Traits);
-            AddObjectsToScrollViewer(_viewModel.Moves, "moves", panel_Moves);
+            AddTraitsToScrollViewer();
+            AddMovesToScrollViewer();
 
             // Requires a separate function due to buttons
             AddArmorToScrollViewer(_viewModel.Armors);
         }
 
-        private void AddObjectsToScrollViewer(GameObject[] objs, string tag, StackPanel panel)
+        private void AddMovesToScrollViewer()
         {
-            for (int i = 0; i < objs.Length; i++)
+            List<String> names = new List<String>();
+            List<String> descriptions = new List<String>();
+
+            foreach (var t in _viewModel.Moves)
+            {
+                names.Add(t.Name);
+                descriptions.Add(t.Description);
+            }
+
+            AddObjectsToScrollViewer(names, descriptions, "moves", panel_Moves);
+        }
+
+        private void AddTraitsToScrollViewer()
+        {
+            List<String> names = new List<String>();
+            List<String> descriptions = new List<String>();
+
+            foreach (var t in _viewModel.Traits)
+            {
+                names.Add(t.Name);
+                descriptions.Add(t.Description);
+            }
+
+            AddObjectsToScrollViewer(names, descriptions, "traits", panel_Traits);
+        }
+
+        private void AddObjectsToScrollViewer(List<String> names, List<String> descriptions, string tag, StackPanel panel)
+        {
+            for (int i = 0; i < names.Count; i++)
             {
                 CheckBox box = new CheckBox();
                 box.Tag = tag;
-                box.Content = $"{objs[i].Name}";
+                box.Content = $"{names[i]}";
                 panel.Children.Add(box);
 
                 TextBlock block = new TextBlock();
                 block.TextWrapping = TextWrapping.Wrap;
-                block.Text = $"{objs[i].Description}\n";
+                block.Text = $"{descriptions[i]}\n";
                 panel.Children.Add(block);
             }
         }
 
-        private void AddArmorToScrollViewer(Armor[] armors)
+        private void AddArmorToScrollViewer(List<Armor> armors)
         {
-            for (int i = 0; i < armors.Length; i++)
+            for (int i = 0; i < armors.Count; i++)
             {
-                RadioButton btn = new RadioButton();
-                btn.Tag = "armor";
-                btn.Content = $"{armors[i].Name}";
+                RadioButton btn = new RadioButton
+                {
+                    Tag = "armor",
+                    Content = $"{armors[i].Name}"
+                };
                 panel_Armor.Children.Add(btn);
 
-                TextBlock block = new TextBlock();
-                block.TextWrapping = TextWrapping.Wrap;
-                block.Text = $"{armors[i].Description}\n";
+                TextBlock block = new TextBlock
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    Text = $"{armors[i].Description}\n"
+                };
                 panel_Armor.Children.Add(block);
             }
         }
@@ -111,7 +143,7 @@ namespace TBQuestGame.View
                     {
                         string name = (string)box.Content;
 
-                        for (int y = 0; y < _viewModel.Moves.Length; y++)
+                        for (int y = 0; y < _viewModel.Moves.Count; y++)
                         {
                             if (_viewModel.Moves[y].Name == name)
                             {
@@ -141,7 +173,7 @@ namespace TBQuestGame.View
                     {
                         string name = (string)box.Content;
 
-                        for (int y = 0; y < _viewModel.Traits.Length; y++)
+                        for (int y = 0; y < _viewModel.Traits.Count; y++)
                         {
                             if (_viewModel.Traits[y].Name == name)
                             {

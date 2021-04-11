@@ -22,9 +22,9 @@ namespace TBQuestGame.View
             }
         }
 
-        private Traits[] _traits;
+        private List<Traits> _traits;
 
-        public Traits[] Traits
+        public List<Traits> Traits
         {
             get { return _traits; }
             set { _traits = value; }
@@ -207,7 +207,7 @@ namespace TBQuestGame.View
         #endregion
 
         #region CONSTRUCTORS
-        public GameViewModel(Player player, Gamestate gamestate, Traits[] traits, List<Item> items, List<Enemy> enemyTypes, List<PassiveNPC> passiveTypes)
+        public GameViewModel(Player player, Gamestate gamestate, List<Traits> traits, List<Item> items, List<Enemy> enemyTypes, List<PassiveNPC> passiveTypes)
         {
             _player = player;
             _traits = traits;
