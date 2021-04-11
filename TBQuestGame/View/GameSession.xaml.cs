@@ -88,9 +88,9 @@ namespace TBQuestGame.View
             _gameViewModel.ChangeGamestates("ReturnGame");
         }
 
-        private void btn_Help_Clicked(object sender, RoutedEventArgs e)
+        private void Btn_Help_Clicked(object sender, RoutedEventArgs e)
         {
-            // Update when a manual window is required
+            _gameViewModel.ChangeGamestates("Help");
         }
 
         private void btn_Options_Clicked(object sender, RoutedEventArgs e)

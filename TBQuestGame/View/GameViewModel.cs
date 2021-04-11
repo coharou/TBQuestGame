@@ -386,12 +386,17 @@ namespace TBQuestGame.View
                     Gamestate.PausedByQuests = true;
                     break;
 
+                case "Help":
+                    Gamestate.PausedByHelp = true;
+                    break;
+
                 case "ReturnGame":
                     Gamestate.PausedByOptions = false;
                     Gamestate.PausedByTraits = false;
                     Gamestate.PausedByInventory = false;
                     Gamestate.PausedByMerchant = false;
                     Gamestate.PausedByQuests = false;
+                    Gamestate.PausedByHelp = false;
                     break;
 
                 default:

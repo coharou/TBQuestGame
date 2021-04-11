@@ -101,6 +101,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="scr_vw" TargetType="ScrollViewer">
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible"></Setter>
+            <Setter Property="Background" Value="LightGray"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
     </Window.Resources>
     <!--#endregion-->
 
@@ -143,7 +148,7 @@
         <Button 
             Style="{StaticResource btn_Small}" 
             Margin="440,520,0,0" 
-            Click="btn_Help_Clicked">
+            Click="Btn_Help_Clicked">
         </Button>
 
         <Button 
@@ -379,6 +384,7 @@
             <StackPanel 
                 Width="400"
                 MaxWidth="600"
+                                MaxHeight="500"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 Background="White" 
@@ -458,6 +464,7 @@
             <StackPanel 
                 Width="400"
                 MaxWidth="600"
+                                MaxHeight="500"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 Background="White" 
@@ -492,6 +499,7 @@
             <StackPanel 
                 Width="400"
                 MaxWidth="600"
+                                MaxHeight="500"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 Background="White" 
@@ -528,6 +536,79 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
-
+        
+        <!--#region MANUAL OVERLAY -->
+        <Grid Visibility="{Binding Gamestate.PausedByHelp, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                Width="400"
+                MaxWidth="600"
+                Height="500"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Orientation="Vertical"
+                Margin="10">
+                <Label 
+                    Style="{StaticResource lbl_Basic}" 
+                    HorizontalAlignment="Center" 
+                    Padding="10">
+                    Manual
+                </Label>
+                <StackPanel Margin="15" MaxHeight="350">
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll ="True" Height="350">
+                        <StackPanel Margin="5" x:Name="help_manual">
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                OBJECTIVE: Move from unlit campfires to lit campfires, while defeating as
+                                many enemies as possible while traveling through.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                INTERFACE: In the center of the screen, there is a map grid. This contains 
+                                the tiles that the player moves on. On top of the map grid, there are
+                                enemies, items, merchant shops, and the player.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                In the bottom right corner of the display, there are five buttons. Left click
+                                a button to access an overlay menu.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                1) The bag icon represents the player's inventory.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                2) The brain icon represents the player's chosen traits.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                3) The message board icon represents the player's quests.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                4) The question mark icon provides access to the game manual.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                5) The "X" icon permits players to exit the game.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                CONTROLS: To move on the map grid, left click a tile next to the player. 
+                                Some tiles are impassable.
+                                To attack an enemy, right click them. To interact with a merchant shop,
+                                right click the merchant, and then purchase the items desired.
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
+                                COMBAT: In an attack, both the enemy and player will take damage. The initiator
+                                of the attack will take less damage than they typically would if they were
+                                the one defending. Attacks use the character's selected move and its weapon
+                                stats. Defense is based on the character's armor. However, in both instances,
+                                modifiers from traits may be applicable.
+                            </TextBlock>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="btn_ReturnGame_Clicked">
+                    Return to Game
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
     </Grid>
 </Window>
