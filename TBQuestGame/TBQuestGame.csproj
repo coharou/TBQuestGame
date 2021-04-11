@@ -129,21 +129,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\top_banner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\bottom_banner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\map_grid.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\tile_standard.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\tile_door.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\character_icons\default_icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -157,22 +142,12 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\wood_frame.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\item.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\character_icons\enemy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\new_wireframe.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\character_icons\peaceful.png">
@@ -198,6 +173,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\tiles\fields.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\gameframe.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

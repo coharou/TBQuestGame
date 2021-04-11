@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBQuestGame.View"
         mc:Ignorable="d"
-        WindowState="Maximized"
+        WindowState="Normal"
         ResizeMode="NoResize"
         WindowStyle="None"
-        Width="1024"
-        Height="768"
-        Background="Black"
+        Width="560"
+        Height="600"
+        Background="Transparent"
         Title="GameSession"
         Loaded="Window_Loaded">
 
@@ -31,13 +31,13 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-            <Setter Property="Height" Value="130"></Setter>
-            <Setter Property="Width" Value="130"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="40"></Setter>
             <Setter Property="VerticalAlignment" Value="Top"></Setter>
         </Style>
         <Style x:Key="btn_Small" TargetType="Button" BasedOn="{StaticResource btn_large}">
-            <Setter Property="Height" Value="70"></Setter>
-            <Setter Property="Width" Value="70"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="40"></Setter>
         </Style>
         <Style x:Key="btn_Any_Menu" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
@@ -76,11 +76,11 @@
             <Setter Property="FontSize" Value="10"></Setter>
         </Style>
         <Style x:Key="lbl_player_info" TargetType="Label" BasedOn="{StaticResource lbl_Basic}">
-            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontSize" Value="10"></Setter>
         </Style>
         <Style x:Key="txt_player_val" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>
-            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontSize" Value="10"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
         </Style>
         <Style x:Key="sty_btn_tile" TargetType="{x:Type Button}">
@@ -104,14 +104,13 @@
     </Window.Resources>
     <!--#endregion-->
 
-    <Grid Width="1024" Height="768">
-        <Rectangle Fill="LightGray"></Rectangle>
-        <Image Source="/TBQuestGame;component/Assets/new_wireframe.png"/>
+    <Grid Width="560" Height="600">
+        <Image Source="/TBQuestGame;component/Assets/gameframe.png"/>
 
         <Grid x:Name="grid_Map" 
             Width="480" 
             Height="480" 
-            Margin="272,126,272,162" 
+            Margin="40,40,40,80" 
             VerticalAlignment="Center" 
             HorizontalAlignment="Center">
             <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
@@ -121,7 +120,7 @@
         <Grid x:Name="grid_Action" 
               Width="480" 
               Height="480" 
-              Margin="272,126,272,162" 
+              Margin="40,40,40,80" 
               VerticalAlignment="Center" 
               HorizontalAlignment="Center">
             <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
@@ -131,78 +130,44 @@
         <!--#region INTERFACE BUTTONS -->
         <Button 
             Style="{StaticResource btn_large}" 
-            Margin="10,10,0,0" 
-            Click="btn_Inventory_Clicked">
+            Margin="320,521,0,0" 
+            Click="btn_Inventory_Clicked" Height="40" Width="40">
         </Button>
-        <Label 
-            Style="{StaticResource lbl_temp}" 
-            Margin="18,59,0,0">
-            INVENTORY
-        </Label>
 
         <Button 
             Style="{StaticResource btn_Small}" 
-            Margin="152,10,0,0" 
+            Margin="360,520,0,0" 
             Click="btn_Traits_Clicked">
         </Button>
-        <Label 
-            Style="{StaticResource lbl_temp}" 
-            Margin="149,30,0,0">
-            TRAITS
-        </Label>
 
         <Button 
             Style="{StaticResource btn_Small}" 
-            Margin="803,10,0,0" 
+            Margin="440,520,0,0" 
             Click="btn_Help_Clicked">
         </Button>
-        <Label 
-            Style="{StaticResource lbl_temp}"
-            Margin="810,30,0,0">
-            HELP
-        </Label>
 
         <Button 
             Style="{StaticResource btn_large}" 
-            Margin="884,10,0,0" 
+            Margin="480,520,0,0" 
             Click="btn_Options_Clicked">
         </Button>
-        <Label 
-            Style="{StaticResource lbl_temp}" 
-            Margin="904,59,0,0">
-            OPTIONS
-        </Label>
 
         <Button 
             Style="{StaticResource btn_large}" 
-            Margin="884,628,0,0" 
+            Margin="400,520,0,0" 
             Click="Btn_Quests_Clicked">
         </Button>
-        <Label 
-            Style="{StaticResource lbl_temp}" 
-            Margin="912,690,0,0">
-            QUESTS
-        </Label>
         <!--#endregion-->
 
         <!--#region HUD INFO -->
-        <StackPanel 
-            Margin="350,10,334,698">
-            <Label 
-                Content="TBQuestGame"
-                HorizontalAlignment="Center"
-                Style="{StaticResource lbl_Basic}">
-            </Label>
+        <StackPanel Margin="88,10,90,570">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label 
-                        Style="{StaticResource lbl_player_info}">
-                        Turn:
-                    </Label>
+                        Style="{StaticResource lbl_player_info}" Content="Turn:"/>
                     <TextBlock 
                         Style="{StaticResource txt_player_val}" 
-                        Text="{Binding Gamestate.TurnCount}">
-                    </TextBlock>
+                        Text="{Binding Gamestate.TurnCount}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label 
@@ -229,11 +194,7 @@
         <!--#endregion-->
 
         <!--#region PLAYER INFO -->
-        <StackPanel Orientation="Vertical" Margin="0,640,892,21">
-            <Label 
-                Style="{StaticResource lbl_Basic}" 
-                Content="{Binding Player.Name}">
-            </Label>
+        <StackPanel Orientation="Horizontal" Margin="87,570,248,9">
             <StackPanel Orientation="Horizontal">
                 <Label 
                     Style="{StaticResource lbl_player_info}">
@@ -268,20 +229,15 @@
         <!--#endregion-->
 
         <!--#region MOVE POOL-->
-        <StackPanel Margin="89,690,802,21" Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" Margin="301,570,87,10">
             <Label Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[0].Name}"></Label>
             <Label Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[1].Name}"></Label>
         </StackPanel>
         <!--#endregion-->
 
         <!--#region NPC HOVER TOOLTIP DISPLAY -->
-        <StackPanel Orientation="Vertical" Margin="810,304,34,327" HorizontalAlignment="Center" Width="180">
-            <Label Style="{StaticResource lbl_Basic}" Content="NPC DETAILS"></Label>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="258" Margin="45,529,257,50">
             <StackPanel Orientation="Horizontal">
-                <Label 
-                    Style="{StaticResource lbl_player_info}">
-                    Name:
-                </Label>
                 <TextBlock 
                     Style="{StaticResource txt_player_val}" 
                     Text="{Binding Tips.Name}">
@@ -495,7 +451,7 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
-        
+
         <!-- #region QUESTS OVERLAY -->
         <Grid Visibility="{Binding Gamestate.PausedByQuests, Converter={StaticResource bool_Visibility}}">
             <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
