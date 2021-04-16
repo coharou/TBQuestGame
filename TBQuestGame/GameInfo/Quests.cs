@@ -96,7 +96,6 @@ namespace TBQuestGame.GameInfo
                 {
                     basic += 15;
                     int rng = GetQuestsRNG().Next(0, 100);
-                    Console.WriteLine(rng);
                     if (rng <= 45)
                     {
                         basic += 10;

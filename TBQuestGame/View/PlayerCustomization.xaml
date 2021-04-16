@@ -72,8 +72,7 @@
                         Style="{StaticResource txt_desc}" TextAlignment="Center">
                         For Project Medieval, you, the player, will be able to customize your character as you see fit.
                         You may choose your character's moves, and determine their traits and their armor.
-                        You should choose wisely, as although these can be changed later, they will impact the 
-                        early portion of the game.
+                        You should choose wisely, as these will impact the early portion of the game.
                     </TextBlock>
                 </StackPanel>
 
@@ -117,7 +116,7 @@
                             TextAlignment="Center">
                             Traits are what define your character's personality.
                             Your character will receive two traits at random: one positive, one negative.
-                            You must choose two traits before proceding to the game.
+                            You must choose two traits before proceeding to the game.
                         </TextBlock>
                         <ScrollViewer 
                             Style = "{StaticResource scr_vw}" 
