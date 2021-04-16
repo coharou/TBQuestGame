@@ -82,7 +82,7 @@ namespace TBQuestGame.GameInfo
                     // Thorns and rocks will be removed until their art is revised
 
                     int val = randObj.Next(0, 100);
-                    if (val >= 0 && val <= 17)
+                    if (val >= 0 && val <= 11)
                     {
                         tiles[x, y] = MatchTile(2);
                     }
@@ -120,7 +120,7 @@ namespace TBQuestGame.GameInfo
                     }
                     if (tile.Name == dense.Name)
                     {
-                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, dense, c, randObj, 8);
+                        tiles = ReplaceSurroundingTiles(x, y, tiles, tile, dense, c, randObj, 3);
                     }
                 }
             }

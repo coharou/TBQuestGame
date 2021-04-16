@@ -267,10 +267,5 @@ namespace TBQuestGame.View
 
             return areObjectsReady;
         }
-
-        private void Btn_Click_Exit(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }

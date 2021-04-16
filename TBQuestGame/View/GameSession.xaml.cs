@@ -429,7 +429,7 @@ namespace TBQuestGame.View
                         e.MouseEnter += HoverTooltipDisplay;
                         e.MouseLeave += RemoveHoverTooltip;
 
-                        string path = _gameViewModel.GetEnemyIconPath();
+                        string path = _gameViewModel.GetEnemyIconPath(x, y);
                         e.Source = ReturnImageSource(path);
 
                         Grid.SetColumn(e, x);
@@ -453,7 +453,7 @@ namespace TBQuestGame.View
                 bool didPlayerDie = _gameViewModel.EnemyDefends(tag);
                 if (didPlayerDie == true)
                 {
-                    Close();
+                    // Close();
                 }
             }
         }

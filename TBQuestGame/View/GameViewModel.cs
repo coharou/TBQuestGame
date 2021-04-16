@@ -838,12 +838,13 @@ namespace TBQuestGame.View
             return isAdj;
         }
 
-        public string GetEnemyIconPath()
+        public string GetEnemyIconPath(int x, int y)
         {
             // This will need to be updated when many enemy sprites are added
             // It will need parameters for enemy position
 
-            string path = EnemyNPCs[0].Icon.Path;
+            Enemy enemy = FindEnemyFromList(x, y);
+            string path = enemy.Icon.Path;
             return path;
         }
         #endregion
@@ -918,14 +919,21 @@ namespace TBQuestGame.View
             CharacterCoordinates(tag, out int x, out int y);
             Enemy enemy = FindEnemyFromList(x, y);
 
-            Player = (Player)Combat.ProcessAttack(enemy, Player, Gamestate.RandObj);
+            bool isPlayerAdj = IsPlayerAdjacent(x, y);
 
-            if (Player.HealthCurrent <= 0)
+            if (isPlayerAdj == true)
             {
-                didPlayerDie = true;
-            }
+                Player = (Player)Combat.ProcessAttack(enemy, Player, Gamestate.RandObj);
 
-            TurnTransition();
+                if (Player.HealthCurrent <= 0)
+                {
+                    didPlayerDie = true;
+                    Player.HealthCurrent = 0;
+                    Gamestate.PausedByDefeat = true;
+                }
+
+                TurnTransition();
+            }
 
             return didPlayerDie;
         }

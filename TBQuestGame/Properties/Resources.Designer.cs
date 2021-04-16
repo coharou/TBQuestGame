@@ -73,26 +73,6 @@ namespace TBQuestGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap default_icon {
-            get {
-                object obj = ResourceManager.GetObject("default_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap enemy {
-            get {
-                object obj = ResourceManager.GetObject("enemy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap entrance {
             get {
                 object obj = ResourceManager.GetObject("entrance", resourceCulture);
@@ -153,9 +133,19 @@ namespace TBQuestGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap item {
+        internal static System.Drawing.Bitmap Item {
             get {
-                object obj = ResourceManager.GetObject("item", resourceCulture);
+                object obj = ResourceManager.GetObject("Item", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap melee {
+            get {
+                object obj = ResourceManager.GetObject("melee", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,6 +156,26 @@ namespace TBQuestGame.Properties {
         internal static System.Drawing.Bitmap peaceful {
             get {
                 object obj = ResourceManager.GetObject("peaceful", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap player {
+            get {
+                object obj = ResourceManager.GetObject("player", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ranged {
+            get {
+                object obj = ResourceManager.GetObject("ranged", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

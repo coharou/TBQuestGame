@@ -70,7 +70,7 @@
                     </Label>
                     <TextBlock
                         Style="{StaticResource txt_desc}" TextAlignment="Center">
-                        For the TB Quest Game, you, the player, will be able to customize your character as you see fit.
+                        For Project Medieval, you, the player, will be able to customize your character as you see fit.
                         You may choose your character's moves, and determine their traits and their armor.
                         You should choose wisely, as although these can be changed later, they will impact the 
                         early portion of the game.
@@ -160,11 +160,6 @@
                         Style="{StaticResource btn_Any_Menu}" 
                         Content="CONFIRM"
                         Click="Btn_Click_Confirm">
-                    </Button>
-                    <Button 
-                        Style="{StaticResource btn_Any_Menu}" 
-                        Content="EXIT"
-                        Click="Btn_Click_Exit">
                     </Button>
                 </StackPanel>
                 

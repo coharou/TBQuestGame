@@ -76,11 +76,11 @@
             <Setter Property="FontSize" Value="10"></Setter>
         </Style>
         <Style x:Key="lbl_player_info" TargetType="Label" BasedOn="{StaticResource lbl_Basic}">
-            <Setter Property="FontSize" Value="10"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
         </Style>
         <Style x:Key="txt_player_val" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>
-            <Setter Property="FontSize" Value="10"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
         </Style>
         <Style x:Key="sty_btn_tile" TargetType="{x:Type Button}">
@@ -169,28 +169,34 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label 
-                        Style="{StaticResource lbl_player_info}" Content="Turn:"/>
+                        Style="{StaticResource lbl_player_info}" Content="Turn:" Foreground="White"/>
                     <TextBlock 
                         Style="{StaticResource txt_player_val}" 
+                        Foreground="White"
                         Text="{Binding Gamestate.TurnCount}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label 
-                        Style="{StaticResource lbl_player_info}">
+                        Style="{StaticResource lbl_player_info}"
+                        Foreground="White">
                         Location:
                     </Label>
                     <TextBlock 
                         Style="{StaticResource txt_player_val}" 
+                        Foreground="White"
                         Text="{Binding Gamestate.Location}">
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label 
-                        Style="{StaticResource lbl_player_info}">
+                        Style="{StaticResource lbl_player_info}"
+                        Foreground="White">
+                        
                         Dungeon:
                     </Label>
                     <TextBlock 
                         Style="{StaticResource txt_player_val}" 
+                        Foreground="White"
                         Text="{Binding Gamestate.LocationCount}">
                     </TextBlock>
                 </StackPanel>
@@ -199,34 +205,42 @@
         <!--#endregion-->
 
         <!--#region PLAYER INFO -->
-        <StackPanel Orientation="Horizontal" Margin="87,570,248,9">
+        <StackPanel Orientation="Horizontal" Margin="88,567,189,8">
             <StackPanel Orientation="Horizontal">
                 <Label 
-                    Style="{StaticResource lbl_player_info}">
+                    Style="{StaticResource lbl_player_info}"
+                    Foreground="White">
                     Health:
                 </Label>
                 <TextBlock 
                     Style="{StaticResource txt_player_val}" 
+                    Foreground="White"
                     Text="{Binding Player.HealthCurrent}">
                 </TextBlock>
             </StackPanel>
+            <!--
             <StackPanel Orientation="Horizontal">
                 <Label 
-                    Style="{StaticResource lbl_player_info}">
+                    Style="{StaticResource lbl_player_info}"
+                    Foreground="White">
                     Experience:
                 </Label>
                 <TextBlock 
                     Style="{StaticResource txt_player_val}" 
+                    Foreground="White"
                     Text="{Binding Player.Experience}">
                 </TextBlock>
             </StackPanel>
+            -->
             <StackPanel Orientation="Horizontal">
                 <Label 
-                    Style="{StaticResource lbl_player_info}">
+                    Style="{StaticResource lbl_player_info}"
+                    Foreground="White">
                     Coins:
                 </Label>
                 <TextBlock 
-                    Style="{StaticResource txt_player_val}" 
+                    Style="{StaticResource txt_player_val}"
+                    Foreground="White" 
                     Text="{Binding Player.Coins}">
                 </TextBlock>
             </StackPanel>
@@ -234,9 +248,8 @@
         <!--#endregion-->
 
         <!--#region MOVE POOL-->
-        <StackPanel Orientation="Horizontal" Margin="301,570,87,10">
-            <Label Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[0].Name}"></Label>
-            <Label Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[1].Name}"></Label>
+        <StackPanel Orientation="Horizontal" Margin="350,567,86,13">
+            <Label Style ="{StaticResource lbl_temp_moves}" Content="{Binding Player.Moves[0].Name}" Foreground="White"></Label>
         </StackPanel>
         <!--#endregion-->
 
@@ -245,36 +258,48 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock 
                     Style="{StaticResource txt_player_val}" 
+                    Foreground="White"
+                    FontSize="10"
                     Text="{Binding Tips.Name}">
                 </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label 
-                    Style="{StaticResource lbl_player_info}">
+                    Style="{StaticResource lbl_player_info}"  FontSize="10" Foreground="White">
                     Health:
                 </Label>
                 <TextBlock 
                     Style="{StaticResource txt_player_val}" 
+                     FontSize="10"
+                    Foreground="White"
                     Text="{Binding Tips.CurrentHP}">
                 </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label 
-                    Style="{StaticResource lbl_player_info}">
+                    Style="{StaticResource lbl_player_info}"
+                    Foreground="White"
+                     FontSize="10">
                     Armor:
                 </Label>
                 <TextBlock 
                     Style="{StaticResource txt_player_val}" 
+                    Foreground="White"
+                     FontSize="10"
                     Text="{Binding Tips.Armor}">
                 </TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label 
-                    Style="{StaticResource lbl_player_info}">
+                    Style="{StaticResource lbl_player_info}"
+                    Foreground="White"
+                     FontSize="10">
                     Move:
                 </Label>
                 <TextBlock 
-                    Style="{StaticResource txt_player_val}" 
+                    Style="{StaticResource txt_player_val}"
+                    Foreground="White"
+                     FontSize="10"
                     Text="{Binding Tips.Move}">
                 </TextBlock>
             </StackPanel>
@@ -606,6 +631,38 @@
                     Style="{StaticResource btn_Any_Menu}" 
                     Click="btn_ReturnGame_Clicked">
                     Return to Game
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region -->
+        <Grid Visibility="{Binding Gamestate.PausedByDefeat, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                Width="400"
+                MaxWidth="600"
+                Height="200"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Orientation="Vertical"
+                Margin="10">
+                <Label 
+                    Style="{StaticResource lbl_Basic}" 
+                    HorizontalAlignment="Center" 
+                    Padding="10">
+                    DEFEAT
+                </Label>
+                <StackPanel Margin="15" MaxHeight="350">
+                    <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14" HorizontalAlignment="Center">
+                        You have been defeated by an enemy!
+                    </TextBlock>
+                </StackPanel>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="btn_Exit_Clicked">
+                    EXIT GAME
                 </Button>
             </StackPanel>
         </Grid>

@@ -17,7 +17,7 @@ namespace TBQuestGame.Data
             int tilePosition = 0;
 
             string path = "pack://application:,,,/Assets/character_icons/";
-            Art icon = new Art(0, "Player", path + "default_icon.png");
+            Art icon = new Art(0, "Player", path + "player.png");
 
             Character.Role role = Character.Role.Soldier;
             Player.SoldierRole soldierRole = Player.SoldierRole.Knight;
@@ -43,17 +43,18 @@ namespace TBQuestGame.Data
         public static List<Enemy> InitEnemyTypes()
         {
             string path = "pack://application:,,,/Assets/character_icons/";
-            Art icon = new Art(1, "Enemy", path + "enemy.png");
+            Art melee = new Art(1, "Enemy", path + "melee.png");
+            Art ranged = new Art(4, "Ranged", path + "ranged.png");
 
             List<Enemy> enemies = new List<Enemy>
             {
-                new Enemy(0, "Pikeman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Pikeman, ReturnMoveByID(4), ReturnArmorByID(0)),
-                new Enemy(1, "Crossbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Crossbowman, ReturnMoveByID(1), ReturnArmorByID(1)),
-                new Enemy(2, "Longbowman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Archer, ReturnMoveByID(2), ReturnArmorByID(4)),
-                new Enemy(3, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, ReturnMoveByID(3), ReturnArmorByID(2)),
-                new Enemy(4, "Knight", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Knight, ReturnMoveByID(5), ReturnArmorByID(2)),
-                new Enemy(5, "Arquebusier ", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, ReturnMoveByID(6), ReturnArmorByID(0)),
-                new Enemy(6, "Musketman", 0, 0, icon, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, ReturnMoveByID(7), ReturnArmorByID(1))
+                new Enemy(0, "Pikeman", 0, 0, melee, Character.Role.Soldier, Combatant.SoldierRole.Pikeman, ReturnMoveByID(4), ReturnArmorByID(4)),
+                new Enemy(1, "Crossbowman", 0, 0, ranged, Character.Role.Soldier, Combatant.SoldierRole.Crossbowman, ReturnMoveByID(1), ReturnArmorByID(0)),
+                new Enemy(2, "Longbowman", 0, 0, ranged, Character.Role.Soldier, Combatant.SoldierRole.Archer, ReturnMoveByID(2), ReturnArmorByID(4)),
+                new Enemy(3, "Knight", 0, 0, melee, Character.Role.Soldier, Combatant.SoldierRole.Knight, ReturnMoveByID(3), ReturnArmorByID(0)),
+                new Enemy(4, "Knight", 0, 0, melee, Character.Role.Soldier, Combatant.SoldierRole.Knight, ReturnMoveByID(5), ReturnArmorByID(1)),
+                new Enemy(5, "Arquebusier ", 0, 0, ranged, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, ReturnMoveByID(6), ReturnArmorByID(0)),
+                new Enemy(6, "Musketman", 0, 0, ranged, Character.Role.Soldier, Combatant.SoldierRole.Musketeer, ReturnMoveByID(7), ReturnArmorByID(1))
             };
 
             return enemies;
@@ -131,44 +132,51 @@ namespace TBQuestGame.Data
         {
             fullTraits = new List<Traits>
             {
-                new Traits(2, "HARDY", "Regenerate Health 100% faster.", true),
+                new Traits(2, "HARDY", "-10% damage taken from enemy moves.", true),
                 new Traits(6, "WEAKLING", "-10% damage when using Melee moves. +5% damage taken from enemy moves.", false),
-                new Traits(7, "RECKLESS", "50% chance to consume additional ammunition on using a move.", false),
-                new Traits(8, "ASOCIAL", "Merchants offer items at a higher price than usual.", false)
+                new Traits(7, "RECKLESS", "-6% accuracy when using moves.", false),
+                new Traits(8, "ASOCIAL", "+10% damage taken from enemy moves. +3% damage when using ranged and gunpowder moves.", false)
             };
 
-            fullTraits[0].RegenMod = 2;
+            fullTraits[0].DefenseMod = 10;
 
             fullTraits[1].MeleeStrMod = -10;
             fullTraits[1].DefenseMod = -5;
 
             fullTraits[2].AmmoUseMod = -50;
+            fullTraits[2].AccuracyMod = -6;
 
-            fullTraits[2].MerchantInfluence = 25;
+            fullTraits[3].MerchantInfluence = 25;
+            fullTraits[3].DefenseMod = -10;
+            fullTraits[3].RangedStrMod = 3;
+            fullTraits[3].GunpowderStrMod = 3;
 
             customizeTraits = new List<Traits>
             {
-                new Traits(0, "CHARISMATIC", "Merchants offer items at a lower price than usual. At the start of the game, receive a one-time bonus in Coins.", true),
-                new Traits(1, "RESOURCEFUL", "75% chance to not consume ammunition on using a move. 10% more damage from Ranged and Gunpowder moves.", true),
-                new Traits(3, "FORAGER", "50% chance to receive more items when killing enemies or picking up items off of the ground.", true),
-                new Traits(4, "ECCENTRIC", "Status effects are 40% more likely to land on an enemy. At the start of the game, receive a one-time bonus in Coins.", true),
-                new Traits(5, "EXPERIENCED", "All moves are 15% more accurate. At the start of the game, receive a one-time boost to Experience.", true),
+                new Traits(0, "POT OF LUCK", "At the start of the game, receive a one-time bonus in Coins.", true),
+                new Traits(1, "RESOURCEFUL", "10% more damage when using Ranged and Gunpowder moves.", true),
+                new Traits(3, "VALORANT", "15% more damage when using Melee moves.", true),
+                new Traits(4, "BALANCED", "6% more damage and accuracy for all moves.", true),
+                new Traits(5, "EXPERIENCED", "All moves are 15% more accurate.", true),
             };
 
             customizeTraits[0].MerchantInfluence = -25;
-            customizeTraits[0].CoinBonus = 200;
+            customizeTraits[0].CoinBonus = 300;
 
             customizeTraits[1].AmmoUseMod = -75;
             customizeTraits[1].GunpowderStrMod = 10;
             customizeTraits[1].RangedStrMod = 10;
 
             customizeTraits[2].ForagingMod = 50;
+            customizeTraits[2].MeleeStrMod = 15;
 
             customizeTraits[3].StatusEffectMod = 40;
-            customizeTraits[3].CoinBonus = 100;
+            customizeTraits[3].MeleeStrMod = 6;
+            customizeTraits[3].GunpowderStrMod = 6;
+            customizeTraits[3].RangedStrMod = 6;
+            customizeTraits[3].AccuracyMod = 6;
 
             customizeTraits[4].AccuracyMod = 15;
-            customizeTraits[4].ExperienceBonus = 10;
 
             foreach (var t in customizeTraits)
             {
