@@ -1274,6 +1274,13 @@ namespace TBQuestGame.View
                 Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
                 MapGrid = standard.TileGrid;
             }  
+            if (Gamestate.LocationCount == 11)
+            {
+                Location.Name = "Home";
+                Location standard = new Dungeon(Gamestate.LocID, "Default", "Initialized when the game loads", Gamestate.RandObj, Dungeon.Biome.Forest);
+                MapGrid = standard.TileGrid;
+                Gamestate.PausedByComplete = true;
+            }
         }
 
         #endregion

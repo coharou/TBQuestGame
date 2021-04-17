@@ -21,6 +21,15 @@ namespace TBQuestGame.GameInfo
             }
         }
 
+        private bool _pausedByComplete;
+
+        public bool PausedByComplete
+        {
+            get { return _pausedByComplete; }
+            set { _pausedByComplete = value; OnPropertyChanged(nameof(PausedByComplete)); }
+        }
+
+
         private bool _pausedByDefeat;
 
         public bool PausedByDefeat
@@ -192,6 +201,7 @@ namespace TBQuestGame.GameInfo
             PausedByQuests = false;
             PausedByHelp = false;
             PausedByDefeat = false;
+            PausedByComplete = false;
 
             RandObj = ObtainRandObj();
 

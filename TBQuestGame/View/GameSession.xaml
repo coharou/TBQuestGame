@@ -618,9 +618,8 @@
                                 right click the merchant, and then purchase the items desired.
                             </TextBlock>
                             <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14">
-                                COMBAT: In an attack, both the enemy and player will take damage. The initiator
-                                of the attack will take less damage than they typically would if they were
-                                the one defending. Attacks use the character's selected move and its weapon
+                                COMBAT: In an attack, both the enemy and player will take damage.
+                                Attacks use the character's selected move and its weapon
                                 stats. Defense is based on the character's armor. However, in both instances,
                                 modifiers from traits may be applicable.
                             </TextBlock>
@@ -657,6 +656,38 @@
                 <StackPanel Margin="15" MaxHeight="350">
                     <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14" HorizontalAlignment="Center">
                         You have been defeated by an enemy!
+                    </TextBlock>
+                </StackPanel>
+                <Button 
+                    Style="{StaticResource btn_Any_Menu}" 
+                    Click="btn_Exit_Clicked">
+                    EXIT GAME
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region -->
+        <Grid Visibility="{Binding Gamestate.PausedByComplete, Converter={StaticResource bool_Visibility}}">
+            <Rectangle Style="{StaticResource rect_overlay}"></Rectangle>
+            <StackPanel 
+                Width="400"
+                MaxWidth="600"
+                Height="200"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Background="White" 
+                Orientation="Vertical"
+                Margin="10">
+                <Label 
+                    Style="{StaticResource lbl_Basic}" 
+                    HorizontalAlignment="Center" 
+                    Padding="10">
+                    VICTORY
+                </Label>
+                <StackPanel Margin="15" MaxHeight="350">
+                    <TextBlock Style="{StaticResource txt_desc}" Background="White" FontSize="14" HorizontalAlignment="Center">
+                        The player has completed the game, having successfully returned home!
                     </TextBlock>
                 </StackPanel>
                 <Button 
